@@ -52,4 +52,9 @@ public class OrderItem {
     public char getSize() {
         return size;
     }
+
+    // utilities
+    public double calculateTotal() {
+        return (item != null) ? item.getPrice() * quantity : 0;
+    }
 }
