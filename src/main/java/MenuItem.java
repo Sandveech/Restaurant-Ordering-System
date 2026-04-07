@@ -1,14 +1,15 @@
 package src.main.java;
 
 public class MenuItem {
+    private static int id_counter = 0;
     private int id;
     private double price;
     private String name;
     private String description;
     private String category;
 
-    public MenuItem(int id, double price, String name, String description, String category) {
-        setId(id).setPrice(price).setName(name).setDescription(description).setCategory(category);
+    public MenuItem(double price, String name, String description, String category) {
+        setId(id_counter++).setPrice(price).setName(name).setDescription(description).setCategory(category);
     }
 
     @Override

@@ -1,18 +1,19 @@
 package src.main.java;
 
 public class OrderItem {
-    private int id;
+    private static int id_counter = 0;
+    private int id = 0;
     private MenuItem item;
     private int quantity;
     private char size;
 
-    public OrderItem(int id, MenuItem item, int quantity, char size) {
-        setId(id).setItem(item).setQuantity(quantity).setSize(size);
+    public OrderItem(MenuItem item, int quantity, char size) {
+        setId(id_counter++).setItem(item).setQuantity(quantity).setSize(size);
     }
 
     @Override
     public String toString() {
-        return "";
+        return "ID: " + getId() + ", Quantity: " + getQuantity();
     }
 
     // setters
