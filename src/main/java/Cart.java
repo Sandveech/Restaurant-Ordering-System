@@ -39,7 +39,7 @@ public class Cart {
         return orders.size();
     }
 
-    // public
+    // utilities
     public Cart addOrder(OrderItem order) {
         if (getOrderCount() < getMaxOrders()) { orders.add(order); }
         return this;
@@ -55,6 +55,16 @@ public class Cart {
                     break;
                 }
             }
+        }
+
+        return this;
+    }
+
+    public Cart printOrders() {
+        for (int i = 0; i < getOrderCount(); i++) {
+            OrderItem order = getOrders().get(i);
+            MenuItem item = order.getItem();
+            System.out.println("Name: " + item.getName() + ", Quantity: " + order.getQuantity() + "x" + ", Total: $" + order.calculateTotal());
         }
 
         return this;
