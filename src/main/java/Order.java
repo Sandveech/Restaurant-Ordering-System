@@ -38,6 +38,6 @@ public class Order {
 
     public int getQuantity() {
         return this.quantity;
-    }
+    }   
 
 }
