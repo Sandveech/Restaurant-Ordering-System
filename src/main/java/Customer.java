@@ -2,17 +2,16 @@ package src.main.java;
 
 public class Customer {
     private int id;
-    private String name;
+    private int table;
 
 
-    public Customer(int id, String name) {
-        setId(id);
-        setName(name);
+    public Customer(int id, int table) {
+        setId(id).setTable(table);
     }
 
     @Override
     public String toString() {
-        return "Name: " + name;
+        return "ID: " + id + ", " + "Table: " + table;
     }
 
     // setters
@@ -21,8 +20,8 @@ public class Customer {
         return this;
     }
 
-    public Customer setName(String name) {
-        this.name = name;
+    public Customer setTable(int table) {
+        this.table = table;
         return this;
     }
 
@@ -31,7 +30,7 @@ public class Customer {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public int setTable() {
+        return table;
     }
 }
