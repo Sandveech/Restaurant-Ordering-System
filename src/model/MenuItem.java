@@ -1,5 +1,8 @@
 package src.model;
 
+import src.utilities.GeneralUtils;
+import src.config.MenuItemConfig;
+
 public class MenuItem {
     private static int count = 0;
     private int id;
@@ -9,51 +12,40 @@ public class MenuItem {
     private String category;
 
     public MenuItem(double price, String name, String description, String category) {
-        setId(count++).setPrice(price).setName(name).setDescription(description).setCategory(category);
-    }
-
-    @Override
-    public String toString() {
-        return "Name: " + name + ", " + "Category: " + category + ", Price: $" + price;
+        setId(count++);
+        setPrice(price);
+        setName(name);
+        setDescription(description);
+        setCategory(category);
     }
 
     // setters
-
-    private MenuItem setId(int id) {
+    private void setId(int id) {
         if (id >= 0) { this.id = id; }
-        return this;
     }
 
-    public MenuItem setPrice(double price) {
-        if (price < 0) {
-            System.out.println("Price must be $0.00 or higher.");
-            this.price = 0;
-        }
-        this.price = price;
-        return this;
+    public void setPrice(double price) {
+        this.price = (price >= MenuItemConfig.MIN_PRICE) ? price : MenuItemConfig.MIN_PRICE;
     }
 
-    public MenuItem setName(String name) {
-        this.name = (isValidString(name)) ? name : "Unknown";
-        return this;
+    public void setName(String name) {
+        this.name = GeneralUtils.isValidTextInput(name) ? name : "Menu item #" + id;
     }
 
-    public MenuItem setDescription(String description) {
-        this.description = (isValidString(description)) ? description : "No description";
-        return this;
+    public void setDescription(String description) {
+        this.description = GeneralUtils.isValidTextInput(description) ? description : "No description.";
     }
 
-    public MenuItem setCategory(String category) {
-        this.category = (isValidString(category)) ? category : "No category";
-        return this;
+    public void setCategory(String category) {
+        this.category = GeneralUtils.isValidTextInput(category) ? category  : "No category";
     }
 
     // getters
-    public int getCount() {
+    private int getCount() {
         return count;
     }
 
-    public int getId() {
+    private int getId() {
         return this.id;
     }
 
@@ -74,7 +66,4 @@ public class MenuItem {
     }
 
     // utilities
-    private Boolean isValidString(String str) {
-        return str == null || !str.isEmpty() || !str.isBlank();
-    }
 }

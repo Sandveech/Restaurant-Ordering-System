@@ -1,5 +1,7 @@
 package src.model;
 
+import src.Utilities.NameUtils;
+
 public class Employee {
     private static int count = 0;
     private int id;
@@ -7,31 +9,30 @@ public class Employee {
     private String last_name;
 
     public Employee(String first_name, String last_name) {
-        setId(count++).setFirstName(first_name).setLastName(last_name);
+        setId(count++);
+        setFirstName(first_name);
+        setLastName(last_name);
     }
 
     // setters
-    private Employee setId(int id) {
+    private void setId(int id) {
         if (id >= 0) { this.id = id; }
-        return this; 
     } 
 
-    public Employee setFirstName(String first_name) {
-        this.first_name = (isValidString(first_name)) ? first_name : "Unknown";
-        return this;    
+    public void setFirstName(String first_name) {
+        this.first_name = (NameUtils.isValidName(first_name)) ? first_name : NameUtils.DEFAULT_NAME;    
     }
 
-    public Employee setLastName(String last_name) {
-        this.last_name = (isValidString(last_name)) ? last_name : "Unknown";
-        return this;
+    public void setLastName(String last_name) {
+        this.last_name = (NameUtils.isValidName(last_name)) ? last_name : NameUtils.DEFAULT_NAME;
     }
 
     // getters
-    public int getCount() {
+    private int getCount() {
         return count;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 
@@ -48,7 +49,4 @@ public class Employee {
     }
 
     // utilities
-    private Boolean isValidString(String str) {
-        return str != null && !str.isEmpty() && !str.isBlank();
-    }
 }

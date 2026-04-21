@@ -3,9 +3,11 @@ package src.model;
 public class Table {
     private static int count = 0;
     private int id;
+    private int seat_count;
 
-    public Table() {
+    public Table(int seat_count) {
         setId(count++);
+        setSeatCount(seat_count);
     }
 
     @Override
@@ -14,21 +16,28 @@ public class Table {
     }
 
     // setters
-    private Table setId(int id) {
+    private void setId(int id) {
         if (id >= 0) { this.id = id; }
-        return this;
+    }
+
+    private void setSeatCount(int n) {
+        if (n >= 0) { this.seat_count = n; }
     }
 
     // getters
-    public int getCount() {
+    private int getCount() {
         return count;
     }
 
-    public int getId() {
+    private int getId() {
         return id;
     }
 
     public int getNumber() {
         return id + 1;
+    }
+
+    public int getSeatCount() {
+        return seat_count;
     }
 }

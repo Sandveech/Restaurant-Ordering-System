@@ -6,9 +6,14 @@ public class OrderItem {
     private MenuItem item;
     private int quantity;
     private char size;
+    private Cart cart;
 
-    public OrderItem(MenuItem item, int quantity, char size) {
-        setId(count++).setItem(item).setQuantity(quantity).setSize(size);
+    public OrderItem(MenuItem item, int quantity, char size, Cart cart) {
+        setId(count++);
+        setItem(item);
+        setQuantity(quantity);
+        setSize(size);
+        setCart(cart);
     }
 
     @Override
@@ -17,32 +22,32 @@ public class OrderItem {
     }
 
     // setters
-    private OrderItem setId(int id) {
-        this.id = id;
-        return this;
+    private void setId(int id) {
+        if (id >= 0) { this.id = id; }
     }
 
-    private OrderItem setItem(MenuItem item) {
-        this.item = item;
-        return this;
+    private void setItem(MenuItem item) {
+        if (item != null) { this.item = item; }
     }
 
-    public OrderItem setQuantity(int quantity) {
-        if (quantity >= 0) { this.quantity = quantity; }
-        return this;
+    public void setQuantity(int quantity) {
+        if (quantity > 0) { this.quantity = quantity; }
     }
 
-    public OrderItem  setSize(char size) {
+    public void setSize(char size) {
         this.size = size;
-        return this;
+    }
+
+    private void setCart(Cart cart) {
+        if (cart != null) { this.cart = cart; }
     }
 
     // getters
-    public int getCount() {
+    private int getCount() {
         return count;
     }
     
-    public int getId() {
+    private int getId() {
         return id;
     }
 
@@ -56,6 +61,10 @@ public class OrderItem {
 
     public char getSize() {
         return size;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 
     // utilities
