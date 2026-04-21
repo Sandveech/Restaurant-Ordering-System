@@ -1,14 +1,14 @@
-package src.main.java;
+package src.model;
 
 public class OrderItem {
-    private static int id_counter = 0;
-    private int id = 0;
+    private static int count = 0;
+    private int id;
     private MenuItem item;
     private int quantity;
     private char size;
 
     public OrderItem(MenuItem item, int quantity, char size) {
-        setId(id_counter++).setItem(item).setQuantity(quantity).setSize(size);
+        setId(count++).setItem(item).setQuantity(quantity).setSize(size);
     }
 
     @Override
@@ -38,6 +38,10 @@ public class OrderItem {
     }
 
     // getters
+    public int getCount() {
+        return count;
+    }
+    
     public int getId() {
         return id;
     }
@@ -55,7 +59,7 @@ public class OrderItem {
     }
 
     // utilities
-    public double calculateTotal() {
+    public double calculateTotalCost() {
         return (item != null) ? item.getPrice() * quantity : 0;
     }
 }

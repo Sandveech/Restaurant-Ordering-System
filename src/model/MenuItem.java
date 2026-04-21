@@ -1,7 +1,7 @@
-package src.main.java;
+package src.model;
 
 public class MenuItem {
-    private static int id_counter = 0;
+    private static int count = 0;
     private int id;
     private double price;
     private String name;
@@ -9,7 +9,7 @@ public class MenuItem {
     private String category;
 
     public MenuItem(double price, String name, String description, String category) {
-        setId(id_counter++).setPrice(price).setName(name).setDescription(description).setCategory(category);
+        setId(count++).setPrice(price).setName(name).setDescription(description).setCategory(category);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class MenuItem {
     // setters
 
     private MenuItem setId(int id) {
-        this.id = id;
+        if (id >= 0) { this.id = id; }
         return this;
     }
 
@@ -34,7 +34,7 @@ public class MenuItem {
     }
 
     public MenuItem setName(String name) {
-        this.name = name;
+        this.name = (name == null || !name.isEmpty() || !name.isBlank()) ? name : "Unknown";
         return this;
     }
 
@@ -49,6 +49,9 @@ public class MenuItem {
     }
 
     // getters
+    public int getCount() {
+        return count;
+    }
 
     public int getId() {
         return this.id;
@@ -69,4 +72,6 @@ public class MenuItem {
     public String getCategory() {
         return this.category;
     }
+
+    // utilities
 }

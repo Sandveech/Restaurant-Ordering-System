@@ -1,4 +1,4 @@
-package src.main.java;
+package src.model;
 import java.util.ArrayList;
 
 public class Cart {
@@ -60,11 +60,19 @@ public class Cart {
         return this;
     }
 
+    public double calculateTotalCost(double tax_percentage) {
+        double raw_total = 0;
+        for (OrderItem order : orders) {
+            raw_total += order.calculateTotalCost();
+        }
+        return raw_total + (raw_total * tax_percentage);
+    }
+
     public Cart printOrders() {
         for (int i = 0; i < getOrderCount(); i++) {
             OrderItem order = getOrders().get(i);
             MenuItem item = order.getItem();
-            System.out.println("Name: " + item.getName() + ", Quantity: " + order.getQuantity() + "x" + ", Total: $" + order.calculateTotal());
+            System.out.println("Name: " + item.getName() + ", Quantity: " + order.getQuantity() + "x" + ", Total: $" + order.calculateTotalCost());
         }
 
         return this;
