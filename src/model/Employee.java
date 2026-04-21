@@ -17,12 +17,12 @@ public class Employee {
     } 
 
     public Employee setFirstName(String first_name) {
-        this.first_name = (isValidName(first_name)) ? first_name : "Unknown";
+        this.first_name = (isValidString(first_name)) ? first_name : "Unknown";
         return this;    
     }
 
     public Employee setLastName(String last_name) {
-        this.last_name = (isValidName(last_name)) ? last_name : "Unknown";
+        this.last_name = (isValidString(last_name)) ? last_name : "Unknown";
         return this;
     }
 
@@ -48,7 +48,7 @@ public class Employee {
     }
 
     // utilities
-    private Boolean isValidName(String name) {
-        return name != null && !name.isEmpty() && !name.isBlank();
+    private Boolean isValidString(String str) {
+        return str != null && !str.isEmpty() && !str.isBlank();
     }
 }

@@ -13,7 +13,7 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "ID: " + getId() + ", Quantity: " + getQuantity();
+        return "ID: " + getId() + ", Quantity: " + getQuantity() + "x";
     }
 
     // setters
@@ -28,7 +28,7 @@ public class OrderItem {
     }
 
     public OrderItem setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity >= 0) { this.quantity = quantity; }
         return this;
     }
 

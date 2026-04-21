@@ -34,17 +34,17 @@ public class MenuItem {
     }
 
     public MenuItem setName(String name) {
-        this.name = (name == null || !name.isEmpty() || !name.isBlank()) ? name : "Unknown";
+        this.name = (isValidString(name)) ? name : "Unknown";
         return this;
     }
 
     public MenuItem setDescription(String description) {
-        this.description = description;
+        this.description = (isValidString(description)) ? description : "No description";
         return this;
     }
 
     public MenuItem setCategory(String category) {
-        this.category = category;
+        this.category = (isValidString(category)) ? category : "No category";
         return this;
     }
 
@@ -74,4 +74,7 @@ public class MenuItem {
     }
 
     // utilities
+    private Boolean isValidString(String str) {
+        return str == null || !str.isEmpty() || !str.isBlank();
+    }
 }

@@ -13,12 +13,12 @@ public class Cart {
 
     // setters
     private Cart setMinOrders(int n) {
-        this.min_orders = n;
+        if (n >= 0) { this.min_orders = n; }
         return this;
     }
 
     private Cart setMaxOrders(int n) {
-        this.max_orders = n;
+        this.max_orders = (n >= min_orders) ? n : min_orders;
         return this;
     }
 
@@ -69,8 +69,7 @@ public class Cart {
     }
 
     public Cart printOrders() {
-        for (int i = 0; i < getOrderCount(); i++) {
-            OrderItem order = getOrders().get(i);
+        for (OrderItem order : orders) {
             MenuItem item = order.getItem();
             System.out.println("Name: " + item.getName() + ", Quantity: " + order.getQuantity() + "x" + ", Total: $" + order.calculateTotalCost());
         }

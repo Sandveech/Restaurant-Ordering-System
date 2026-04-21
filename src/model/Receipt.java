@@ -13,17 +13,17 @@ public class Receipt {
 
     // setters
     private Receipt setId(int id) {
-        this.id = id;
+        if (id >= 0) { this.id = id; }
         return this;
     }
 
     private Receipt setTable(Table table) {
-        this.table = table;
+        if (table != null) { this.table = table; }
         return this;
     }
 
     private Receipt setCart(Cart cart) {
-        this.cart = cart;
+        if (cart != null) { this.cart = cart; }
         return this;
     }
 
