@@ -1,0 +1,30 @@
+package src.model;
+
+import src.config.AppConstants;
+import src.util.ValidationUtils;
+
+public class JobRole {
+    // fields
+    private static int count = 0;
+    private int id;
+    private String title;
+
+    // constructor
+    public JobRole(String title) {
+        setID(count++);
+        setTitle(title);
+    }
+
+    // getters and setters
+    private int getCount() { return count; }
+    private int getID() { return id; }
+    public String getTitle() { return title; }
+
+    private void setID(int id) {
+        this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
+    }
+
+    public void setTitle(String title) {
+        this.title = (ValidationUtils.isValidText(title)) ? title : "No title";
+    }
+}

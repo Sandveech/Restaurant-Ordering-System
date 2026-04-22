@@ -8,31 +8,56 @@ public class MenuItem {
     private static int count = 0;
     private int id;
     private String name;
+    private String description;
+    private Category category;
     private double price;
+    private Boolean active;
 
     // constructor
-    public MenuItem(String name, double price) {
+    public MenuItem(String name, String description, Category category, double price, Boolean active) {
         setID(count++);
+        setName(name);
+        setDescription(description);
+        setCategory(category);
+        setPrice(price);
+        setActive(active);
+    }
 
+    @Override
+    public String toString() {
+        return String.format("Name: $s, Description: %s, Category: %s, Price: $%.2f", getName(), getDescription(), getCategory().getName(), getPrice());
     }
 
     // getters and setters
     private int getCount() { return count; }
-    private int getID() { return id; }
-    private String getName() { return name; }
-    private double getPrice() { return price; }
+    public int getID() { return id; }
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public Category getCategory() { return category; }
+    public double getPrice() { return price; }
+    public Boolean isActive() { return active; }
 
     private void setID(int id) {
-        this.id = (ValidationUtils.isValidID(id)) ? id : count - 1;
+        this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = (ValidationUtils.isValidName(name)) ? name : "Unnamed Item";
     }
 
-    private void setPrice(double price) {
-        this.price = (ValidationUtils.isValidPrice(price)) ? price : AppConstants.MIN_PRICE();
+    public void setDescription(String description) {
+        this.description = (ValidationUtils.isValidText(description)) ? description : "No description.";
     }
 
-    // helper functions
+    public void setCategory(Category category) {
+        if (category != null) { this.category = category; }
+    }
+
+    public void setPrice(double price) {
+        this.price = (ValidationUtils.isValidPrice(price)) ? price : AppConstants.MIN_PRICE;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }

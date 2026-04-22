@@ -1,5 +1,8 @@
 package src.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import src.config.AppConstants;
 
 public class ValidationUtils {
@@ -27,5 +30,15 @@ public class ValidationUtils {
     // price validation
     public static Boolean isValidPrice(double price) {
         return price >= AppConstants.MIN_PRICE;
+    }
+
+    // email validation
+    public static Boolean isValidEmail(String email) {
+        return isValidText(email);
+    }
+
+    // phone number validation
+    public static Boolean isValidPhoneNumber(String phone_number) {
+        return isValidText(phone_number);
     }
 }
