@@ -1,4 +1,4 @@
-package src.config;
+package src.main.java.com.restaurant.config;
 
 import java.util.regex.Pattern;
 

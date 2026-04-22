@@ -1,9 +1,9 @@
-package src.model;
+package src.main.java.com.restaurant.model;
 
 import java.util.ArrayList;
 
-import src.config.AppConstants;
-import src.util.ValidationUtils;
+import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Cart {
     // fields

@@ -1,10 +1,10 @@
-package src.model;
+package src.main.java.com.restaurant.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import src.config.AppConstants;
-import src.util.ValidationUtils;
+import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Receipt {
     private static int count = 0;

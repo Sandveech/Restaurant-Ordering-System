@@ -1,15 +1,15 @@
-package src.main;
+package src.main.java.com.restaurant;
 
-import src.model.Cart;
-import src.model.Category;
-import src.model.Employee;
-import src.model.JobRole;
-import src.model.MenuItem;
-import src.model.Order;
-import src.model.Receipt;
-import src.model.Table;
+import src.main.java.com.restaurant.model.Cart;
+import src.main.java.com.restaurant.model.Category;
+import src.main.java.com.restaurant.model.Employee;
+import src.main.java.com.restaurant.model.JobRole;
+import src.main.java.com.restaurant.model.MenuItem;
+import src.main.java.com.restaurant.model.Order;
+import src.main.java.com.restaurant.model.Receipt;
+import src.main.java.com.restaurant.model.Table;
 
-public class RestaurantMain {
+public class Main {
     public static void main(String[] args) {
         Category cat1 = new Category("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people.");
         Category cat2 = new Category("Entree", "A dish served before the main course of a meal.");

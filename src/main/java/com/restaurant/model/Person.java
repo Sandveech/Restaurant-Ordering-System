@@ -1,6 +1,6 @@
-package src.model;
+package src.main.java.com.restaurant.model;
 
-import src.util.ValidationUtils;
+import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Person {
     // fields

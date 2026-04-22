@@ -1,6 +1,6 @@
-package src.util;
+package src.main.java.com.restaurant.util;
 
-import src.config.AppConstants;
+import src.main.java.com.restaurant.config.AppConstants;
 
 public class ValidationUtils {
     // ID validation
