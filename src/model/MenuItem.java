@@ -1,69 +1,38 @@
 package src.model;
 
-import src.utilities.GeneralUtils;
-import src.config.MenuItemConfig;
+import src.util.ValidationUtils;
+import src.config.AppConstants;
 
 public class MenuItem {
+    // fields
     private static int count = 0;
     private int id;
-    private double price;
     private String name;
-    private String description;
-    private String category;
+    private double price;
 
-    public MenuItem(double price, String name, String description, String category) {
-        setId(count++);
-        setPrice(price);
-        setName(name);
-        setDescription(description);
-        setCategory(category);
+    // constructor
+    public MenuItem(String name, double price) {
+        setID(count++);
+
     }
 
-    // setters
-    private void setId(int id) {
-        if (id >= 0) { this.id = id; }
+    // getters and setters
+    private int getCount() { return count; }
+    private int getID() { return id; }
+    private String getName() { return name; }
+    private double getPrice() { return price; }
+
+    private void setID(int id) {
+        this.id = (ValidationUtils.isValidID(id)) ? id : count - 1;
     }
 
-    public void setPrice(double price) {
-        this.price = (price >= MenuItemConfig.MIN_PRICE) ? price : MenuItemConfig.MIN_PRICE;
+    private void setName(String name) {
+        this.name = (ValidationUtils.isValidName(name)) ? name : "Unnamed Item";
     }
 
-    public void setName(String name) {
-        this.name = GeneralUtils.isValidTextInput(name) ? name : "Menu item #" + id;
+    private void setPrice(double price) {
+        this.price = (ValidationUtils.isValidPrice(price)) ? price : AppConstants.MIN_PRICE();
     }
 
-    public void setDescription(String description) {
-        this.description = GeneralUtils.isValidTextInput(description) ? description : "No description.";
-    }
-
-    public void setCategory(String category) {
-        this.category = GeneralUtils.isValidTextInput(category) ? category  : "No category";
-    }
-
-    // getters
-    private int getCount() {
-        return count;
-    }
-
-    private int getId() {
-        return this.id;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getCategory() {
-        return this.category;
-    }
-
-    // utilities
+    // helper functions
 }
