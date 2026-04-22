@@ -45,7 +45,7 @@ public class Cart {
         if (table != null) { this.table = table; }
     }
 
-    // helper functions
+    // logic
     private Boolean canOrder(MenuItem item, int quantity) {
         if (quantity <= 0) { return false; }
         if (order_count + quantity > AppConstants.MAX_ORDERS) { return false; }
