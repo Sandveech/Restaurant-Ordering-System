@@ -1,5 +1,6 @@
 package src.main.java.com.restaurant;
 
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.model.Cart;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
@@ -33,13 +34,8 @@ public class Main {
         cart.addOrder(item1, 3, "small");
         cart.addOrder(item1, 1, "medium");
 
-        Receipt receipt = new Receipt(cart, table1, employee2);
+        Receipt receipt = new Receipt(cart, table1, employee2, RestaurantConfig.getInstance().getTaxPercentage());
 
-        System.out.println(employee1);
-        System.out.println(employee2);
-
-        // for (Order order : cart.getOrders()) {
-        //     System.out.println(order);
-        // }
+        System.out.println(receipt.calculateTotalPriceWithTax());
     }
 }
