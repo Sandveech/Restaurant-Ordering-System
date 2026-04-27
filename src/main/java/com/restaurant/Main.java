@@ -1,45 +1,50 @@
 package src.main.java.com.restaurant;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import src.main.java.com.restaurant.model.Cart;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
 import src.main.java.com.restaurant.model.JobRole;
 import src.main.java.com.restaurant.model.MenuItem;
-import src.main.java.com.restaurant.model.Order;
 import src.main.java.com.restaurant.model.Receipt;
 import src.main.java.com.restaurant.model.Table;
 
 public class Main {
     public static void main(String[] args) {
-        Category cat1 = new Category("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people.");
-        Category cat2 = new Category("Entree", "A dish served before the main course of a meal.");
-        Category cat3 = new Category("Main Course", "The featured or primary dish in a meal consisting of several courses.");
-        Category cat4 = new Category("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream.");
+        HashMap<String, Category> categories = new HashMap<String, Category>();
+        categories.put("appetizers", new Category("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people."));
+        categories.put("entree", new Category("Entree", "A dish served before the main course of a meal."));
+        categories.put("main_course", new Category("Main Course", "The featured or primary dish in a meal consisting of several courses."));
+        categories.put("dessert", new Category("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream."));
 
-        MenuItem item1 = new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", cat3, 5, true);
-        MenuItem item2 = new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", cat3, 6, true);
+        HashMap<String, MenuItem> menu_items = new HashMap<String, MenuItem>();
+        menu_items.put("aglio_e_olio", new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", categories.get("main_course"), 5, true));
+        menu_items.put("carbonara", new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", categories.get("main_course"), 6, true));
 
-        Table table1 = new Table(4);
+        ArrayList<Table> tables = new ArrayList<Table>();
+        tables.add(new Table(4));
 
-        JobRole job1 = new JobRole("Waiter");
-        JobRole job2 = new JobRole("Cashier");
+        HashMap<String, JobRole> job_roles = new HashMap<String, JobRole>();
+        job_roles.put("waiter", new JobRole("Waiter"));
+        job_roles.put("cashier", new JobRole("Cashier"));
 
-        Employee employee1 = new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job1);
-        Employee employee2 = new Employee("Sophal", "Varajedt", "Male", "sophalvarajedt@gmail.com", "987654321", job2);
+        ArrayList<Employee> waiters = new ArrayList<Employee>();
+        waiters.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job_roles.get("waiter")));
 
-        Cart cart = new Cart(employee1, table1);
-        cart.addOrder(item1, 1, "small");
-        cart.addOrder(item2, 1, "small");
-        cart.addOrder(item1, 3, "small");
-        cart.addOrder(item1, 1, "medium");
+        ArrayList<Employee> cashiers = new ArrayList<Employee>();
+        cashiers.add(new Employee("Sophal", "Varajedt", "Male", "sophalvarajedt@gmail.com", "987654321", job_roles.get("cashier")));
 
-        Receipt receipt = new Receipt(cart, table1, employee2);
+        Cart cart = new Cart(waiters.getFirst(), tables.getFirst());
+        cart.addOrder(menu_items.get("aglio_e_olio"), 1, "small");
+        cart.addOrder(menu_items.get("carbonara"), 1, "small");
+        cart.addOrder(menu_items.get("aglio_e_olio"), 3, "small");
+        cart.addOrder(menu_items.get("aglio_e_olio"), 1, "medium");
 
-        System.out.println(employee1);
-        System.out.println(employee2);
+        Receipt receipt = new Receipt(cart, tables.getFirst(), cashiers.getFirst());
 
-        // for (Order order : cart.getOrders()) {
-        //     System.out.println(order);
-        // }
+        System.out.println(waiters.getFirst());
+        System.out.println(cashiers.getFirst());
     }
 }

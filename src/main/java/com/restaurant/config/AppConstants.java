@@ -1,7 +1,5 @@
 package src.main.java.com.restaurant.config;
 
-import java.util.regex.Pattern;
-
 public class AppConstants {
     // id
     public static final int INVALID_ID = -1;

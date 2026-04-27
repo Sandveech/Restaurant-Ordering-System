@@ -23,6 +23,11 @@ public class Receipt {
         setIssuedAt(LocalDateTime.now());
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Cart: %p, Table: #%d, Cashier: %s, Issued At: %s", id, getCart(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime());
+    }
+
     // getters and setters
     private int getID() { return id; }
     private Cart getCart() { return cart; }

@@ -19,6 +19,11 @@ public class Person {
         setPhoneNumber(phone_number);
     }
 
+    @Override
+    public String toString() {
+        return String.format("First Name: %s, Last Name: %s, Gender: %s, Email: %s, Phone Number: %s", first_name, last_name, gender, email, phone_number);
+    }
+
     // getters and setters
     public String getFirstName() { return first_name; }
     public String getLastName() { return last_name; }

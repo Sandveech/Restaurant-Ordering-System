@@ -14,6 +14,11 @@ public class Table {
         setSeatCount(seat_count);
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Seat Count: %d", id, seat_count);
+    }
+
     // getters and setters
     private int getCount() { return count; }
     private int getID() { return id; }

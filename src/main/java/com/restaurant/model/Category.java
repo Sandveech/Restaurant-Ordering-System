@@ -17,6 +17,11 @@ public class Category {
         setDescription(decription);
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Name: %s, Description: %s", id, name, description);
+    }
+
     // getters and setters
     private int getCount() { return count; }
     private int getID() { return id; }

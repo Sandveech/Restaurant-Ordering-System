@@ -15,6 +15,11 @@ public class JobRole {
         setTitle(title);
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Title: %s", id, title);
+    }
+
     // getters and setters
     private int getCount() { return count; }
     private int getID() { return id; }

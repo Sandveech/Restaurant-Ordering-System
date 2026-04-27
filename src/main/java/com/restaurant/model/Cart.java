@@ -21,6 +21,11 @@ public class Cart {
         setTable(table);
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, Waiter: %s, Table: %d", id, getWaiter().getFullName(), getTable().getNumber());
+    }
+
     // getters and setters
     private int getCount() { return count; }
     private int getID() { return id; }

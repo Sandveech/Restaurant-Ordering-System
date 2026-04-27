@@ -23,7 +23,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return String.format("Item: %s, Size: %s, Quantity: %dx", getItem().getName(), getSize(), getQuantity());
+        return String.format("Item: %s, Size: %s, Quantity: %dx", getItem().getName(), size, quantity);
     }
 
     // getters and setters
