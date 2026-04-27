@@ -29,7 +29,7 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Cart: %p, Table: #%d, Cashier: %s, Issued At: %s", id, getCart(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime());
+        return String.format("ID: %d, Cart: %p, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCart(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
     }
 
     // getters and setters
