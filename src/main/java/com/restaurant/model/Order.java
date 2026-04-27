@@ -53,4 +53,8 @@ public class Order {
     private void setCart(Cart cart) {
         if (cart != null) { this.cart = cart; }
     }
+
+    public double calculateTotalPrice() {
+        return (item != null) ? item.getPrice() * quantity : 0;
+    }
 }

@@ -13,14 +13,18 @@ public class Receipt {
     private Table table;
     private Employee cashier;
     private LocalDateTime issued_at;
+    private double tax_percentage;
+    private double total_price;
 
     // constructor
-    public Receipt(Cart cart, Table table, Employee cashier) {
+    public Receipt(Cart cart, Table table, Employee cashier, double tax_percentage) {
         setID(count++);
         setCart(cart);
         setTable(table);
         setCashier(cashier);
         setIssuedAt(LocalDateTime.now());
+        setTaxPercentage(tax_percentage);
+        setTotalPrice(calculateTotalPrice());
     }
 
     @Override
@@ -34,6 +38,8 @@ public class Receipt {
     private Table getTable() { return table; }
     private Employee getCashier() { return cashier; }
     private LocalDateTime getIssuedAt() { return issued_at; }
+    public double getTaxPercentage() { return tax_percentage; }
+    public double getTotalPrice() { return total_price; }
     public String getFormattedDate() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)); }
     public String getFormattedTime() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.TIME_FORMAT)); }
     public String getFormattedDateTime() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT + " " + AppConstants.TIME_FORMAT)); }
@@ -56,5 +62,31 @@ public class Receipt {
 
     private void setIssuedAt(LocalDateTime date) {
         if (date != null) { this.issued_at = date; }
+    }
+
+    private void setTaxPercentage(double percentage) {
+        this.tax_percentage = (percentage >= 0) ? percentage : 0;
+    }
+
+    private void setTotalPrice(double price) {
+        this.total_price = (price >= 0) ? price : 0;
+    }
+
+    // helper functions
+    private double calculateTotalPrice() {
+        double total = 0;
+
+        if (cart != null) {
+            for (Order order : getCart().getOrders()) {
+                if (order == null) { continue; }
+                total += order.calculateTotalPrice();
+            }
+        }
+        
+        return total;
+    }
+
+    public double calculateTotalPriceWithTax() {
+        return total_price + (total_price * (tax_percentage / 100));
     }
 }
