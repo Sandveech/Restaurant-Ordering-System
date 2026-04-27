@@ -18,7 +18,7 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s, Job Role: %s", getFullName(), gender, email, phone_number, getJobRole().getTitle());
+        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s, Job Role: %s", getFullName(), getGender(), getEmail(), getPhoneNumber(), getJobRole().getTitle());
     }
 
     // getters and setters

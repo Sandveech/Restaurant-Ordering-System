@@ -3,6 +3,7 @@ package src.main.java.com.restaurant;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.model.Cart;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
@@ -34,7 +35,7 @@ public class Main {
         waiters.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job_roles.get("waiter")));
 
         ArrayList<Employee> cashiers = new ArrayList<Employee>();
-        cashiers.add(new Employee("Sophal", "Varajedt", "Male", "sophalvarajedt@gmail.com", "987654321", job_roles.get("cashier")));
+        cashiers.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", job_roles.get("cashier")));
 
         Cart cart = new Cart(waiters.getFirst(), tables.getFirst());
         cart.addOrder(menu_items.get("aglio_e_olio"), 1, "small");
@@ -42,9 +43,24 @@ public class Main {
         cart.addOrder(menu_items.get("aglio_e_olio"), 3, "small");
         cart.addOrder(menu_items.get("aglio_e_olio"), 1, "medium");
 
-        Receipt receipt = new Receipt(cart, tables.getFirst(), cashiers.getFirst());
+        Receipt receipt = new Receipt(cart, tables.getFirst(), cashiers.getFirst(), RestaurantConfig.getInstance().getTaxPercentage());
 
-        System.out.println(waiters.getFirst());
-        System.out.println(cashiers.getFirst());
+        System.out.println("===CATEGORIES===");
+        categories.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println("===MENU ITEMS===");
+        menu_items.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println("===TABLES===");
+        for (Table table : tables) { System.out.println(table); }
+
+        System.out.println("===JOB ROLES===");
+        job_roles.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println("===WAITERS===");
+        for (Employee waiter : waiters) { System.out.println(waiter); }
+
+        System.out.println("===CASHIERS===");
+        for (Employee cashier : cashiers) { System.out.println(cashier); }
     }
 }

@@ -16,7 +16,7 @@ public class Table {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Seat Count: %d", id, seat_count);
+        return String.format("ID: %d, Number: %d, Seat Count: %d", id, getNumber(), seat_count);
     }
 
     // getters and setters
@@ -31,7 +31,7 @@ public class Table {
     }
 
     private void setSeatCount(int n) {
-        this.seat_count = (seat_count >= 1) ? n : 1;
+        this.seat_count = (n >= 1) ? n : 1;
     }
 
     public void setReserved(Boolean reserved) {
