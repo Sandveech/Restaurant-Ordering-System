@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Receipt {
     private static int count = 0;
     private int id;
-    private TableOrder cart;
+    private TableOrder table_order;
     private Table table;
     private Employee cashier;
     private LocalDateTime issued_at;
@@ -17,9 +18,9 @@ public class Receipt {
     private double total_price;
 
     // constructor
-    public Receipt(TableOrder cart, Table table, Employee cashier, double tax_percentage) {
+    public Receipt(TableOrder table_order, Table table, Employee cashier, double tax_percentage) {
         setID(count++);
-        setCart(cart);
+        setTableOrder(table_order);
         setTable(table);
         setCashier(cashier);
         setIssuedAt(LocalDateTime.now());
@@ -29,12 +30,12 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Cart: %p, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCart(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
+        return String.format("ID: %d, Table Order: %p, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getTableOrder(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
     }
 
     // getters and setters
     private int getID() { return id; }
-    private TableOrder getCart() { return cart; }
+    private TableOrder getTableOrder() { return table_order; }
     private Table getTable() { return table; }
     private Employee getCashier() { return cashier; }
     private LocalDateTime getIssuedAt() { return issued_at; }
@@ -48,8 +49,8 @@ public class Receipt {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
-    private void setCart(TableOrder cart) {
-        if (cart != null) { this.cart = cart; }
+    private void setTableOrder(TableOrder table_order) {
+        if (table_order != null) { this.table_order = table_order; }
     }
 
     private void setTable(Table table) {
@@ -74,19 +75,32 @@ public class Receipt {
 
     // helper functions
     private double calculateTotalPrice() {
+        if (table_order == null) { return 0; }
+
         double total = 0;
 
-        if (cart != null) {
-            for (Order order : getCart().getOrders()) {
-                if (order == null) { continue; }
-                total += order.calculateTotalPrice();
-            }
+        for (OrderItem o : table_order.getOrders()) {
+            if (o == null) { continue; }
+            total += o.calculateTotalPrice();
         }
-        
+
         return total;
     }
 
     public double calculateTotalPriceWithTax() {
         return total_price + (total_price * (tax_percentage / 100));
+    }
+
+    public void displayInfo() {
+        RestaurantConfig restaurant = RestaurantConfig.getInstance();
+        System.out.println("===" + restaurant.getName() + "===");
+        System.out.println("Address: " + restaurant.getAddress());
+        System.out.println("Phone Number: " + restaurant.getPhoneNumber());
+        System.out.println("Date: " + getFormattedDateTime());
+        System.out.println("Cashier: " + getCashier().getFullName());
+        System.out.println("===ITEMS===");
+        getTableOrder().displayOrders();
+        System.out.println("===TOTAL===");
+        System.out.println(String.format("$%.2f -> $%.2f (%.2f%% VAT)", total_price, calculateTotalPriceWithTax(), getTaxPercentage()));
     }
 }

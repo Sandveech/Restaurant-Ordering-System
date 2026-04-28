@@ -48,19 +48,6 @@ public class Main {
 
         Receipt receipt = new Receipt(cart, tables.getFirst(), employees.getLast(), RestaurantConfig.getInstance().getTaxPercentage());
 
-        System.out.println("===CATEGORIES===");
-        categories.forEach((key, value) -> System.out.println(key + ": " + value));
-
-        System.out.println("===MENU ITEMS===");
-        for (MenuItem item : menu_items) { System.out.println(item); }
-
-        System.out.println("===TABLES===");
-        for (Table table : tables) { System.out.println(table); }
-
-        System.out.println("===JOB ROLES===");
-        job_roles.forEach((key, value) -> System.out.println(key + ": " + value));
-
-        System.out.println("===EMPLOYEES===");
-        for (Employee employee : employees) { System.out.println(employee); }
+        receipt.displayInfo();
     }
 }
