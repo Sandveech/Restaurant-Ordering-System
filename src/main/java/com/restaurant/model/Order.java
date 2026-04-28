@@ -11,14 +11,16 @@ public class Order {
     private int quantity;
     private String size;
     private Cart cart;
+    private Employee waiter;
 
     // constructor
-    public Order(MenuItem item, int quantity, String size, Cart cart) {
+    public Order(MenuItem item, int quantity, String size, Cart cart, Employee waiter) {
         setID(count++);
         setItem(item);
         setQuantity(quantity);
         setSize(size);
         setCart(cart);
+        setWaiter(waiter);
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Order {
     public int getQuantity() { return quantity; }
     public String getSize() { return size; }
     public Cart getCart() { return cart; }
+    public Employee getWaiter() { return waiter; }
 
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
@@ -52,6 +55,10 @@ public class Order {
 
     private void setCart(Cart cart) {
         if (cart != null) { this.cart = cart; }
+    }
+
+    private void setWaiter(Employee waiter) {
+        if (waiter != null) { this.waiter = waiter; }
     }
 
     public double calculateTotalPrice() {

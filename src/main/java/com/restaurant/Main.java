@@ -40,11 +40,11 @@ public class Main {
         employees.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job_roles.get("waiter")));
         employees.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", job_roles.get("cashier")));
 
-        Cart cart = new Cart(employees.getFirst(), tables.getFirst());
-        cart.addOrder(menu_items.get(0), 1, "small");
-        cart.addOrder(menu_items.get(1), 1, "small");
-        cart.addOrder(menu_items.get(0), 3, "small");
-        cart.addOrder(menu_items.get(0), 1, "medium");
+        Cart cart = new Cart(tables.getFirst());
+        cart.addOrder(menu_items.get(0), 1, "small", employees.getFirst());
+        cart.addOrder(menu_items.get(1), 1, "small", employees.getFirst());
+        cart.addOrder(menu_items.get(0), 3, "small", employees.getFirst());
+        cart.addOrder(menu_items.get(0), 1, "medium", employees.getFirst());
 
         Receipt receipt = new Receipt(cart, tables.getFirst(), employees.getLast(), RestaurantConfig.getInstance().getTaxPercentage());
 

@@ -12,19 +12,17 @@ public class Cart {
     private int id;
     private ArrayList<Order> orders = new ArrayList<Order>();
     private int order_count;
-    private Employee waiter;
     private Table table;
 
     // constructor
-    public Cart(Employee waiter, Table table) {
+    public Cart(Table table) {
         setID(count++);
-        setWaiter(waiter);
         setTable(table);
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Waiter: %s, Table: %d", id, getWaiter().getFullName(), getTable().getNumber());
+        return String.format("ID: %d, Table: %d", id, getTable().getNumber());
     }
 
     // getters and setters
@@ -32,7 +30,6 @@ public class Cart {
     private int getID() { return id; }
     public ArrayList<Order> getOrders() { return orders; }
     private int getOrderCount() { return order_count; }
-    public Employee getWaiter() { return waiter; }
     public Table getTable() { return table; }
 
     private void setID(int id) {
@@ -41,10 +38,6 @@ public class Cart {
 
     private void setOrderCount(int n) {
         this.order_count = (n >= 0) ? n : 0;
-    }
-
-    public void setWaiter(Employee waiter) {
-        if (waiter != null) { this.waiter = waiter; }
     }
 
     public void setTable(Table table) {
@@ -77,7 +70,7 @@ public class Cart {
         return -1;
     }
 
-    public Boolean addOrder(MenuItem item, int quantity, String size) {
+    public Boolean addOrder(MenuItem item, int quantity, String size, Employee waiter) {
         if (canOrder(item, quantity)) {
             int order_index = searchOrder(item, size);
             
@@ -86,7 +79,7 @@ public class Cart {
                 order.setQuantity(order.getQuantity() + quantity);
             }
             else {
-                Order order = new Order(item, quantity, size, this);
+                Order order = new Order(item, quantity, size, this, waiter);
                 orders.add(order);
             }
 
