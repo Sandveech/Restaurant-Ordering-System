@@ -3,6 +3,7 @@ package src.main.java.com.restaurant.model;
 import java.util.ArrayList;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Cart {
@@ -53,7 +54,7 @@ public class Cart {
     // logic
     private Boolean canOrder(MenuItem item, int quantity) {
         if (quantity <= 0) { return false; }
-        if (order_count + quantity > AppConstants.MAX_ORDERS) { return false; }
+        if (order_count + quantity > RestaurantConfig.getInstance().getMaxOrders()) { return false; }
         if (item == null) { return false; }
         if (!item.isActive()) { return false; }
 

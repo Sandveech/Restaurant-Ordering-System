@@ -1,6 +1,7 @@
 package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class MenuItem {
@@ -54,7 +55,7 @@ public class MenuItem {
     }
 
     public void setPrice(double price) {
-        this.price = (ValidationUtils.isValidPrice(price)) ? price : AppConstants.MIN_PRICE;
+        this.price = (ValidationUtils.isValidPrice(price)) ? price : RestaurantConfig.getInstance().getMinPrice();
     }
 
     public void setActive(Boolean active) {

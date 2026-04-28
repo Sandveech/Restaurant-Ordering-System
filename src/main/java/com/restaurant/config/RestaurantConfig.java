@@ -14,12 +14,12 @@ public class RestaurantConfig {
 
     // constructor
     private RestaurantConfig() {
-        this.name = "Unnamed Restaurant";
-        this.address = "No address";
-        this.phone_number = "No phone number";
-        this.tax_percentage = 10;
-        this.min_price = 0;
-        this.max_orders = 32;
+        setName("Unnamed Restaurant");
+        setAddress("No address");
+        setPhoneNumber("No Phone number");
+        setTaxPercentage(10);
+        setMinPrice(0);
+        setMaxOrders(32);
     };
     
     // getters and setters

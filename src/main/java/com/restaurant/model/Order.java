@@ -1,6 +1,7 @@
 package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Order {
@@ -47,7 +48,7 @@ public class Order {
     }
 
     public void setSize(String size) {
-        this.size = (ValidationUtils.isValidText(size)) ? size : AppConstants.DEFAULT_DISH_SIZE;
+        this.size = (ValidationUtils.isValidText(size)) ? size : "Normal";
     }
 
     private void setCart(Cart cart) {

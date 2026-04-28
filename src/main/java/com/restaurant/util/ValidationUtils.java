@@ -1,6 +1,7 @@
 package src.main.java.com.restaurant.util;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 
 public class ValidationUtils {
     // ID validation
@@ -26,7 +27,7 @@ public class ValidationUtils {
 
     // price validation
     public static Boolean isValidPrice(double price) {
-        return price >= AppConstants.MIN_PRICE;
+        return price >= RestaurantConfig.getInstance().getMinPrice();
     }
 
     // email validation
