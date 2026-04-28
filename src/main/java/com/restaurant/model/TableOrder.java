@@ -6,7 +6,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Cart {
+public class TableOrder {
     // fields
     private static int count = 0;
     private int id;
@@ -15,7 +15,7 @@ public class Cart {
     private Table table;
 
     // constructor
-    public Cart(Table table) {
+    public TableOrder(Employee waiter, Table table) {
         setID(count++);
         setTable(table);
     }

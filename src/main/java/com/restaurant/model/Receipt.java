@@ -9,7 +9,7 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 public class Receipt {
     private static int count = 0;
     private int id;
-    private Cart cart;
+    private TableOrder cart;
     private Table table;
     private Employee cashier;
     private LocalDateTime issued_at;
@@ -17,7 +17,7 @@ public class Receipt {
     private double total_price;
 
     // constructor
-    public Receipt(Cart cart, Table table, Employee cashier, double tax_percentage) {
+    public Receipt(TableOrder cart, Table table, Employee cashier, double tax_percentage) {
         setID(count++);
         setCart(cart);
         setTable(table);
@@ -34,7 +34,7 @@ public class Receipt {
 
     // getters and setters
     private int getID() { return id; }
-    private Cart getCart() { return cart; }
+    private TableOrder getCart() { return cart; }
     private Table getTable() { return table; }
     private Employee getCashier() { return cashier; }
     private LocalDateTime getIssuedAt() { return issued_at; }
@@ -48,7 +48,7 @@ public class Receipt {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
-    private void setCart(Cart cart) {
+    private void setCart(TableOrder cart) {
         if (cart != null) { this.cart = cart; }
     }
 
