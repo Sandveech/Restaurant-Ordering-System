@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import src.main.java.com.restaurant.config.RestaurantConfig;
-import src.main.java.com.restaurant.model.Cart;
+import src.main.java.com.restaurant.model.TableOrder;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
 import src.main.java.com.restaurant.model.JobRole;
@@ -40,7 +40,7 @@ public class Main {
         employees.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job_roles.get("waiter")));
         employees.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", job_roles.get("cashier")));
 
-        Cart cart = new Cart(employees.getFirst(), tables.getFirst());
+        TableOrder cart = new TableOrder(employees.getFirst(), tables.getFirst());
         cart.addOrder(menu_items.get(0), 1, "small");
         cart.addOrder(menu_items.get(1), 1, "small");
         cart.addOrder(menu_items.get(0), 3, "small");
