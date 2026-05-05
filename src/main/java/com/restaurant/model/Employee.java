@@ -22,14 +22,37 @@ public class Employee extends Person {
     }
 
     // getters and setters
+    /**
+     * Returns the historical count of employees.
+     * @return the historical count of employees
+     */
     private int getCount() { return count; }
+
+    /**
+     * Returns the id of this employee.
+     * @return the id of this employee
+     */
     private int getID() { return id; }
+
+
+    /**
+     * Returns the job role of this employee.
+     * @return the job role of this employee
+     */
     public JobRole getJobRole() { return job_role; }
 
+    /**
+     * Sets the id of this employee.
+     * @param id the id to set to
+     */
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
+    /**
+     * Sets the job role of this employee.
+     * @param job_role the job role to set to
+     */
     public void setJobRole(JobRole job_role) {
         if (job_role != null) { this.job_role = job_role; }
     }

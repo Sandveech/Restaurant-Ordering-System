@@ -21,14 +21,37 @@ public class JobRole {
     }
 
     // getters and setters
+    /**
+     * Returns the historical count of job roles.
+     * @return the historical count of job roles
+     */
     private int getCount() { return count; }
+    
+    /**
+     * Returns the id of this job role.
+     * @return the id of this job role
+     */
     private int getID() { return id; }
+
+
+    /**
+     * Returns the title of this job role.
+     * @return the title of this job role
+     */
     public String getTitle() { return title; }
 
+    /**
+     * Sets the id of this job role.
+     * @param id the id to set to
+     */
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
+    /**
+     * Sets the title of this job role.
+     * @param title the title to set to
+     */
     public void setTitle(String title) {
         this.title = (ValidationUtils.isValidText(title)) ? title : "No title";
     }

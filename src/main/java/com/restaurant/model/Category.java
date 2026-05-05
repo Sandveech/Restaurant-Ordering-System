@@ -23,19 +23,50 @@ public class Category {
     }
 
     // getters and setters
+    /**
+     * Returns the historical count of categories.
+     * @return the historical count of categories
+     */
     private int getCount() { return count; }
+
+    /**
+     * Returns the id of this category.
+     * @return the id of this category
+     */
     private int getID() { return id; }
+
+    /**
+     * Returns the name of this category.
+     * @return the name of this category
+     */
     public String getName() { return name; }
+
+    /**
+     * Returns the description of this category.
+     * @return the description of this category
+     */
     public String description() { return description; }
 
+    /**
+     * Sets the id of this category.
+     * @param id the id to set to
+     */
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
     }
 
+    /**
+     * Sets the nae of this category.
+     * @param name the name to set to
+     */
     private void setName(String name) {
         this.name = (ValidationUtils.isValidName(name)) ? name : "Unknown Menu Item";
     }
 
+    /**
+     * Sets the description of this category.
+     * @param description the descripttion to set to
+     */
     private void setDescription(String description) {
         this.description = (ValidationUtils.isValidText(description)) ? description : "No description.";
     } 
