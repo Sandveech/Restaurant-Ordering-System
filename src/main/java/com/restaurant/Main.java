@@ -21,7 +21,7 @@ public class Main {
         HashMap<String, Category> categories = SampleData.getCategories();
         ArrayList<MenuItem> menu = SampleData.getMenuItems();
         ArrayList<Table> tables = SampleData.getTables();
-        HashMap<String, JobRole> job_roles = SampleData.getJobRoles();
+        HashMap<String, JobRole> roles = SampleData.getJobRoles();
         ArrayList<Employee> employees = SampleData.getEmployees();
 
         TableOrder table_order = new TableOrder(employees.getFirst(), tables.getFirst());

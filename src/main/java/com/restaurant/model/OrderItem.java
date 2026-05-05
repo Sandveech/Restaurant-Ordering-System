@@ -3,7 +3,7 @@ package src.main.java.com.restaurant.model;
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class OrderItem {
+public class OrderItem implements Calculatable {
     // fields
     private static int count = 0;
     private int id;
@@ -18,7 +18,7 @@ public class OrderItem {
         setItem(item);
         setQuantity(quantity);
         setSize(size);
-        setSubtotal(calculateTotalPrice());
+        setSubtotal(calculatePrice());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class OrderItem {
      * Calculates and returns the total price of this order item.
      * @return the total price of this order item
      */
-    public double calculateTotalPrice() {
+    public double calculatePrice() {
         if (item == null) { return 0; }
 
         int price_index = item.indexOfPriceOption(size);
@@ -122,6 +122,6 @@ public class OrderItem {
      */
     public void updateQuantity(int count) {
         setQuantity(count);
-        setSubtotal(calculateTotalPrice());
+        setSubtotal(calculatePrice());
     }
 }

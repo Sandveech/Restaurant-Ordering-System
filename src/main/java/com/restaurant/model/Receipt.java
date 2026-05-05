@@ -24,7 +24,7 @@ public class Receipt implements Displayable {
         setIssuedAt(LocalDateTime.now());
         setTaxPercentage(tax_percentage);
 
-        if (table_order != null) { setTotalPrice(table_order.calculateTotalPrice()); }
+        if (table_order != null) { setTotalPrice(table_order.calculatePrice()); }
         else { setTotalPrice(0); }
     }
 
@@ -141,7 +141,7 @@ public class Receipt implements Displayable {
      * Calculates and returns the total price of this receipt with tax.
      * @return the total price of this receipt with tax
      */
-    public double calculateTotalPriceWithTax() {
+    private double applyTax() {
         return total_price + (total_price * (tax_percentage / 100));
     }
 
@@ -152,29 +152,39 @@ public class Receipt implements Displayable {
     }
 
     public void display() {
-        RestaurantConfig restaurant = RestaurantConfig.getInstance();
-        System.out.println(restaurant.getName());
-        System.out.println(restaurant.getAddress());
-        System.out.println("Phone: " + restaurant.getPhoneNumber());
+        displayHeader();
+        displayOrderDetails();
+        displayTotals();
+        displayFooter();
+    }
+
+    private void displayHeader() {
+        RestaurantConfig config = RestaurantConfig.getInstance();
+        System.out.println(config.getName());
+        System.out.println(config.getAddress());
+        System.out.println("Phone: " + config.getPhoneNumber());
         System.out.println(getFormattedDateTime());
-        String cashier_name = (cashier != null) ? cashier.getFullName() : "Unknown cashier";
-        System.out.println("Cashier: " + cashier_name);
 
-        int table_number = (table_order != null && table_order.getTable() != null) ? table_order.getTable().getNumber() : 0;
-        System.out.println("Table: #" + table_number);
+        String cashier_name = (cashier != null) ? cashier.getFullName() : "Unknown";
+        int table_num = (table_order != null && table_order.getTable() != null) ? table_order.getTable().getNumber() : 0;
 
+        System.out.printf("Cashier: %-29s Table: #%d%n", cashier_name, table_num);
         displaySeperator("-", 48);
+    }
 
-        System.out.println(String.format("%-32s %-8s", "DESC.", "QTY."));
-        getTableOrder().display();
-        
-        System.out.println(String.format("\nSubtotal %39.2f", total_price));
-        System.out.println(String.format("VAT %42.2f %%", getTaxPercentage()));
+    private void displayOrderDetails() {
+        System.out.printf("%-32s %-8s%n", "DESC", "QTY");
+        if (table_order != null) { table_order.display(); }
+    }
 
+    private void displayTotals() {
         displaySeperator("-", 48);
+        System.out.printf("Subtotal %39.2f%n", total_price);
+        System.out.printf("Total (%2.0f%% VAT) %32.2f%n", getTaxPercentage(), applyTax());
+        displaySeperator("-", 48);
+    }
 
-        System.out.println(String.format("Total %42.2f", calculateTotalPriceWithTax()));
-
+    private void displayFooter() {
         System.out.println("\n" + RestaurantConfig.getInstance().getReceiptMessage());
     }
-}
+    }

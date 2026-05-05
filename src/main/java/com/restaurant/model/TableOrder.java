@@ -6,7 +6,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class TableOrder implements Displayable {
+public class TableOrder implements Displayable, Calculatable {
     // fields
     private static int count = 0;
     private int id;
@@ -209,7 +209,7 @@ public class TableOrder implements Displayable {
      * Calculates the total price of all orders in this table order and returns it.
      * @return the total price of all orders in this table order
      */
-    public double calculateTotalPrice() {
+    public double calculatePrice() {
         double total = 0;
         for (OrderItem o : orders) {
             if (o == null) { continue; }
