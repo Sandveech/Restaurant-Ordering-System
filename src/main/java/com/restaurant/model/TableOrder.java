@@ -203,6 +203,16 @@ public class TableOrder {
         return false;
     }
 
+    public double calculateTotalPrice() {
+        double total = 0;
+        for (OrderItem o : orders) {
+            if (o == null) { continue; }
+            total += o.getSubtotal();
+        }
+
+        return total;
+    }
+
     /**
      * Displays all the orders in this orders list.
      */
