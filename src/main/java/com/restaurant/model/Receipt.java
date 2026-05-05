@@ -7,7 +7,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Receipt {
+public class Receipt implements Displayable {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
@@ -145,17 +145,36 @@ public class Receipt {
         return total_price + (total_price * (tax_percentage / 100));
     }
 
-    public void displayInfo() {
+    public void displaySeperator(String symbol, int width) {
+        int i = 0;
+        while (i++ < width) { System.out.print(symbol); }
+        System.out.println();
+    }
+
+    public void display() {
         RestaurantConfig restaurant = RestaurantConfig.getInstance();
-        System.out.println("===" + restaurant.getName() + "===");
-        System.out.println("Address: " + restaurant.getAddress());
-        System.out.println("Phone Number: " + restaurant.getPhoneNumber());
-        System.out.println("Date: " + getFormattedDateTime());
-        System.out.println("Cashier: " + getCashier().getFullName());
-        System.out.println("Table: #" + getTableOrder().getTable().getNumber());
-        System.out.println("===ITEMS===");
-        getTableOrder().displayOrders();
-        System.out.println("===TOTAL===");
-        System.out.println(String.format("$%.2f -> $%.2f (%.2f%% VAT)", total_price, calculateTotalPriceWithTax(), getTaxPercentage()));
+        System.out.println(restaurant.getName());
+        System.out.println(restaurant.getAddress());
+        System.out.println("Phone: " + restaurant.getPhoneNumber());
+        System.out.println(getFormattedDateTime());
+        String cashier_name = (cashier != null) ? cashier.getFullName() : "Unknown cashier";
+        System.out.println("Cashier: " + cashier_name);
+
+        int table_number = (table_order != null && table_order.getTable() != null) ? table_order.getTable().getNumber() : 0;
+        System.out.println("Table: #" + table_number);
+
+        displaySeperator("-", 48);
+
+        System.out.println(String.format("%-32s %-8s", "DESC.", "QTY."));
+        getTableOrder().display();
+        
+        System.out.println(String.format("\nSubtotal %39.2f", total_price));
+        System.out.println(String.format("VAT %42.2f %%", getTaxPercentage()));
+
+        displaySeperator("-", 48);
+
+        System.out.println(String.format("Total %42.2f", calculateTotalPriceWithTax()));
+
+        System.out.println("\n" + RestaurantConfig.getInstance().getReceiptMessage());
     }
 }

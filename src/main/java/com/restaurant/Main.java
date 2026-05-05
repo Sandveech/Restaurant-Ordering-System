@@ -43,13 +43,13 @@ public class Main {
         employees.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", job_roles.get("cashier")));
 
         TableOrder table_order = new TableOrder(employees.getFirst(), tables.getFirst());
-        table_order.addOrder(menu_items.get(0), 1, "small");
-        table_order.addOrder(menu_items.get(1), 1, "small");
-        table_order.addOrder(menu_items.get(0), 3, "small");
-        table_order.addOrder(menu_items.get(0), 1, "medium");
+        table_order.addOrder(menu_items.get(0), 1, "S");
+        table_order.addOrder(menu_items.get(1), 1, "S");
+        table_order.addOrder(menu_items.get(0), 3, "S");
+        table_order.addOrder(menu_items.get(0), 1, "M");
 
         Receipt receipt = new Receipt(table_order, employees.get(0), RestaurantConfig.getInstance().getTaxPercentage());
 
-        receipt.displayInfo();
+        receipt.display();
     }
 }

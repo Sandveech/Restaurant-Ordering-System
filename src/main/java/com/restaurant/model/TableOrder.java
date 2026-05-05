@@ -6,7 +6,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class TableOrder {
+public class TableOrder implements Displayable {
     // fields
     private static int count = 0;
     private int id;
@@ -216,10 +216,14 @@ public class TableOrder {
     /**
      * Displays all the orders in this orders list.
      */
-    public void displayOrders() {
+    public void display() {
         for (int i = 0; i < orders.size(); i++) {
             OrderItem o = orders.get(i);
-            System.out.println(String.format("%d. %s | $%.2f", i + 1, o, o.calculateTotalPrice()));
+            if (o == null) { continue; }
+
+            String item_name = (o.getItem() != null) ? o.getItem().getName() : "Unknown item";
+
+            System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.getSubtotal()));
         }
     }
 }
