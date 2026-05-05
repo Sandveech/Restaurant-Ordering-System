@@ -14,6 +14,8 @@ public class TableOrder {
     private int order_count;
     private Employee waiter;
     private Table table;
+    private Receipt receipt;
+    private Boolean complete = false;
 
     // constructor
     public TableOrder(Employee waiter, Table table) {
@@ -34,6 +36,8 @@ public class TableOrder {
     private int getOrderCount() { return order_count; }
     public Employee getWaiter() { return waiter; }
     public Table getTable() { return table; }
+    public Receipt getReceipt() { return receipt; }
+    public Boolean isComplete() { return complete; }
 
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
@@ -49,6 +53,14 @@ public class TableOrder {
 
     public void setTable(Table table) {
         if (table != null) { this.table = table; }
+    }
+
+    private void setReceipt(Receipt receipt) {
+        if (receipt != null) { this.receipt = receipt; }
+    }
+
+    private void setComplete(Boolean complete) {
+        this.complete = complete;
     }
 
     // logic
@@ -83,7 +95,7 @@ public class TableOrder {
             
             if (order_index != -1) {
                 OrderItem order = orders.get(order_index);
-                order.setQuantity(order.getQuantity() + quantity);
+                order.updateQuantity(order.getQuantity() + quantity);
             }
             else {
                 OrderItem order = new OrderItem(item, quantity, size);
@@ -124,5 +136,15 @@ public class TableOrder {
             OrderItem o = orders.get(i);
             System.out.println(String.format("%d. %s | $%.2f", i + 1, o, o.calculateTotalPrice()));
         }
+    }
+
+    public Receipt completeOrder() {
+        if (!isComplete()) {
+            Receipt receipt = new Receipt(this, table, waiter, RestaurantConfig.getInstance().getTaxPercentage());
+            setReceipt(receipt);
+            return receipt;
+        }
+
+        return this.receipt;
     }
 }

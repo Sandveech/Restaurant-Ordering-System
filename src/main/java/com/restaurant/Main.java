@@ -14,6 +14,8 @@ import src.main.java.com.restaurant.model.Table;
 
 public class Main {
     public static void main(String[] args) {
+        // DISCLAIMER: THIS IS FOR THE PURPOSE OF TESTING
+
         // categories
         HashMap<String, Category> categories = new HashMap<String, Category>();
         categories.put("appetizers", new Category("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people."));
@@ -40,13 +42,13 @@ public class Main {
         employees.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", job_roles.get("waiter")));
         employees.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", job_roles.get("cashier")));
 
-        TableOrder cart = new TableOrder(employees.getFirst(), tables.getFirst());
-        cart.addOrder(menu_items.get(0), 1, "small");
-        cart.addOrder(menu_items.get(1), 1, "small");
-        cart.addOrder(menu_items.get(0), 3, "small");
-        cart.addOrder(menu_items.get(0), 1, "medium");
+        TableOrder table_order = new TableOrder(employees.getFirst(), tables.getFirst());
+        table_order.addOrder(menu_items.get(0), 1, "small");
+        table_order.addOrder(menu_items.get(1), 1, "small");
+        table_order.addOrder(menu_items.get(0), 3, "small");
+        table_order.addOrder(menu_items.get(0), 1, "medium");
 
-        Receipt receipt = new Receipt(cart, tables.getFirst(), employees.getLast(), RestaurantConfig.getInstance().getTaxPercentage());
+        Receipt receipt = table_order.completeOrder();
 
         receipt.displayInfo();
     }

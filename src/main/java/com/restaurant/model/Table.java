@@ -25,6 +25,8 @@ public class Table {
     public int getSeatCount() { return seat_count; }
     public int getNumber() { return id + 1; } 
     public Boolean isReserved() { return reserved; }
+    public void reserve() { this.reserved = true; }
+    public void cancelReservation() { this.reserved = false; }
 
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;

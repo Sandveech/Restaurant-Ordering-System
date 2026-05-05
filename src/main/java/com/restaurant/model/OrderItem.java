@@ -10,6 +10,7 @@ public class OrderItem {
     private MenuItem item;
     private int quantity;
     private String size;
+    private double subtotal;
 
     // constructor
     public OrderItem(MenuItem item, int quantity, String size) {
@@ -17,6 +18,7 @@ public class OrderItem {
         setItem(item);
         setQuantity(quantity);
         setSize(size);
+        setSubtotal(calculateTotalPrice());
     }
 
     @Override
@@ -30,6 +32,7 @@ public class OrderItem {
     public MenuItem getItem() { return item; }
     public int getQuantity() { return quantity; }
     public String getSize() { return size; }
+    public double getSubtotal() { return subtotal; }
 
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
@@ -47,7 +50,16 @@ public class OrderItem {
         this.size = (ValidationUtils.isValidText(size)) ? size : "Normal";
     }
 
+    private void setSubtotal(double subtotal) {
+        this.subtotal = (subtotal < 0) ? 0 : subtotal;
+    }
+
     public double calculateTotalPrice() {
         return (item != null) ? item.getPrice() * quantity : 0;
+    }
+
+    public void updateQuantity(int count) {
+        setQuantity(count);
+        setSubtotal(calculateTotalPrice());
     }
 }

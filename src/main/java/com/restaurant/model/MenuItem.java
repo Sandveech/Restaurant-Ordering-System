@@ -13,6 +13,7 @@ public class MenuItem {
     private Category category;
     private double price;
     private Boolean active;
+    
 
     // constructor
     public MenuItem(String name, String description, Category category, double price, Boolean active) {

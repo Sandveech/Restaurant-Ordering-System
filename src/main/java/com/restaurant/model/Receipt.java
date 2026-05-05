@@ -81,7 +81,7 @@ public class Receipt {
 
         for (OrderItem o : table_order.getOrders()) {
             if (o == null) { continue; }
-            total += o.calculateTotalPrice();
+            total += o.getSubtotal();
         }
 
         return total;
