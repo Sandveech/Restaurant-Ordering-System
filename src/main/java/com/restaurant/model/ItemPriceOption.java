@@ -65,7 +65,7 @@ public class ItemPriceOption {
      * @param price the price to set to
      */
     public void setPrice(double price) {
-        this.price = (price < 0) ? price : RestaurantConfig.getInstance().getMinPrice();
+        this.price = (price < 0) ? RestaurantConfig.getInstance().getMinPrice() : price;
     }
 
     /**

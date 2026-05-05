@@ -108,7 +108,12 @@ public class OrderItem {
      * @return the total price of this order item
      */
     public double calculateTotalPrice() {
-        return (item != null) ? item.getPrice() * quantity : 0;
+        if (item == null) { return 0; }
+
+        int price_index = item.indexOfPriceOption(size);
+        if (price_index == -1) { return 0; }
+        
+        return item.getItemPriceOption().get(price_index).getPrice() * quantity;
     }
 
     /**

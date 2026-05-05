@@ -13,17 +13,15 @@ public class MenuItem {
     private String name;
     private String description;
     private Category category;
-    private double price;
     private Boolean active;
     private ArrayList<ItemPriceOption> price_options = new ArrayList<ItemPriceOption>();
 
     // constructor
-    public MenuItem(String name, String description, Category category, double price, Boolean active) {
+    public MenuItem(String name, String description, Category category, Boolean active) {
         setID(count++);
         setName(name);
         setDescription(description);
         setCategory(category);
-        setPrice(price);
         setActive(active);
     }
 
@@ -62,12 +60,6 @@ public class MenuItem {
      * @return the category of this menu item
      */
     public Category getCategory() { return category; }
-
-    /**
-     * Returns the price of this menu item.
-     * @return the price of this menu item
-     */
-    public double getPrice() { return price; }
 
     /**
      * Returns {@true} if this menu item is active; otherwise, {@false}
@@ -112,14 +104,6 @@ public class MenuItem {
      */
     public void setCategory(Category category) {
         if (category != null) { this.category = category; }
-    }
-
-    /**
-     * Sets the price of this menu item.
-     * @param price the price to set to
-     */
-    public void setPrice(double price) {
-        this.price = (ValidationUtils.isValidPrice(price)) ? price : RestaurantConfig.getInstance().getMinPrice();
     }
 
     /**

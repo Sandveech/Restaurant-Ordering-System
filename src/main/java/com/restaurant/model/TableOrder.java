@@ -114,14 +114,16 @@ public class TableOrder implements Displayable {
     /**
      * Returns {@true} if the specified item of the specified quantity can be ordered; otherwise, {@false}
      * @param item the item to order
+     * @param size the size label of of item
      * @param quantity the quanity of the order
      * @return {@true} if the specified item of the specified quantity can be ordered; otherwise, {@false}
      */
-    private Boolean canOrder(MenuItem item, int quantity) {
+    private Boolean canOrder(MenuItem item, int quantity, String size) {
         if (quantity <= 0) { return false; }
         if (getOrderQuantities() + quantity > RestaurantConfig.getInstance().getMaxOrders()) { return false; }
         if (item == null) { return false; }
         if (!item.isActive()) { return false; }
+        if (item.indexOfPriceOption(size) == -1) { return false; }
 
         return true;
     }
@@ -156,7 +158,7 @@ public class TableOrder implements Displayable {
      * @return {@true} if the order was successfully added; otherwise, {@false}
      */
     public Boolean addOrder(MenuItem item, int quantity, String size) {
-        if (canOrder(item, quantity)) {
+        if (canOrder(item, quantity, size)) {
             int order_index = searchOrder(item, size);
             
             if (order_index != -1) {
@@ -184,7 +186,7 @@ public class TableOrder implements Displayable {
     public Boolean removeOrder(MenuItem item, int quantity, String size) {
         if (orders.isEmpty()) { return false; }
 
-        if (canOrder(item, quantity)) {
+        if (canOrder(item, quantity, size)) {
             int order_index = searchOrder(item, size);
 
             if (order_index != -1) { return false; }
@@ -203,6 +205,10 @@ public class TableOrder implements Displayable {
         return false;
     }
 
+    /**
+     * Calculates the total price of all orders in this table order and returns it.
+     * @return the total price of all orders in this table order
+     */
     public double calculateTotalPrice() {
         double total = 0;
         for (OrderItem o : orders) {
