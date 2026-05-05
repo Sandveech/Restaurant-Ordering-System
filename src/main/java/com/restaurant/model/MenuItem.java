@@ -27,7 +27,7 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Description: %s, Category: %s, Price: $%.2f, Active: %b", name, description, getCategory().getName(), price, active);
+        return String.format("Name: %s, Description: %s, Category: %s, Active: %b", name, description, getCategory().getName(), active);
     }
 
     // getters and setters
