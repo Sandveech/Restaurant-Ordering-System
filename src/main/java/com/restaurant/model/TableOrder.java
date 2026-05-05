@@ -11,10 +11,8 @@ public class TableOrder {
     private static int count = 0;
     private int id;
     private ArrayList<OrderItem> orders = new ArrayList<OrderItem>();
-    private int order_count;
     private Employee waiter;
     private Table table;
-    private Receipt receipt;
     private Boolean complete = false;
 
     // constructor
@@ -49,12 +47,6 @@ public class TableOrder {
     public ArrayList<OrderItem> getOrders() { return orders; }
 
     /**
-     * Returns the total order count of this table order.
-     * @return the total order count of this table order
-     */
-    private int getOrderCount() { return order_count; }
-
-    /**
      * Returns the waiter who took the order of this table.
      * @return the waiter who took the order of this table
      */
@@ -67,16 +59,24 @@ public class TableOrder {
     public Table getTable() { return table; }
 
     /**
-     * Returns the receipt of this table order.
-     * @return the receipt of this table order
-     */
-    public Receipt getReceipt() { return receipt; }
-
-    /**
      * Returns {@true} if this table order is complete; otherwise, {@false}.
      * @return {@true} if this table order is complete; otherwise, {@false}
      */
     public Boolean isComplete() { return complete; }
+
+    /**
+     * Returns the total quantity of every order in this orders list
+     * @param id
+     */
+    public int getOrderQuantities() {
+        int count = 0;
+        for (OrderItem o : orders) {
+            if (o == null) { continue; }
+            count += o.getQuantity();
+        }
+
+        return count;
+    }
 
     /**
     * Sets the ID of this table order.
@@ -84,14 +84,6 @@ public class TableOrder {
     */
     private void setID(int id) {
         this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
-    }
-
-    /**
-     * Sets the order count of this table order.
-     * @param n the order count to set to
-     */
-    private void setOrderCount(int n) {
-        this.order_count = (n >= 0) ? n : 0;
     }
 
     /**
@@ -111,15 +103,6 @@ public class TableOrder {
     }
 
     /**
-     * Sets the receipt of this table order.
-     * @param receipt the receipt to set to
-     */
-    private void setReceipt(Receipt receipt) {
-        if (receipt != null) { this.receipt = receipt; }
-    }
-
-
-    /**
      * Sets the completion status of this table order.
      * @param complete {@true} if this table order is complete; otherwise, {@false}
      */
@@ -136,7 +119,7 @@ public class TableOrder {
      */
     private Boolean canOrder(MenuItem item, int quantity) {
         if (quantity <= 0) { return false; }
-        if (order_count + quantity > RestaurantConfig.getInstance().getMaxOrders()) { return false; }
+        if (getOrderQuantities() + quantity > RestaurantConfig.getInstance().getMaxOrders()) { return false; }
         if (item == null) { return false; }
         if (!item.isActive()) { return false; }
 
@@ -185,7 +168,6 @@ public class TableOrder {
                 orders.add(order);
             }
 
-            order_count += quantity;
             return true;
         }
 
@@ -229,20 +211,5 @@ public class TableOrder {
             OrderItem o = orders.get(i);
             System.out.println(String.format("%d. %s | $%.2f", i + 1, o, o.calculateTotalPrice()));
         }
-    }
-
-    /**
-     * Completes the order of this table order and returns a receipt
-     * @return the new receipt
-     */
-    public Receipt completeOrder() {
-        if (!isComplete()) {
-            Receipt receipt = new Receipt(this, table, waiter, RestaurantConfig.getInstance().getTaxPercentage());
-            setReceipt(receipt);
-            setComplete(true);
-            return receipt;
-        }
-
-        return this.receipt;
     }
 }

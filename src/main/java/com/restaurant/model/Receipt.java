@@ -11,17 +11,15 @@ public class Receipt {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
-    private Table table;
     private Employee cashier;
     private LocalDateTime issued_at;
     private double tax_percentage;
     private double total_price;
 
     // constructor
-    public Receipt(TableOrder table_order, Table table, Employee cashier, double tax_percentage) {
+    public Receipt(TableOrder table_order, Employee cashier, double tax_percentage) {
         setID(count++);
         setTableOrder(table_order);
-        setTable(table);
         setCashier(cashier);
         setIssuedAt(LocalDateTime.now());
         setTaxPercentage(tax_percentage);
@@ -30,13 +28,12 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Table Order: %p, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getTableOrder(), getTable().getNumber(), getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
+        return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
     }
 
     // getters and setters
     private int getID() { return id; }
     private TableOrder getTableOrder() { return table_order; }
-    private Table getTable() { return table; }
     private Employee getCashier() { return cashier; }
     private LocalDateTime getIssuedAt() { return issued_at; }
     public double getTaxPercentage() { return tax_percentage; }
@@ -51,10 +48,6 @@ public class Receipt {
 
     private void setTableOrder(TableOrder table_order) {
         if (table_order != null) { this.table_order = table_order; }
-    }
-
-    private void setTable(Table table) {
-        if (table != null) { this.table = table; }
     }
 
     private void setCashier(Employee cashier) {
@@ -98,6 +91,7 @@ public class Receipt {
         System.out.println("Phone Number: " + restaurant.getPhoneNumber());
         System.out.println("Date: " + getFormattedDateTime());
         System.out.println("Cashier: " + getCashier().getFullName());
+        System.out.println("Table: #" + getTableOrder().getTable().getNumber());
         System.out.println("===ITEMS===");
         getTableOrder().displayOrders();
         System.out.println("===TOTAL===");

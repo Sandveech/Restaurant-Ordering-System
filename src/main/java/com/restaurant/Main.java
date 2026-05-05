@@ -48,7 +48,7 @@ public class Main {
         table_order.addOrder(menu_items.get(0), 3, "small");
         table_order.addOrder(menu_items.get(0), 1, "medium");
 
-        Receipt receipt = table_order.completeOrder();
+        Receipt receipt = new Receipt(table_order, employees.get(0), RestaurantConfig.getInstance().getTaxPercentage());
 
         receipt.displayInfo();
     }
