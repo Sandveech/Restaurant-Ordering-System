@@ -28,6 +28,14 @@ public class Main {
         menu_items.add(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", categories.get("main_course"), 5, true));
         menu_items.add(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", categories.get("main_course"), 6, true));
 
+        menu_items.get(0).createPriceOption("S", 5);
+        menu_items.get(0).createPriceOption("M", 7.5);
+        menu_items.get(0).createPriceOption("L", 10);
+
+        menu_items.get(1).createPriceOption("S", 6);
+        menu_items.get(1).createPriceOption("M", 9);
+        menu_items.get(1).createPriceOption("L", 12);
+
         // tables
         ArrayList<Table> tables = new ArrayList<Table>();
         tables.add(new Table(4));
@@ -47,6 +55,7 @@ public class Main {
         table_order.addOrder(menu_items.get(1), 1, "S");
         table_order.addOrder(menu_items.get(0), 3, "S");
         table_order.addOrder(menu_items.get(0), 1, "M");
+        table_order.addOrder(menu_items.get(1), 3, "L");
 
         Receipt receipt = new Receipt(table_order, employees.get(0), RestaurantConfig.getInstance().getTaxPercentage());
 

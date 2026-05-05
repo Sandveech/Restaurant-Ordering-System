@@ -1,5 +1,7 @@
 package src.main.java.com.restaurant.model;
 
+import java.util.ArrayList;
+
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
@@ -13,6 +15,7 @@ public class MenuItem {
     private Category category;
     private double price;
     private Boolean active;
+    private ArrayList<ItemPriceOption> price_options = new ArrayList<ItemPriceOption>();
 
     // constructor
     public MenuItem(String name, String description, Category category, double price, Boolean active) {
@@ -73,6 +76,12 @@ public class MenuItem {
     public Boolean isActive() { return active; }
 
     /**
+     * Returns the list of item price options.
+     * @return the list of item price options
+     */
+    public ArrayList<ItemPriceOption> getItemPriceOption() { return this.price_options; }
+
+    /**
      * Sets the id of this menu item.
      * @param id the id to set to
      */
@@ -119,5 +128,38 @@ public class MenuItem {
      */
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    /**
+     * Returns the index of the price option via label.
+     * @param label the label to search for
+     * @return the index of the price option
+     */
+    public int indexOfPriceOption(String label) {
+        for (int i = 0; i < price_options.size(); i++) {
+            ItemPriceOption po = price_options.get(i);
+            if (po == null) { continue; }
+            if (po.getLabel() == label) { return i; }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Creates a new price option for this menu item. Returns {@true} if the price option was successfully created; otherwise, {@false}.
+     * @param label the label of the price option
+     * @param price the price of the price option 
+     * @return {@true} if the price option was successfully created; otherwise, {@false}
+     */
+    public Boolean createPriceOption(String label, double price) {
+        if (!ValidationUtils.isValidText(label)) { return false; }
+        
+        Boolean optionExists = indexOfPriceOption(label) != -1;
+        if (!optionExists) {
+            price_options.add(new ItemPriceOption(label, price));
+            return true;
+        }
+
+        return false;
     }
 }
