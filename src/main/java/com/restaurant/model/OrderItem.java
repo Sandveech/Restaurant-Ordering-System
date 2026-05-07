@@ -1,16 +1,17 @@
 package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class OrderItem implements Calculatable {
+public class OrderItem implements Displayable, Calculatable {
     // fields
     private static int count = 0;
     private int id;
     private MenuItem item;
     private int quantity;
     private String size;
-    private double subtotal;
+    private double unit_price;
 
     // constructor
     public OrderItem(MenuItem item, int quantity, String size) {
@@ -18,7 +19,9 @@ public class OrderItem implements Calculatable {
         setItem(item);
         setQuantity(quantity);
         setSize(size);
-        setSubtotal(calculatePrice());
+
+        if (item != null) { setUnitPrice(item.priceOfSize(size)); }
+        else { setUnitPrice(RestaurantConfig.getInstance().getMinPrice()); }
     }
 
     @Override
@@ -58,10 +61,10 @@ public class OrderItem implements Calculatable {
     public String getSize() { return size; }
 
     /**
-     * Returns the subtotal of this order item.
-     * @return the subtotal of this order item
+     * Returns the unit price of this order item.
+     * @return the unit price of this order item
      */
-    public double getSubtotal() { return subtotal; }
+    public double getUnitPrice() { return unit_price; }
 
     /**
      * Sets the id of this order item.
@@ -96,32 +99,53 @@ public class OrderItem implements Calculatable {
     }
 
     /**
-     * Sets the subtotal of this order item
-     * @param subtotal the subtotal to set to
+     * Sets the unit price of this order item.
+     * @param price the unit price to set to
      */
-    private void setSubtotal(double subtotal) {
-        this.subtotal = (subtotal < 0) ? 0 : subtotal;
+    private void setUnitPrice(double price) {
+        this.unit_price = (price < 0) ? RestaurantConfig.getInstance().getMinPrice() : price;
     }
 
     /**
-     * Calculates and returns the total price of this order item.
-     * @return the total price of this order item
+     * Calculates and returns the subtotal price of this order item.
+     * @return the subtotal price of this order item
      */
-    public double calculatePrice() {
+    public double calculateSubtotalPrice() {
         if (item == null) { return 0; }
-
-        int price_index = item.indexOfPriceOption(size);
-        if (price_index == -1) { return 0; }
-        
-        return item.getItemPriceOption().get(price_index).getPrice() * quantity;
+        return item.priceOfSize(size) * quantity;
     }
 
     /**
-     * Updates the quantity and subtotal of this order item.
-     * @param count the quantity to update to
+     * Calculates and returns the tax amount of this order item with the specified tax percentage.
+     * @param tax_percentage the tax percentage to calculate with
+     * @return the tax amount of this order item with the specified tax percentage
      */
-    public void updateQuantity(int count) {
-        setQuantity(count);
-        setSubtotal(calculatePrice());
+    public double calculateTaxAmount(double tax_percentage) {
+        return calculateTotalPrice() * (tax_percentage / 100);
+    }
+
+    /**
+     * Calculates and returns the total price of this order item with the specified tax percentage.
+     * @param tax_percentage the tax percentage to calculate with
+     * @return the total price of this order item with the specified tax percentage
+     */
+    public double calculateTotalPrice(double tax_percentage) {
+        double total = calculateSubtotalPrice();
+        return total + (total * (tax_percentage / 100));
+    }
+
+    /**
+     * Displays this order item
+     */
+    public void display() {
+        String name = "Unknown Item";
+        double unit_price = 0;
+
+        if (item != null) {
+            name = item.getName();
+            unit_price = item.priceOfSize(size);
+        }
+
+        System.out.println(String.format("Name: %s, Size: %s, Unit Price: %.2f", name, size, unit_price));
     }
 }

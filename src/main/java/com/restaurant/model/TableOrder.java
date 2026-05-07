@@ -123,7 +123,7 @@ public class TableOrder implements Displayable, Calculatable {
         if (getOrderQuantities() + quantity > RestaurantConfig.getInstance().getMaxOrders()) { return false; }
         if (item == null) { return false; }
         if (!item.isActive()) { return false; }
-        if (item.indexOfPriceOption(size) == -1) { return false; }
+        if (!item.priceOptionExists(size)) { return false; }
 
         return true;
     }
@@ -163,7 +163,7 @@ public class TableOrder implements Displayable, Calculatable {
             
             if (order_index != -1) {
                 OrderItem order = orders.get(order_index);
-                order.updateQuantity(order.getQuantity() + quantity);
+                order.setQuantity(order.getQuantity() + quantity);
             }
             else {
                 OrderItem order = new OrderItem(item, quantity, size);
@@ -206,17 +206,36 @@ public class TableOrder implements Displayable, Calculatable {
     }
 
     /**
-     * Calculates the total price of all orders in this table order and returns it.
-     * @return the total price of all orders in this table order
+     * Calculates and returns the subtotal price
+     * @return the subtotal price
      */
-    public double calculatePrice() {
-        double total = 0;
+    public double calculateSubtotalPrice() {
+        double subtotal = 0;
         for (OrderItem o : orders) {
             if (o == null) { continue; }
-            total += o.getSubtotal();
+            subtotal += o.calculateSubtotalPrice();
         }
 
-        return total;
+        return subtotal;
+    }
+
+    /**
+     * Calculates and returns the tax amount of this order item with the specified tax percentage.
+     * @param tax_percentage the tax percentage to calculate with
+     * @return the tax amount of this order item with the specified tax percentage
+     */
+    public double calculateTaxAmount(double tax_percentage) {
+        return calculateSubtotalPrice() * (tax_percentage / 100);
+    }
+    
+    /**
+     * Calculates and returns the total price of this order item with the specified tax percentage.
+     * @param tax_percentage the tax percentage to calculate with
+     * @return the total price of this order item with the specified tax percentage
+     */
+    public double calculateTotalPrice(double tax_percentage) {
+        double total = calculateSubtotalPrice();
+        return total + (total * (tax_percentage / 100))
     }
 
     /**
@@ -229,7 +248,7 @@ public class TableOrder implements Displayable, Calculatable {
 
             String item_name = (o.getItem() != null) ? o.getItem().getName() : "Unknown item";
 
-            System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.getSubtotal()));
+            System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.calculateSubtotalPrice()));
         }
     }
 }

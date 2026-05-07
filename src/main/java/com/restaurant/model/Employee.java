@@ -3,7 +3,7 @@ package src.main.java.com.restaurant.model;
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Employee extends Person {
+public class Employee extends Person implements Displayable {
     // fields
     private static int count = 1;
     private int id;
@@ -56,5 +56,13 @@ public class Employee extends Person {
     public void setJobRole(JobRole job_role) {
         if (job_role != null) { this.job_role = job_role; }
     }
-    
+
+    /**
+     * Displays this employee.
+     */
+    public void display() {
+        String title = (job_role != null) ? job_role.getTitle() : "Unknown title";
+
+        System.out.println(String.format("Full Name: %s, Job Title: %s, Email: %s, Phone Number: %s", getFullName(), title, getEmail(), getPhoneNumber()));
+    }
 }

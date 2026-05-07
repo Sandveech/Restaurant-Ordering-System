@@ -7,13 +7,15 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Receipt implements Displayable {
+public class Receipt implements Printable {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
     private Employee cashier;
     private LocalDateTime issued_at;
+    private double subtotal_price;
     private double tax_percentage;
+    private double tax_amount;
     private double total_price;
 
     // constructor
@@ -24,8 +26,9 @@ public class Receipt implements Displayable {
         setIssuedAt(LocalDateTime.now());
         setTaxPercentage(tax_percentage);
 
-        if (table_order != null) { setTotalPrice(table_order.calculatePrice()); }
-        else { setTotalPrice(0); }
+        setSubtotalPrice(calculateSubtotalPrice());
+        setTaxAmount(calculateTaxAmount(tax_percentage));
+        setTotalPrice(calculateTotalPrice());
     }
 
     @Override
@@ -59,10 +62,22 @@ public class Receipt implements Displayable {
     private LocalDateTime getIssuedAt() { return issued_at; }
 
     /**
+     * Returns the subtotal price of this receipt.
+     * @return the subtotal price of this receipt
+     */
+    public double getSubtotalPrice() { return subtotal_price; }
+
+    /**
      * Returns the tax percentage of this receipt.
      * @return the tax percentage of this receipt
      */
     public double getTaxPercentage() { return tax_percentage; }
+
+    /**
+     * Returns the tax amount of this receipt.
+     * @return the tax amount of this receipt
+     */
+    public double getTaxAmount() { return tax_amount; }
 
     /**
      * Returns the total price of this receipt.
@@ -121,11 +136,27 @@ public class Receipt implements Displayable {
     }
 
     /**
+     * Sets the subtotal price of this receipt.
+     * @param subtotal_price the subtotal price to set to
+     */
+    private void setSubtotalPrice(double subtotal_price) {
+        this.subtotal_price = (subtotal_price < 0) ? 0 : subtotal_price;
+    }
+
+    /**
      * Sets the tax percentage of this receipt.
      * @param percentage the tax percentage to set to
      */
     private void setTaxPercentage(double percentage) {
-        this.tax_percentage = (percentage >= 0) ? percentage : 0;
+        this.tax_percentage = (percentage < 0) ? 0 : percentage;
+    }
+
+    /**
+     * Sets the tax amount of this receipt.
+     * @param amount the tax amount to set to
+     */
+    private void setTaxAmount(double amount) {
+        this.tax_amount = (amount < 0) ? 0 : amount;
     }
 
     /**
@@ -133,16 +164,20 @@ public class Receipt implements Displayable {
      * @param price the total price to set to
      */
     private void setTotalPrice(double price) {
-        this.total_price = (price >= 0) ? price : 0;
+        this.total_price = (price < 0) ? 0 : price;
     }
 
     // helper functions
-    /**
-     * Calculates and returns the total price of this receipt with tax.
-     * @return the total price of this receipt with tax
-     */
-    private double applyTax() {
-        return total_price + (total_price * (tax_percentage / 100));
+    private double calculateSubtotalPrice() {
+        return (table_order != null) ? table_order.calculateSubtotalPrice() : 0;
+    }
+
+    private double calculateTaxAmount(double tax_percentage) {
+        return calculateTotalPrice() * (tax_percentage / 100);
+    }
+
+    private double calculateTotalPrice() {
+        return subtotal_price + tax_amount;
     }
 
     public void displaySeperator(String symbol, int width) {
@@ -151,14 +186,14 @@ public class Receipt implements Displayable {
         System.out.println();
     }
 
-    public void display() {
-        displayHeader();
-        displayOrderDetails();
-        displayTotals();
-        displayFooter();
+    public void print() {
+        printHeader();
+        printOrderDetails();
+        printTotals();
+        printFooter();
     }
 
-    private void displayHeader() {
+    private void printHeader() {
         RestaurantConfig config = RestaurantConfig.getInstance();
         System.out.println(config.getName());
         System.out.println(config.getAddress());
@@ -172,19 +207,20 @@ public class Receipt implements Displayable {
         displaySeperator("-", 48);
     }
 
-    private void displayOrderDetails() {
+    private void printOrderDetails() {
         System.out.printf("%-32s %-8s%n", "DESC", "QTY");
         if (table_order != null) { table_order.display(); }
     }
 
-    private void displayTotals() {
+    private void printTotals() {
         displaySeperator("-", 48);
-        System.out.printf("Subtotal %39.2f%n", total_price);
-        System.out.printf("Total (%2.0f%% VAT) %32.2f%n", getTaxPercentage(), applyTax());
+        System.out.printf("Subtotal %39.2f%n", subtotal_price);
+        System.out.printf("%2.0f%% VAT %40.2f%n", tax_percentage, tax_amount);
         displaySeperator("-", 48);
     }
 
-    private void displayFooter() {
+    private void printFooter() {
+        System.out.printf("Total %42.2f%n", total_price);
         System.out.println("\n" + RestaurantConfig.getInstance().getReceiptMessage());
     }
     }

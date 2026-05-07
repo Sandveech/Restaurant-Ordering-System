@@ -33,6 +33,6 @@ public class Main {
 
         Receipt receipt = new Receipt(table_order, employees.get(0), RestaurantConfig.getInstance().getTaxPercentage());
 
-        receipt.display();
+        receipt.print();
     }
 }

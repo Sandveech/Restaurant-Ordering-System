@@ -3,7 +3,7 @@ package src.main.java.com.restaurant.model;
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Table {
+public class Table implements Displayable, Reservable {
     private static int count = 0;
     private int id;
     private int seat_count;
@@ -87,5 +87,12 @@ public class Table {
      */
     public void cancelReservation() {
         this.reserved = false;
+    }
+
+    /**
+     * Displays this table.
+     */
+    public void display() {
+        System.out.println(String.format("Table: #%d, Seat Count: %d, Reserved?: %b", getNumber(), seat_count, reserved));
     }
 }
