@@ -7,7 +7,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Receipt implements Printable , Calculatable {
+public class Receipt implements Printable, Calculatable {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
@@ -168,15 +168,15 @@ public class Receipt implements Printable , Calculatable {
     }
 
     // helper functions
-    private double calculateSubtotalPrice() {
+    public double calculateSubtotalPrice() {
         return (table_order != null) ? table_order.calculateSubtotalPrice() : 0;
     }
 
-    private double calculateTaxAmount(double tax_percentage) {
+    public double calculateTaxAmount(double tax_percentage) {
         return calculateTotalPrice() * (tax_percentage / 100);
     }
 
-    private double calculateTotalPrice() {
+    public double calculateTotalPrice() {
         return subtotal_price + tax_amount;
     }
 
