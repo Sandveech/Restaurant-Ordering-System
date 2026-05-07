@@ -7,7 +7,7 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Receipt implements Printable {
+public class Receipt implements Printable , Calculatable {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
