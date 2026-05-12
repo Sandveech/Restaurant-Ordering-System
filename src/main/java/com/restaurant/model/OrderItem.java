@@ -110,28 +110,9 @@ public class OrderItem implements Displayable, Calculatable {
      * Calculates and returns the subtotal price of this order item.
      * @return the subtotal price of this order item
      */
-    public double calculateSubtotalPrice() {
+    public double calculate() {
         if (item == null) { return 0; }
         return item.priceOfSize(size) * quantity;
-    }
-
-    /**
-     * Calculates and returns the tax amount of this order item with the specified tax percentage.
-     * @param tax_percentage the tax percentage to calculate with
-     * @return the tax amount of this order item with the specified tax percentage
-     */
-    public double calculateTaxAmount(double tax_percentage) {
-        return calculateTotalPrice() * (tax_percentage / 100);
-    }
-
-    /**
-     * Calculates and returns the total price of this order item with the specified tax percentage.
-     * @param tax_percentage the tax percentage to calculate with
-     * @return the total price of this order item with the specified tax percentage
-     */
-    public double calculateTotalPrice(double tax_percentage) {
-        double total = calculateSubtotalPrice();
-        return total + (total * (tax_percentage / 100));
     }
 
     /**

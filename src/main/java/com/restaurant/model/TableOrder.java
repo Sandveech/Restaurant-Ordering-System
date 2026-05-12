@@ -209,33 +209,14 @@ public class TableOrder implements Displayable, Calculatable {
      * Calculates and returns the subtotal price
      * @return the subtotal price
      */
-    public double calculateSubtotalPrice() {
+    public double calculate() {
         double subtotal = 0;
         for (OrderItem o : orders) {
             if (o == null) { continue; }
-            subtotal += o.calculateSubtotalPrice();
+            subtotal += o.calculate();
         }
 
         return subtotal;
-    }
-
-    /**
-     * Calculates and returns the tax amount of this order item with the specified tax percentage.
-     * @param tax_percentage the tax percentage to calculate with
-     * @return the tax amount of this order item with the specified tax percentage
-     */
-    public double calculateTaxAmount(double tax_percentage) {
-        return calculateSubtotalPrice() * (tax_percentage / 100);
-    }
-    
-    /**
-     * Calculates and returns the total price of this order item with the specified tax percentage.
-     * @param tax_percentage the tax percentage to calculate with
-     * @return the total price of this order item with the specified tax percentage
-     */
-    public double calculateTotalPrice(double tax_percentage) {
-        double total = calculateSubtotalPrice();
-        return total + (total * (tax_percentage / 100))
     }
 
     /**
@@ -248,7 +229,7 @@ public class TableOrder implements Displayable, Calculatable {
 
             String item_name = (o.getItem() != null) ? o.getItem().getName() : "Unknown item";
 
-            System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.calculateSubtotalPrice()));
+            System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.calculate()));
         }
     }
 }

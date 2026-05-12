@@ -16,7 +16,6 @@ public class Receipt implements Printable, Calculatable {
     private double subtotal_price;
     private double tax_percentage;
     private double tax_amount;
-    private double total_price;
 
     // constructor
     public Receipt(TableOrder table_order, Employee cashier, double tax_percentage) {
@@ -28,12 +27,11 @@ public class Receipt implements Printable, Calculatable {
 
         setSubtotalPrice(calculateSubtotalPrice());
         setTaxAmount(calculateTaxAmount(tax_percentage));
-        setTotalPrice(calculateTotalPrice());
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), tax_percentage, total_price);
+        return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), tax_percentage, calculate());
     }
 
     // getters and setters
@@ -78,12 +76,6 @@ public class Receipt implements Printable, Calculatable {
      * @return the tax amount of this receipt
      */
     public double getTaxAmount() { return tax_amount; }
-
-    /**
-     * Returns the total price of this receipt.
-     * @return the total price of this receipt
-     */
-    public double getTotalPrice() { return total_price; }
 
     /**
      * Returns the issued date of this receipt as a formatted string.
@@ -159,25 +151,17 @@ public class Receipt implements Printable, Calculatable {
         this.tax_amount = (amount < 0) ? 0 : amount;
     }
 
-    /**
-     * Sets the total price of this receipt.
-     * @param price the total price to set to
-     */
-    private void setTotalPrice(double price) {
-        this.total_price = (price < 0) ? 0 : price;
-    }
-
     // helper functions
-    public double calculateSubtotalPrice() {
-        return (table_order != null) ? table_order.calculateSubtotalPrice() : 0;
-    }
-
-    public double calculateTaxAmount(double tax_percentage) {
-        return calculateTotalPrice() * (tax_percentage / 100);
-    }
-
-    public double calculateTotalPrice() {
+    public double calculate() {
         return subtotal_price + tax_amount;
+    }
+
+    private double calculateSubtotalPrice() {
+        return (table_order != null) ? table_order.calculate() : 0;
+    }
+
+    private double calculateTaxAmount(double tax_percentage) {
+        return (calculateSubtotalPrice()) * (tax_percentage / 100);
     }
 
     public void displaySeperator(String symbol, int width) {
@@ -220,7 +204,7 @@ public class Receipt implements Printable, Calculatable {
     }
 
     private void printFooter() {
-        System.out.printf("Total %42.2f%n", total_price);
+        System.out.printf("Total %42.2f%n", calculate());
         System.out.println("\n" + RestaurantConfig.getInstance().getReceiptMessage());
     }
     }
