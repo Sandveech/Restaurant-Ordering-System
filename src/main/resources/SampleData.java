@@ -3,11 +3,14 @@ package src.main.resources;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import src.main.java.com.restaurant.model.Cashier;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
 import src.main.java.com.restaurant.model.JobRole;
+import src.main.java.com.restaurant.model.Manager;
 import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.model.Table;
+import src.main.java.com.restaurant.model.Waiter;
 
 public class SampleData {
     public static HashMap<String, Category> getCategories() {
@@ -51,23 +54,12 @@ public class SampleData {
         return tables;
     }
 
-    public static HashMap<String, JobRole> getJobRoles() {
-        HashMap<String, JobRole> roles = new HashMap<String, JobRole>();
-
-        roles.put("waiter", new JobRole("Waiter"));
-        roles.put("cashier", new JobRole("Cashier"));
-        roles.put("chef", new JobRole("Chef"));
-
-        return roles;
-    }
-
     public static ArrayList<Employee> getEmployees() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
-        HashMap<String, JobRole> roles = getJobRoles();
 
-        employees.add(new Employee("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", roles.get("waiter")));
-        employees.add(new Employee("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", roles.get("cashier")));
-        employees.add(new Employee("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512", roles.get("chef")));
+        employees.add(new Waiter("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789"));
+        employees.add(new Cashier("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321"));
+        employees.add(new Manager("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512"));
 
         return employees;
     }

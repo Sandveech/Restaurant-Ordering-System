@@ -7,18 +7,16 @@ public class Employee extends Person implements Displayable {
     // fields
     private static int count = 1;
     private int id;
-    private JobRole job_role;
 
     // constructor
-    public Employee(String first_name, String last_name, String gender, String email, String phone_number, JobRole job_role) {
+    public Employee(String first_name, String last_name, String gender, String email, String phone_number) {
         super(first_name, last_name, gender, email, phone_number);
         setID(count++);
-        setJobRole(job_role);
     }
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s, Job Role: %s", getFullName(), getGender(), getEmail(), getPhoneNumber(), getJobRole().getTitle());
+        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s, Job Role: %s", getFullName(), getGender(), getEmail(), getPhoneNumber());
     }
 
     // getters and setters
@@ -34,13 +32,6 @@ public class Employee extends Person implements Displayable {
      */
     private int getID() { return id; }
 
-
-    /**
-     * Returns the job role of this employee.
-     * @return the job role of this employee
-     */
-    public JobRole getJobRole() { return job_role; }
-
     /**
      * Sets the id of this employee.
      * @param id the id to set to
@@ -50,19 +41,9 @@ public class Employee extends Person implements Displayable {
     }
 
     /**
-     * Sets the job role of this employee.
-     * @param job_role the job role to set to
-     */
-    public void setJobRole(JobRole job_role) {
-        if (job_role != null) { this.job_role = job_role; }
-    }
-
-    /**
      * Displays this employee.
      */
     public void display() {
-        String title = (job_role != null) ? job_role.getTitle() : "Unknown title";
-
-        System.out.println(String.format("Full Name: %s, Job Title: %s, Email: %s, Phone Number: %s", getFullName(), title, getEmail(), getPhoneNumber()));
+        System.out.println(String.format("Full Name: %s, Job Title: %s, Email: %s, Phone Number: %s", getFullName(), getEmail(), getPhoneNumber()));
     }
 }

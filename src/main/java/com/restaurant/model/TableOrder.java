@@ -11,12 +11,12 @@ public class TableOrder implements Displayable, Calculatable {
     private static int count = 0;
     private int id;
     private ArrayList<OrderItem> orders = new ArrayList<OrderItem>();
-    private Employee waiter;
+    private Waiter waiter;
     private Table table;
     private Boolean complete = false;
 
     // constructor
-    public TableOrder(Employee waiter, Table table) {
+    public TableOrder(Waiter waiter, Table table) {
         setID(count++);
         setWaiter(waiter);
         setTable(table);
@@ -50,7 +50,7 @@ public class TableOrder implements Displayable, Calculatable {
      * Returns the waiter who took the order of this table.
      * @return the waiter who took the order of this table
      */
-    public Employee getWaiter() { return waiter; }
+    public Waiter getWaiter() { return waiter; }
     
     /**
      * Returns the table of this table order.
@@ -90,7 +90,7 @@ public class TableOrder implements Displayable, Calculatable {
      * Sets the waiter of this table order.
      * @param waiter the watieer to set to
      */
-    public void setWaiter(Employee waiter) {
+    public void setWaiter(Waiter waiter) {
         if (waiter != null) { this.waiter = waiter; }
     }
 

@@ -11,14 +11,14 @@ public class Receipt implements Printable, Calculatable {
     private static int count = 0;
     private int id;
     private TableOrder table_order;
-    private Employee cashier;
+    private Cashier cashier;
     private LocalDateTime issued_at;
     private double subtotal_price;
     private double tax_percentage;
     private double tax_amount;
 
     // constructor
-    public Receipt(TableOrder table_order, Employee cashier, double tax_percentage) {
+    public Receipt(TableOrder table_order, Cashier cashier, double tax_percentage) {
         setID(count++);
         setTableOrder(table_order);
         setCashier(cashier);
@@ -51,7 +51,7 @@ public class Receipt implements Printable, Calculatable {
      * Returns the cashier of this receipt.
      * @return the cashier of this receipt
      */
-    private Employee getCashier() { return cashier; }
+    private Cashier getCashier() { return cashier; }
 
     /**
      * Returns the date this receipt was issued at.
@@ -115,7 +115,7 @@ public class Receipt implements Printable, Calculatable {
      * Sets the cashier of this receipt.
      * @param cashier the cashier of this receipt
      */
-    private void setCashier(Employee cashier) {
+    private void setCashier(Cashier cashier) {
         if (cashier != null) { this.cashier = cashier; }
     }
 
