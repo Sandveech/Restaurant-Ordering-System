@@ -16,7 +16,7 @@ public class Employee extends Person implements Displayable {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s, Job Role: %s", getFullName(), getGender(), getEmail(), getPhoneNumber());
+        return String.format("Name: %s, Gender: %s, Email: %s, Phone Number: %s", getFullName(), getGender(), getEmail(), getPhoneNumber());
     }
 
     // getters and setters
@@ -44,6 +44,6 @@ public class Employee extends Person implements Displayable {
      * Displays this employee.
      */
     public void display() {
-        System.out.println(String.format("Full Name: %s, Job Title: %s, Email: %s, Phone Number: %s", getFullName(), getEmail(), getPhoneNumber()));
+        System.out.println(String.format("Full Name: %s, Email: %s, Phone Number: %s", getFullName(), getEmail(), getPhoneNumber()));
     }
 }
