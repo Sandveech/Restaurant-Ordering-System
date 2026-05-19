@@ -6,7 +6,7 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class ItemPriceOption {
     // fields
-    private static int count = 0;
+    private static int item_price_option_count = 0;
     private int id;
     private String label;
     private double price;
@@ -14,7 +14,7 @@ public class ItemPriceOption {
 
     // constructor
     public ItemPriceOption(String label, double price) {
-        setID(count++);
+        setID(item_price_option_count++);
         setLabel(label);
         setPrice(price);
     }
@@ -24,7 +24,7 @@ public class ItemPriceOption {
      * Returns the historical count of item price option.
      * @return the historical count of item price option
      */
-    private int getCount() { return count; }
+    private static int getItemPriceOptionCount() { return item_price_option_count; }
 
     /**
      * Returns the label of this item price option.

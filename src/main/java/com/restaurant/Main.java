@@ -25,16 +25,17 @@ public class Main {
         ArrayList<Employee> employees = SampleData.getEmployees();
 
         Waiter waiter = (Waiter) employees.getFirst();
-        TableOrder table_order = new TableOrder(waiter, tables.getFirst());
+        TableOrder table_order = waiter.createTableOrder(tables.getFirst());
         table_order.addOrder(menu.get(0), 1, "S");
         table_order.addOrder(menu.get(1), 1, "S");
         table_order.addOrder(menu.get(0), 3, "S");
         table_order.addOrder(menu.get(0), 1, "M");
         table_order.addOrder(menu.get(1), 3, "L");
+        table_order.complete();
 
         Cashier cashier = (Cashier) employees.get(1);
-        Receipt receipt = new Receipt(table_order, cashier, RestaurantConfig.getInstance().getTaxPercentage());
+        Receipt receipt = cashier.generateReceipt(table_order, RestaurantConfig.getInstance().getTaxPercentage(), "Cash");
 
-        receipt.print();
+        if (receipt != null) { receipt.print(); }
     }
 }

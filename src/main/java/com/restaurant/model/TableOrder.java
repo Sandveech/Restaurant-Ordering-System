@@ -6,18 +6,16 @@ import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class TableOrder implements Displayable, Calculatable {
-    // fields
-    private static int count = 0;
+public class TableOrder implements Displayable, Calculatable, Completable {
+    private static int table_order_count = 0;
     private int id;
     private ArrayList<OrderItem> orders = new ArrayList<OrderItem>();
     private Waiter waiter;
     private Table table;
-    private Boolean complete = false;
+    private Boolean completed = false;
 
-    // constructor
     public TableOrder(Waiter waiter, Table table) {
-        setID(count++);
+        setID(table_order_count++);
         setWaiter(waiter);
         setTable(table);
     }
@@ -32,7 +30,7 @@ public class TableOrder implements Displayable, Calculatable {
      * Returns the historical count of table orders.
      * @return the historical count of table orders
      */
-    private int getCount() { return count; }
+    private int getTableOrderCount() { return table_order_count; }
 
     /**
      * Returns the id of this table order.
@@ -62,7 +60,8 @@ public class TableOrder implements Displayable, Calculatable {
      * Returns {@true} if this table order is complete; otherwise, {@false}.
      * @return {@true} if this table order is complete; otherwise, {@false}
      */
-    public Boolean isComplete() { return complete; }
+    @Override
+    public Boolean isCompleted() { return completed; }
 
     /**
      * Returns the total quantity of every order in this orders list
@@ -106,8 +105,8 @@ public class TableOrder implements Displayable, Calculatable {
      * Sets the completion status of this table order.
      * @param complete {@true} if this table order is complete; otherwise, {@false}
      */
-    private void setComplete(Boolean complete) {
-        this.complete = complete;
+    private void setCompleted(Boolean complete) {
+        this.completed = complete;
     }
 
     // logic
@@ -209,6 +208,7 @@ public class TableOrder implements Displayable, Calculatable {
      * Calculates and returns the subtotal price
      * @return the subtotal price
      */
+    @Override
     public double calculate() {
         double subtotal = 0;
         for (OrderItem o : orders) {
@@ -219,9 +219,15 @@ public class TableOrder implements Displayable, Calculatable {
         return subtotal;
     }
 
+    @Override
+    public void complete() {
+        completed = true;
+    }
+
     /**
      * Displays all the orders in this orders list.
      */
+    @Override
     public void display() {
         for (int i = 0; i < orders.size(); i++) {
             OrderItem o = orders.get(i);

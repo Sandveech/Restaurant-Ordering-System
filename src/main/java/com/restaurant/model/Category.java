@@ -5,14 +5,14 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Category {
     // fields
-    private static int count = 0;
+    private static int category_count = 0;
     private int id;
     private String name;
     private String description;
 
     // constructor
     public Category(String name, String decription) {
-        setID(count++);
+        setID(category_count++);
         setName(name);
         setDescription(decription);
     }
@@ -27,7 +27,7 @@ public class Category {
      * Returns the historical count of categories.
      * @return the historical count of categories
      */
-    private int getCount() { return count; }
+    private static int getCategoryCount() { return category_count; }
 
     /**
      * Returns the id of this category.

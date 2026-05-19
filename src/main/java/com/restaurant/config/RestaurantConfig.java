@@ -12,6 +12,7 @@ public class RestaurantConfig {
     private double min_price;
     private int max_orders;
     private String receipt_message;
+    private double min_salary;
 
     // constructor
     private RestaurantConfig() {
@@ -22,6 +23,7 @@ public class RestaurantConfig {
         setMinPrice(0);
         setMaxOrders(32);
         setReceiptMessage("Thank you for dining with us!");
+        setMinSalary(300);
     };
     
     // getters and setters
@@ -33,6 +35,7 @@ public class RestaurantConfig {
     public double getMinPrice() { return min_price; }
     public int getMaxOrders() { return max_orders; }
     public String getReceiptMessage() { return receipt_message; }
+    public double getMinSalary() { return min_salary; }
 
     public void setName(String name) {
         this.name = (ValidationUtils.isValidText(name)) ? name : "Unnamed Restaurant";
@@ -60,5 +63,9 @@ public class RestaurantConfig {
 
     public void setReceiptMessage(String message) {
         this.receipt_message = (ValidationUtils.isValidText(message)) ? message : "";
+    }
+
+    public void setMinSalary(double salary) {
+        this.min_salary = (salary >= 0) ? salary : 0;
     }
 }

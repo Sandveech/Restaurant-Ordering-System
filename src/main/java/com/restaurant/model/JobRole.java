@@ -5,13 +5,13 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class JobRole {
     // fields
-    private static int count = 0;
+    private static int job_role_count = 0;
     private int id;
     private String title;
 
     // constructor
     public JobRole(String title) {
-        setID(count++);
+        setID(job_role_count++);
         setTitle(title);
     }
 
@@ -25,7 +25,7 @@ public class JobRole {
      * Returns the historical count of job roles.
      * @return the historical count of job roles
      */
-    private int getCount() { return count; }
+    private static int getJobRoleCount() { return job_role_count; }
     
     /**
      * Returns the id of this job role.

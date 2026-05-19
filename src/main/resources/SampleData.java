@@ -30,15 +30,17 @@ public class SampleData {
 
         // algio e olio
         items.add(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", categories.get("main_course"), true));
-        items.get(0).createPriceOption("S", 5);
-        items.get(0).createPriceOption("M", 7.5);
-        items.get(0).createPriceOption("L", 10);
+        MenuItem aglio_e_olio = items.get(0);
+        aglio_e_olio .createPriceOption("S", 5);
+        aglio_e_olio .createPriceOption("M", 7.5);
+        aglio_e_olio .createPriceOption("L", 10);
 
         // carbonara
         items.add(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", categories.get("main_course"), true));
-        items.get(1).createPriceOption("S", 6);
-        items.get(1).createPriceOption("M", 9);
-        items.get(1).createPriceOption("L", 12);
+        MenuItem carbonara = items.get(1);
+        carbonara.createPriceOption("S", 6);
+        carbonara.createPriceOption("M", 9);
+        carbonara.createPriceOption("L", 12);
 
         return items;
     }
@@ -46,10 +48,10 @@ public class SampleData {
     public static ArrayList<Table> getTables() {
         ArrayList<Table> tables = new ArrayList<Table>();
 
-        tables.add(new Table(4));
-        tables.add(new Table(2));
-        tables.add(new Table(6));
-        tables.add(new Table(5));
+        tables.add(new Table(4, true));
+        tables.add(new Table(2, true));
+        tables.add(new Table(6, true));
+        tables.add(new Table(5, true));
 
         return tables;
     }
@@ -57,9 +59,9 @@ public class SampleData {
     public static ArrayList<Employee> getEmployees() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
 
-        employees.add(new Waiter("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789"));
-        employees.add(new Cashier("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321"));
-        employees.add(new Manager("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512"));
+        employees.add(new Waiter("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", 300));
+        employees.add(new Cashier("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", 300));
+        employees.add(new Manager("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512", 300));
 
         return employees;
     }

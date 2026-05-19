@@ -3,15 +3,18 @@ package src.main.java.com.restaurant.model;
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Table implements Displayable, Reservable {
-    private static int count = 0;
+public class Table implements Displayable, Reservable, Occupiable {
+    private static int table_count = 0;
     private int id;
     private int seat_count;
     private Boolean reserved = false;
+    private Boolean occupied = false;
+    private Boolean active;
 
-    public Table(int seat_count) {
-        setID(count++);
+    public Table(int seat_count, Boolean active) {
+        setID(table_count++);
         setSeatCount(seat_count);
+        setActive(active);
     }
 
     @Override
@@ -24,7 +27,7 @@ public class Table implements Displayable, Reservable {
      * Returns the historical count of tables.
      * @return the historical count of tables
      */
-    private int getCount() { return count; }
+    private static int getCount() { return table_count; }
     
     /**
      * Returns the id of this table.
@@ -45,10 +48,24 @@ public class Table implements Displayable, Reservable {
     public int getNumber() { return id + 1; } 
 
     /**
-     * Returns {@true} if this table is reserved; otherwise, {@false}.
+     * Returns a value indicating whether this table is reserved.
      * @return {@true} if this table is reserved; otherwise, {@false}
      */
+    @Override
     public Boolean isReserved() { return reserved; }
+
+    /**
+     * Returns a value indicating whether this table is active.
+     * @return {@true} if this table is active; otherwise, {@false}
+     */
+    public Boolean isActive() { return active; }
+    
+    /**
+     * Returns a value indicating whether this table is occupied.
+     * @return {@true} if this table is occupied; otherwise, {@false}
+     */
+    @Override
+    public Boolean isOccupied() { return occupied; }
 
     /**
      * Sets the id of this table.
@@ -74,10 +91,26 @@ public class Table implements Displayable, Reservable {
         this.reserved = reserved;
     }
 
+    /**
+     * Sets the occupation state of this table.
+     * @param occupied {@true} if this table is to be occupied; otherwise, {@false}
+     */
+    private void setOccupied(Boolean occupied) {
+        this.occupied = occupied;
+    }
+
+    /**
+     * Sets the active state of this table.
+     */
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     // logic
     /**
      * Reserves this table.
      */
+    @Override
     public void reserve() {
         this.reserved = true;
     }
@@ -85,13 +118,32 @@ public class Table implements Displayable, Reservable {
     /**
      * Cancels the reservation of this table
      */
+    @Override
     public void cancelReservation() {
         this.reserved = false;
     }
 
     /**
+     * Occupies this table.
+     */
+    @Override
+    public Boolean occupy() {
+        if (isActive()) { this.occupied = true; }
+        return this.occupied;
+    }
+
+    /**
+     * Unoccupies this table.
+     */
+    @Override
+    public void unoccupy() {
+        this.occupied = false;
+    }
+
+    /**
      * Displays this table.
      */
+    @Override
     public void display() {
         System.out.println(String.format("Table: #%d, Seat Count: %d, Reserved?: %b", getNumber(), seat_count, reserved));
     }

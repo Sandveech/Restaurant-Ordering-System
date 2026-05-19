@@ -3,12 +3,11 @@ package src.main.java.com.restaurant.model;
 import java.util.ArrayList;
 
 import src.main.java.com.restaurant.config.AppConstants;
-import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class MenuItem implements Displayable {
     // fields
-    private static int count = 0;
+    private static int menu_item_count = 0;
     private int id;
     private String name;
     private String description;
@@ -18,7 +17,7 @@ public class MenuItem implements Displayable {
 
     // constructor
     public MenuItem(String name, String description, Category category, Boolean active) {
-        setID(count++);
+        setID(menu_item_count++);
         setName(name);
         setDescription(description);
         setCategory(category);
@@ -35,7 +34,7 @@ public class MenuItem implements Displayable {
      * Returns the historical count of menu items.
      * @return the historical count of menu items
      */
-    private int getCount() { return count; }
+    private static int getMenuItemCount() { return menu_item_count; }
 
     /**
      * Returns the id of this menu item.
@@ -170,6 +169,7 @@ public class MenuItem implements Displayable {
     /**
      * Displays this menu item.
      */
+    @Override
     public void display() {
         String sizes = "(";
         int len = price_options.size();

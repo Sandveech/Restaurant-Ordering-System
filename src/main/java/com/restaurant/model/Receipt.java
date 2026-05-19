@@ -8,7 +8,7 @@ import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Receipt implements Printable, Calculatable {
-    private static int count = 0;
+    private static int receipt_count = 0;
     private int id;
     private TableOrder table_order;
     private Cashier cashier;
@@ -16,14 +16,16 @@ public class Receipt implements Printable, Calculatable {
     private double subtotal_price;
     private double tax_percentage;
     private double tax_amount;
+    private String payment_method;
 
     // constructor
-    public Receipt(TableOrder table_order, Cashier cashier, double tax_percentage) {
-        setID(count++);
+    public Receipt(TableOrder table_order, Cashier cashier, double tax_percentage, String payment_method) {
+        setID(receipt_count++);
         setTableOrder(table_order);
         setCashier(cashier);
         setIssuedAt(LocalDateTime.now());
         setTaxPercentage(tax_percentage);
+        setPaymentMethod(payment_method);
 
         setSubtotalPrice(calculateSubtotalPrice());
         setTaxAmount(calculateTaxAmount(tax_percentage));
@@ -34,7 +36,14 @@ public class Receipt implements Printable, Calculatable {
         return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), tax_percentage, calculate());
     }
 
-    // getters and setters
+    /**
+     * Returns the historical count of receipts.
+     * @return the historical count of receipts
+     */
+    private static int getReceiptCount() {
+        return receipt_count;
+    }
+
     /**
      * Returns the id of this receipt.
      * @return the id of this receipt
@@ -76,6 +85,12 @@ public class Receipt implements Printable, Calculatable {
      * @return the tax amount of this receipt
      */
     public double getTaxAmount() { return tax_amount; }
+
+    /**
+     * Returns the payment method of this receipt.
+     * @return the payment method of this receipt
+     */
+    public String getPaymentMethod() { return payment_method; }
 
     /**
      * Returns the issued date of this receipt as a formatted string.
@@ -151,7 +166,16 @@ public class Receipt implements Printable, Calculatable {
         this.tax_amount = (amount < 0) ? 0 : amount;
     }
 
+    /**
+     * Sets the payment method of this receipt.
+     * @param payment_method the payment method to set to
+     */
+    private void setPaymentMethod(String payment_method) {
+        this.payment_method = payment_method;
+    }
+
     // helper functions
+    @Override
     public double calculate() {
         return subtotal_price + tax_amount;
     }
@@ -170,6 +194,7 @@ public class Receipt implements Printable, Calculatable {
         System.out.println();
     }
 
+    @Override
     public void print() {
         printHeader();
         printOrderDetails();

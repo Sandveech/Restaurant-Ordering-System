@@ -6,7 +6,7 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class OrderItem implements Displayable, Calculatable {
     // fields
-    private static int count = 0;
+    private static int order_item_count = 0;
     private int id;
     private MenuItem item;
     private int quantity;
@@ -15,7 +15,7 @@ public class OrderItem implements Displayable, Calculatable {
 
     // constructor
     public OrderItem(MenuItem item, int quantity, String size) {
-        setID(count++);
+        setID(order_item_count++);
         setItem(item);
         setQuantity(quantity);
         setSize(size);
@@ -34,7 +34,7 @@ public class OrderItem implements Displayable, Calculatable {
      * Returns the historical count of order items.
      * @return the historical count of order items
      */
-    private int getCount() { return count; }
+    private static int getOrderItemCount() { return order_item_count; }
 
     /**
      * Returns the id of this order item.
@@ -110,6 +110,7 @@ public class OrderItem implements Displayable, Calculatable {
      * Calculates and returns the subtotal price of this order item.
      * @return the subtotal price of this order item
      */
+    @Override
     public double calculate() {
         if (item == null) { return 0; }
         return item.priceOfSize(size) * quantity;
@@ -118,6 +119,7 @@ public class OrderItem implements Displayable, Calculatable {
     /**
      * Displays this order item
      */
+    @Override
     public void display() {
         String name = "Unknown Item";
         double unit_price = 0;
