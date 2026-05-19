@@ -3,8 +3,8 @@ package src.main.java.com.restaurant.model;
 public class Waiter extends Employee {
     private static int waiter_count = 0;
 
-    public Waiter(String first_name, String last_name, String gender, String email, String phone_number, double salary) {
-        super(first_name, last_name, gender, email, phone_number, salary);
+    public Waiter(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password) {
+        super(first_name, last_name, gender, email, phone_number, salary, username, password);
     }
 
     /**

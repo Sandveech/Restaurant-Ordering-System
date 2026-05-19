@@ -6,7 +6,6 @@ import java.util.HashMap;
 import src.main.java.com.restaurant.model.Cashier;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
-import src.main.java.com.restaurant.model.JobRole;
 import src.main.java.com.restaurant.model.Manager;
 import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.model.Table;
@@ -59,9 +58,9 @@ public class SampleData {
     public static ArrayList<Employee> getEmployees() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
 
-        employees.add(new Waiter("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", 300));
-        employees.add(new Cashier("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", 300));
-        employees.add(new Manager("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512", 300));
+        employees.add(new Waiter("Hout", "Khongdara", "Male", "houtkhongdara@gmail.com", "123456789", 300, "hdara", "12345678"));
+        employees.add(new Cashier("Phok", "Phallaoudom", "Male", "phokphallaoudom@gmail.com", "987654321", 300, "poudom", "12345678"));
+        employees.add(new Manager("Cheviseth", "Waddhanayu", "Male", "chevisethwaddhanayu@gmail.com", "800813512", 300, "cwaddhanayu", "12345678"));
 
         return employees;
     }

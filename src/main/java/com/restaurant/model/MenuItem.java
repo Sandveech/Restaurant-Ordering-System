@@ -3,16 +3,18 @@ package src.main.java.com.restaurant.model;
 import java.util.ArrayList;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.interfaces.Activatable;
+import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class MenuItem implements Displayable {
+public class MenuItem implements Displayable, Activatable {
     // fields
     private static int menu_item_count = 0;
     private int id;
     private String name;
     private String description;
     private Category category;
-    private Boolean active;
+    private boolean active;
     private ArrayList<ItemPriceOption> price_options = new ArrayList<ItemPriceOption>();
 
     // constructor
@@ -64,7 +66,7 @@ public class MenuItem implements Displayable {
      * Returns {@true} if this menu item is active; otherwise, {@false}
      * @return {@true} if this menu item is active; otherwise, {@false}
      */
-    public Boolean isActive() { return active; }
+    public boolean isActive() { return active; }
 
     /**
      * Returns the list of item price options.
@@ -186,5 +188,19 @@ public class MenuItem implements Displayable {
         sizes += ")";
 
         System.out.println(String.format("Name: %s, Sizes: %s", name, sizes));
+    }
+
+    /**
+     * Activates this menu item.
+     */
+    public void activate() {
+        this.active = true;
+    }
+
+    /**
+     * Deactivates this menu item.
+     */
+    public void deactivate() {
+        this.active = false;
     }
 }

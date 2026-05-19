@@ -1,15 +1,19 @@
 package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.interfaces.Activatable;
+import src.main.java.com.restaurant.interfaces.Displayable;
+import src.main.java.com.restaurant.interfaces.Occupiable;
+import src.main.java.com.restaurant.interfaces.Reservable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Table implements Displayable, Reservable, Occupiable {
+public class Table implements Displayable, Reservable, Occupiable, Activatable {
     private static int table_count = 0;
     private int id;
     private int seat_count;
-    private Boolean reserved = false;
-    private Boolean occupied = false;
-    private Boolean active;
+    private boolean reserved = false;
+    private boolean occupied = false;
+    private boolean active;
 
     public Table(int seat_count, Boolean active) {
         setID(table_count++);
@@ -58,14 +62,14 @@ public class Table implements Displayable, Reservable, Occupiable {
      * Returns a value indicating whether this table is active.
      * @return {@true} if this table is active; otherwise, {@false}
      */
-    public Boolean isActive() { return active; }
+    public boolean isActive() { return active; }
     
     /**
      * Returns a value indicating whether this table is occupied.
      * @return {@true} if this table is occupied; otherwise, {@false}
      */
     @Override
-    public Boolean isOccupied() { return occupied; }
+    public boolean isOccupied() { return occupied; }
 
     /**
      * Sets the id of this table.
@@ -127,7 +131,7 @@ public class Table implements Displayable, Reservable, Occupiable {
      * Occupies this table.
      */
     @Override
-    public Boolean occupy() {
+    public boolean occupy() {
         if (isActive()) { this.occupied = true; }
         return this.occupied;
     }
@@ -146,5 +150,19 @@ public class Table implements Displayable, Reservable, Occupiable {
     @Override
     public void display() {
         System.out.println(String.format("Table: #%d, Seat Count: %d, Reserved?: %b", getNumber(), seat_count, reserved));
+    }
+
+    /**
+     * Activates this table.
+     */
+    public void activate() {
+        this.active = true;
+    }
+
+    /**
+     * Deactivates this table.
+     */
+    public void deactivate() {
+        this.active = false;
     }
 }

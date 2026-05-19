@@ -1,10 +1,12 @@
 package src.main.java.com.restaurant.model;
 
+import src.main.java.com.restaurant.enums.Permission;
+
 public class Cashier extends Employee {
     private static int cashier_count = 0;
 
-    public Cashier(String first_name, String last_name, String gender, String email, String phone_number, double salary) {
-        super(first_name, last_name, gender, email, phone_number, salary);
+    public Cashier(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password) {
+        super(first_name, last_name, gender, email, phone_number, salary, username, password);
     }
 
     /**

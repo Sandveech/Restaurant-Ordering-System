@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
+import src.main.java.com.restaurant.interfaces.Calculatable;
+import src.main.java.com.restaurant.interfaces.Printable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Receipt implements Printable, Calculatable {

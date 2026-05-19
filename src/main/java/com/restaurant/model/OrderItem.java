@@ -2,6 +2,8 @@ package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
+import src.main.java.com.restaurant.interfaces.Calculatable;
+import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class OrderItem implements Displayable, Calculatable {

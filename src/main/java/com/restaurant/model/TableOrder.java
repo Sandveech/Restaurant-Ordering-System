@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
+import src.main.java.com.restaurant.interfaces.Calculatable;
+import src.main.java.com.restaurant.interfaces.Completable;
+import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class TableOrder implements Displayable, Calculatable, Completable {
