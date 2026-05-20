@@ -173,6 +173,14 @@ public class MenuItem implements Displayable, Activatable {
      */
     @Override
     public void display() {
+        System.out.println("- " + name);
+        System.out.println("    + ID: " + id);
+        System.out.println("    + Active?: " + active);
+        System.out.println("    + Category: " + category.getName());
+        System.out.println("    + Sizes: " + formattedSizesString());
+    }
+ 
+    public String formattedSizesString() {
         String sizes = "(";
         int len = price_options.size();
         for (int i = 0; i < len; i++) {
@@ -186,8 +194,7 @@ public class MenuItem implements Displayable, Activatable {
             
         }
         sizes += ")";
-
-        System.out.println(String.format("Name: %s, Sizes: %s", name, sizes));
+        return sizes;
     }
 
     /**

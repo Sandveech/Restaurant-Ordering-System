@@ -241,4 +241,26 @@ public class TableOrder implements Displayable, Calculatable, Completable {
             System.out.println(String.format("%-32s %s %12.2f", (i + 1) + " " + item_name + " (" + o.getSize() + ")", o.getQuantity() + "x", o.calculate()));
         }
     }
+
+    public void displayAlt() {
+        System.out.println("- Table Order");
+        System.out.println("    + ID: " + getID());
+        System.out.println("    + Waiter: " + waiter.getFullName());
+        System.out.println("    + Table: #" + table.getNumber());
+        System.out.println("    + Orders:");
+
+        for (OrderItem o : orders) {
+            if (o == null) {
+                System.out.println("        > Unknown item");
+            }
+            else {
+                MenuItem item = o.getItem();
+                String name = (item == null) ? "Unknown item" : item.getName();
+                double price = (item == null) ? 0 : item.priceOfSize(o.getSize());
+                System.out.println("        > Name: " + name);
+                System.out.println("        > Size: " + o.getSize());
+                System.out.println("        > Price: " + price);
+            }
+        }
+    }
 }

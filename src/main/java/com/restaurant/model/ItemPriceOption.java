@@ -2,9 +2,10 @@ package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
+import src.main.java.com.restaurant.interfaces.Activatable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class ItemPriceOption {
+public class ItemPriceOption implements Activatable {
     // fields
     private static int item_price_option_count = 0;
     private int id;
@@ -42,7 +43,8 @@ public class ItemPriceOption {
      * Returns {@true} if this price option is active; otherwise, {@false}.
      * @return {@true} if this price option is active; otherwise, {@false}.
      */
-    public Boolean isActive() { return active; }
+    @Override
+    public boolean isActive() { return active; }
 
     /**
      * Sets the id of this item price option.
@@ -74,5 +76,15 @@ public class ItemPriceOption {
      */
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public void activate() {
+        this.active = true;
+    }
+
+    @Override
+    public void deactivate() {
+        this.active = false;
     }
 }

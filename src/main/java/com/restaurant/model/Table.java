@@ -149,7 +149,11 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      */
     @Override
     public void display() {
-        System.out.println(String.format("Table: #%d, Seat Count: %d, Reserved?: %b", getNumber(), seat_count, reserved));
+        System.out.println("- Table #" + getNumber());
+        System.out.println("    + Seat Count: " + seat_count);
+        System.out.println("    + Active?: " + active);
+        System.out.println("    + Occupied?: " + occupied);
+        System.out.println("    + Reserved?: " + reserved);
     }
 
     /**

@@ -1,9 +1,10 @@
 package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.config.AppConstants;
+import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Category {
+public class Category implements Displayable {
     // fields
     private static int category_count = 0;
     private int id;
@@ -33,7 +34,7 @@ public class Category {
      * Returns the id of this category.
      * @return the id of this category
      */
-    private int getID() { return id; }
+    public int getID() { return id; }
 
     /**
      * Returns the name of this category.
@@ -45,7 +46,7 @@ public class Category {
      * Returns the description of this category.
      * @return the description of this category
      */
-    public String description() { return description; }
+    public String getDescription() { return description; }
 
     /**
      * Sets the id of this category.
@@ -59,15 +60,25 @@ public class Category {
      * Sets the nae of this category.
      * @param name the name to set to
      */
-    private void setName(String name) {
-        this.name = (ValidationUtils.isValidName(name)) ? name : "Unknown Menu Item";
+    public void setName(String name) {
+        this.name = (ValidationUtils.isValidText(name)) ? name : "Unknown Menu Item";
     }
 
     /**
      * Sets the description of this category.
      * @param description the descripttion to set to
      */
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = (ValidationUtils.isValidText(description)) ? description : "No description.";
     } 
+
+    /**
+     * Displays the information of this category.
+     */
+    @Override
+    public void display() {
+        System.out.println("- " + name);
+        System.out.println("    + ID: " + id);
+        System.out.println("    + Description: " + description);
+    }
 }   

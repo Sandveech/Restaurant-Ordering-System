@@ -1,12 +1,12 @@
 package src.main.java.com.restaurant.model;
 
-import src.main.java.com.restaurant.enums.Permission;
+import src.main.java.com.restaurant.enums.Action;
 
 public class Admin extends Employee {
     private static int admin_count = 0;
 
-    public Admin(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password) {
-        super(first_name, last_name, gender, email, phone_number, salary, username, password);
+    public Admin(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password, Employee created_by) {
+        super(first_name, last_name, gender, email, phone_number, salary, username, password, created_by);
     }
 
     /**
@@ -21,7 +21,7 @@ public class Admin extends Employee {
      * @return {@true} if the admin has the specified permission; otherwise, {@false}
      */
     @Override
-    public boolean hasPermission(Permission permission) {
+    public boolean hasPermission(Action permission) {
         return true;
     }
 }

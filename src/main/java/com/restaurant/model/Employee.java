@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
-import src.main.java.com.restaurant.enums.Permission;
+import src.main.java.com.restaurant.enums.Action;
 import src.main.java.com.restaurant.interfaces.Activatable;
 import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
@@ -18,15 +18,16 @@ public class Employee extends Person implements Displayable, Activatable {
     private Employee created_by;
     private String username;
     private String password;
-    protected TreeSet<Permission> permissions = new TreeSet<>();
+    protected TreeSet<Action> permissions = new TreeSet<>();
 
     // constructor
-    public Employee(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password) {
+    public Employee(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password, Employee created_by) {
         super(first_name, last_name, gender, email, phone_number);
         setID(employee_count++);
         setSalary(salary);
         setUsername(username);
         setPassword(password);
+        setCreatedBy(created_by);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Employee extends Person implements Displayable, Activatable {
      * Returns the id of this employee.
      * @return the id of this employee
      */
-    private int getID() { return id; }
+    public int getID() { return id; }
 
     /**
      * Returns the value indicating whether this employee is active.
@@ -97,7 +98,7 @@ public class Employee extends Person implements Displayable, Activatable {
      * Sets the salary of this employee.
      * @param salary the salary value
      */
-    private void setSalary(double salary) {
+    public void setSalary(double salary) {
         double min_salary = RestaurantConfig.getInstance().getMinSalary();
         this.salary = (salary >= min_salary) ? salary : min_salary;
     }
@@ -116,7 +117,7 @@ public class Employee extends Person implements Displayable, Activatable {
      * @param username the username to set to
      * @return {@true} if and only if the username is succesfully set; otherwise, {@false}
      */
-    private boolean setUsername(String username) {
+    public boolean setUsername(String username) {
         if (!ValidationUtils.isValidUsername(username)) { return false; }
         this.username = username;
         return true;
@@ -127,7 +128,7 @@ public class Employee extends Person implements Displayable, Activatable {
      * @param password the passsword to set to
      * @return {@true} if and only if the password is succesfully set; otheriwse, {@false}
      */
-    private boolean setPassword(String password) {
+    public boolean setPassword(String password) {
         if (!ValidationUtils.isValidPassword(password)) { return false; }
         this.password = password;
         return true;
@@ -138,7 +139,13 @@ public class Employee extends Person implements Displayable, Activatable {
      */
     @Override
     public void display() {
-        System.out.println(String.format("Full Name: %s, Email: %s, Phone Number: %s", getFullName(), getEmail(), getPhoneNumber()));
+        System.out.println("- " + getFullName());
+        System.out.println("    + ID: " + getID());
+        System.out.println("    + Active?: " + active);
+        System.out.println("    + Email:" + getEmail());
+        System.out.println("    + Phone Number: " + getPhoneNumber());
+        System.out.println("    + Gender: " + getGender());
+        System.out.println("    + Username: " + username);
     }
 
     /**
@@ -157,15 +164,11 @@ public class Employee extends Person implements Displayable, Activatable {
         this.deactivate();
     }
 
-    public void work() {
-        System.out.println(getFullName() + " is working in the restaurant.");
-    }
-
     /**
      * Returns a value indicating whether this employee has the specified permission.
      * @param permission
      */
-    public boolean hasPermission(Permission permission) {
+    public boolean hasPermission(Action permission) {
         return permissions.contains(permission);
     }
 }

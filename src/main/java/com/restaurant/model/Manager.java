@@ -1,28 +1,42 @@
 package src.main.java.com.restaurant.model;
 
+import src.main.java.com.restaurant.enums.Action;
+
 public class Manager extends Employee {
     private static int manager_count = 0;
 
-    public Manager(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password) {
-        super(first_name, last_name, gender, email, phone_number, salary, username, password);
+    public Manager(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password, Employee created_by) {
+        super(first_name, last_name, gender, email, phone_number, salary, username, password, created_by);
 
-
+        permissions.add(Action.ADD_CASHIER);
+        permissions.add(Action.ADD_WAITER);
+        permissions.add(Action.MANAGE_TABLES);
+        permissions.add(Action.ADD_TABLE);
     }
 
     /**
      * Returns the historical count of managers.
      * @return the historical count of managers
      */
-    public static int getManagerCount() { return manager_count; }
+    private static int getManagerCount() { return manager_count; }
 
-    public Boolean approveMenuItem(MenuItem item) {
+    public void approveMenuItem(MenuItem item) {
         if (item == null) {
             System.out.println("Manager cannot approve a null menu item.");
-            return false;
+            return;
         } 
 
-        item.setActive(true);
+        item.activate();
         System.out.println(getFullName() + " approved menu item: \'" + item.getName() + "\'");
-        return true;
+    }
+
+    public void disapproveMenuItem(MenuItem item) {
+        if (item == null) {
+            System.out.println("Manager cannot disapprove a null menu item.");
+            return;
+        } 
+
+        item.deactivate();
+        System.out.println(getFullName() + " disapproved menu item: \'" + item.getName() + "\'");
     }
 }

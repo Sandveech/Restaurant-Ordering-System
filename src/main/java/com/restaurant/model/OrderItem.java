@@ -123,13 +123,8 @@ public class OrderItem implements Displayable, Calculatable {
      */
     @Override
     public void display() {
-        String name = "Unknown Item";
-        double unit_price = 0;
-
-        if (item != null) {
-            name = item.getName();
-            unit_price = item.priceOfSize(size);
-        }
+        String name = (item == null) ? "Unknown Item" : item.getName();
+        double unit_price = (item == null) ? 0 : item.priceOfSize(size);
 
         System.out.println(String.format("Name: %s, Size: %s, Unit Price: %.2f", name, size, unit_price));
     }
