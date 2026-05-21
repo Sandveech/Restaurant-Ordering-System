@@ -56,12 +56,13 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      * @return {@true} if this table is reserved; otherwise, {@false}
      */
     @Override
-    public Boolean isReserved() { return reserved; }
+    public boolean isReserved() { return reserved; }
 
     /**
      * Returns a value indicating whether this table is active.
      * @return {@true} if this table is active; otherwise, {@false}
      */
+    @Override
     public boolean isActive() { return active; }
     
     /**
@@ -110,7 +111,6 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
         this.active = active;
     }
 
-    // logic
     /**
      * Reserves this table.
      */
