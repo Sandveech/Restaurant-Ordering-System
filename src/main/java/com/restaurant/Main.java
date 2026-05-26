@@ -537,7 +537,6 @@ public class Main {
                     ConsoleLogger.printWarning("This option is currently unavailable.");
                     break;
                 case 4:
-                    ConsoleLogger.printWarning("This option is currently unavailable.");
                     return;
                 default:
                     System.out.println("Invalid option.");
