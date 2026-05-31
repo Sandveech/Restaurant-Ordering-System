@@ -18,6 +18,12 @@ public class Category implements Displayable {
         setDescription(decription);
     }
 
+    public Category(String name) {
+        setID(category_count++);
+        setName(name);
+        setDescription("No description.");
+    }
+
     @Override
     public String toString() {
         return String.format("ID: %d, Name: %s, Description: %s", id, name, description);

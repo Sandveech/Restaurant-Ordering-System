@@ -21,6 +21,12 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
         setActive(active);
     }
 
+    public Table(int seat_count) {
+        setID(table_count++);
+        setSeatCount(seat_count);
+        setActive(true);
+    }
+
     @Override
     public String toString() {
         return String.format("ID: %d, Number: %d, Seat Count: %d", id, getNumber(), seat_count);
@@ -37,7 +43,7 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      * Returns the id of this table.
      * @return the id of this table
      */
-    private int getID() { return id; }
+    public int getID() { return id; }
 
     /**
      * Returns the seat count of this table.

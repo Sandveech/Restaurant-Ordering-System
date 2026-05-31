@@ -10,6 +10,12 @@ import src.main.java.com.restaurant.model.Receipt;
 import src.main.java.com.restaurant.model.Table;
 import src.main.java.com.restaurant.model.TableOrder;
 import src.main.java.com.restaurant.model.Waiter;
+import src.main.java.com.restaurant.repository.RestaurantDataStore;
+import src.main.java.com.restaurant.services.EmployeeService;
+import src.main.java.com.restaurant.services.MenuService;
+import src.main.java.com.restaurant.services.OrderService;
+import src.main.java.com.restaurant.services.ReceiptService;
+import src.main.java.com.restaurant.services.TableService;
 import src.main.java.com.restaurant.util.ConsoleLogger;
 import src.main.java.com.restaurant.enums.Action;
 import src.main.java.com.restaurant.model.Admin;
@@ -17,54 +23,52 @@ import src.main.java.com.restaurant.model.Cashier;
 import src.main.java.com.restaurant.model.Category;
 
 public class RestaurantSystem {
-    private static ArrayList<Category> categories = new ArrayList<>();
-    private static ArrayList<MenuItem> items = new ArrayList<>();
-    private static ArrayList<Table> tables = new ArrayList<>();
-    private static ArrayList<Employee> employees = new ArrayList<>();
-    private static ArrayList<TableOrder> table_orders = new ArrayList<>();
-    private static ArrayList<Receipt> receipts = new ArrayList<>();
+    private static RestaurantDataStore data = new RestaurantDataStore();
+    public final EmployeeService employee_service = new EmployeeService(data);
+    public final MenuService menu_service = new MenuService(data);
+    public final OrderService order_service = new OrderService(data);
+    public final ReceiptService receipt_service = new ReceiptService(data);
+    public final TableService table_service = new TableService(data);
     private static Employee user;
 
     public RestaurantSystem() {
         // categories
-        categories.add(new Category("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people."));
-        categories.add(new Category("Entree", "A dish served before the main course of a meal."));
-        categories.add(new Category("Main Course", "The featured or primary dish in a meal consisting of several courses."));
-        categories.add(new Category("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream."));
+        menu_service.addCategory("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people.");
+        menu_service.addCategory("Entree", "A dish served before the main course of a meal.");
+        menu_service.addCategory("Main Course", "The featured or primary dish in a meal consisting of several courses.");
+        menu_service.addCategory("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream.");
 
         // menu items
-        items.add(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", categories.get(2), true));
+        ArrayList<MenuItem> items = data.getMenuItems();
+        items.add(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", data.getCategories().get(2), true));
         MenuItem aglio_e_olio = items.get(0);
         aglio_e_olio .createPriceOption("S", 5);
         aglio_e_olio .createPriceOption("M", 7.5);
         aglio_e_olio .createPriceOption("L", 10);
 
-        items.add(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", categories.get(2), true));
+        items.add(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", data.getCategories().get(2), true));
         MenuItem carbonara = items.get(1);
         carbonara.createPriceOption("S", 6);
         carbonara.createPriceOption("M", 9);
         carbonara.createPriceOption("L", 12);
 
         // tables
-        tables.add(new Table(4, true));
-        tables.add(new Table(2, true));
-        tables.add(new Table(6, true));
-        tables.add(new Table(5, true));
+        table_service.addTable(4);
+        table_service.addTable(2);
+        table_service.addTable(6);
+        table_service.addTable(5);
 
         // employees
         Admin admin = new Admin("admin", "admin", "", "", "", 0, "admin", "12345678", null);
-        employees.add(admin);
-        employees.add(new Cashier("John", "Smith", "Male", "johnsmith@gmail.com", "123456789", 300, "johns", "12345678", admin));
-        employees.add(new Waiter("John", "Doe", "Male", "johndoe@gmail.com", "987654321", 300, "johnd", "12345678", admin));
-        employees.add(new Manager("Jane", "Doe", "Female", "janedoe@gmail.com", "800813512", 300, "janed", "12345678", admin));
+        employee_service.addEmployee(admin);
+        employee_service.addEmployee(new Cashier("John", "Smith", "Male", "johnsmith@gmail.com", "123456789", 300, "johns", "12345678", admin));
+        employee_service.addEmployee(new Waiter("John", "Doe", "Male", "johndoe@gmail.com", "987654321", 300, "johnd", "12345678", admin));
+        employee_service.addEmployee(new Manager("Jane", "Doe", "Female", "janedoe@gmail.com", "800813512", 300, "janed", "12345678", admin));
     }
 
-    public ArrayList<Category> getCategories() { return categories; }
-    public ArrayList<MenuItem> getMenuItems() { return items; }
-    public ArrayList<Table> getTables() { return tables; }
-    public ArrayList<Employee> getEmployees() { return employees; }
-    public ArrayList<TableOrder> getTableOrders() { return table_orders; }
-    public ArrayList<Receipt> getReceipts() { return receipts; }
+    public RestaurantDataStore getData() {
+        return data;
+    }
 
     public Employee getUser() { return user; }
 
@@ -78,10 +82,10 @@ public class RestaurantSystem {
             return;
         }
 
-        for (Employee employee : employees) {
+        for (Employee employee : data.getEmployees()) {
             if (employee.getUsername().equals(username) && employee.getPassword().equals(password)) {
                 user = employee;
-                ConsoleLogger.printSuccess("Logged in as \'" + employee.getFullName() + "\' (" + employee.getClass().getSimpleName() + ")");
+                ConsoleLogger.printSuccess("Logged in as \'" + user.getFullName() + "\' (" + user.getClass().getSimpleName() + ")");
                 return;
             }
         }
@@ -112,7 +116,7 @@ public class RestaurantSystem {
         }
 
         Cashier temp = new Cashier(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employees.add(temp);
+        employee_service.addEmployee(temp);
         ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
         return;
     }
@@ -134,7 +138,7 @@ public class RestaurantSystem {
         }
 
         Waiter temp = new Waiter(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employees.add(temp);
+        employee_service.addEmployee(temp);
         ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
         return;
     }
@@ -156,7 +160,7 @@ public class RestaurantSystem {
         }
 
         Manager temp = new Manager(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employees.add(temp);
+        
         ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
         return;
     }
@@ -178,15 +182,14 @@ public class RestaurantSystem {
         }
 
         Admin temp = new Admin(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employees.add(temp);
+        employee_service.addEmployee(temp);
         ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
         return;
     }
 
     public void addCategory(String name, String desc) {
-        Category temp = new Category(name, desc);
-        categories.add(temp);
-        ConsoleLogger.printSuccess("Added \'" + temp.getName()+ "\'");
+        menu_service.addCategory(name, desc);
+        ConsoleLogger.printSuccess("Added \'" + name + "\'");
     }
 
     public void addMenuItem(String name, String desc, Category category) {
@@ -196,7 +199,7 @@ public class RestaurantSystem {
         }
 
         MenuItem temp = new MenuItem(name, desc, category, true);
-        items.add(temp);
+        menu_service.addMenuItem(temp);
         ConsoleLogger.printSuccess("Added \'" + temp.getName()+ "\'");
     }
 
@@ -217,7 +220,7 @@ public class RestaurantSystem {
         }
 
         ConsoleLogger.printSuccess("Added new table order at table #" + table_order.getTable().getNumber() + ". Assigned to " + table_order.getWaiter().getFullName());
-        table_orders.add(table_order);
+        order_service.addTableOrder(table_order);
     }
 
     public void addTable(int seat_count) {
@@ -226,9 +229,9 @@ public class RestaurantSystem {
             return;
         }
 
-        Table temp = new Table(seat_count, true);
+        Table temp = new Table(seat_count);
+        table_service.addTable(temp);
         ConsoleLogger.printSuccess("Added table #" + temp.getNumber());
-        tables.add(temp);
     }
 
     /**
@@ -376,29 +379,20 @@ public class RestaurantSystem {
     }
 
     public MenuItem getMenuItemByID(int id) {
-        for (MenuItem item : items) {
-            if (item.getID() == id) { return item; }
-        }
-        return null;
+        return menu_service.searchMenuItemByID(id);
     }
 
     public Employee getEmployeeByID(int id) {
-        for (Employee employee : employees) {
-            if (employee.getID() == id) { return employee; }
-        }
-        return null;
+        return employee_service.searchEmployeeByID(id);
     }
 
     public Category getCategoryByID(int id) {
-        for (Category category : categories) {
-            if (category.getID() == id) { return category; }
-        }
-        return null;
+        return menu_service.searchCategoryByID(id);
     }
 
     public void displayEmployeeList() {
-        System.out.println("------Employees (" + (employees.size() - 1) + ")------");
-        for (Employee employee : employees) {
+        System.out.println("------Employees (" + (data.getEmployees().size() - 1) + ")------");
+        for (Employee employee : data.getEmployees()) {
             if (!(employee instanceof Admin)) {
                 employee.display();
             }
@@ -406,29 +400,29 @@ public class RestaurantSystem {
     }
 
     public void displayMenuItemList() {
-        System.out.println("------Menu Items (" + items.size() + ")------");
-        for (MenuItem item : items) {
+        System.out.println("------Menu Items (" + data.getMenuItems().size() + ")------");
+        for (MenuItem item : data.getMenuItems()) {
             item.display();
         }
     }
 
     public void displayCategoryList() {
-        System.out.println("------Categories (" + categories.size() + ")------");
-        for (Category category : categories) {
+        System.out.println("------Categories (" + data.getCategories().size() + ")------");
+        for (Category category : data.getCategories()) {
             category.display();
         }
     }
 
     public void displayTableList() {
-        System.out.println("------Tables (" + tables.size() + ")------");
-        for (Table table : tables) {
+        System.out.println("------Tables (" + data.getTables().size() + ")------");
+        for (Table table : data.getTables()) {
             table.display();
         }
     }
 
     public void displayTableOrders() {
-        System.out.println("------Table Orders (" + table_orders.size() + ")------");
-        for (TableOrder table_order : table_orders) {
+        System.out.println("------Table Orders (" + data.getTableOrders().size() + ")------");
+        for (TableOrder table_order : data.getTableOrders()) {
             table_order.display();
         }
     }
@@ -438,7 +432,7 @@ public class RestaurantSystem {
     }
 
     private boolean usernameExists(String username) {
-       for (Employee employee : employees) {
+       for (Employee employee : data.getEmployees()) {
             if (employee.getUsername() == username) { return true; }
         } 
         return false;

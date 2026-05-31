@@ -39,7 +39,7 @@ public class TableOrder implements Displayable, Calculatable, Completable {
      * Returns the id of this table order.
      * @return the id of this table order
      */
-    private int getID() { return id; }
+    public int getID() { return id; }
 
     /**
      * Returns the list of orders of this table order.

@@ -19,24 +19,4 @@ public class Manager extends Employee {
      * @return the historical count of managers
      */
     private static int getManagerCount() { return manager_count; }
-
-    public void approveMenuItem(MenuItem item) {
-        if (item == null) {
-            System.out.println("Manager cannot approve a null menu item.");
-            return;
-        } 
-
-        item.activate();
-        System.out.println(getFullName() + " approved menu item: \'" + item.getName() + "\'");
-    }
-
-    public void disapproveMenuItem(MenuItem item) {
-        if (item == null) {
-            System.out.println("Manager cannot disapprove a null menu item.");
-            return;
-        } 
-
-        item.deactivate();
-        System.out.println(getFullName() + " disapproved menu item: \'" + item.getName() + "\'");
-    }
 }

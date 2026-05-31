@@ -11,6 +11,8 @@ import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.model.Table;
 import src.main.java.com.restaurant.model.TableOrder;
 import src.main.java.com.restaurant.model.Waiter;
+import src.main.java.com.restaurant.services.ReceiptService;
+import src.main.java.com.restaurant.services.TableService;
 import src.main.java.com.restaurant.util.ConsoleLogger;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
@@ -414,7 +416,7 @@ public class Main {
     public static void promptTableReservationsManagement(RestaurantSystem restaurant, Scanner sc) {
         ArrayList<Table> tables = new ArrayList<>();
 
-        for (Table table : restaurant.getTables()) {
+        for (Table table : restaurant.getData().getTables()) {
             if (!table.isOccupied() && table.isActive()) { tables.add(table); }
         }
 
@@ -453,7 +455,7 @@ public class Main {
 
     public static void promptTableAssignment(RestaurantSystem restaurant, Scanner sc) {
         Employee user = restaurant.getUser();
-        if (user == null || !(user instanceof Waiter) || !user.hasPermission(Action.ASSIGN_TABLES)) {
+        if (user == null || !user.hasPermission(Action.ASSIGN_TABLES)) {
             restaurant.printUnpermittedWarning();
             return;
         }
@@ -461,7 +463,7 @@ public class Main {
         while (true) {
             ArrayList<Table> tables = new ArrayList<>();
 
-            for (Table table : restaurant.getTables()) {
+            for (Table table : restaurant.getData().getTables()) {
                 if (!table.isOccupied() && table.isActive() && !table.isReserved()) { tables.add(table); }
             }
 
@@ -491,8 +493,7 @@ public class Main {
             else {
                 Table table = tables.get(choice - 1);
                 Waiter waiter = (Waiter) user;
-                TableOrder table_order = waiter.createTableOrder(table);
-                restaurant.addTableOrder(table_order);
+                restaurant.order_service.createTableOrder(table, waiter);
             }
         }
     }
@@ -513,7 +514,7 @@ public class Main {
     // region Order Management
     public static void promptOrderManagement(RestaurantSystem restaurant, Scanner sc) {
         ArrayList<TableOrder> table_orders = new ArrayList<>();
-        for (TableOrder table_order : restaurant.getTableOrders()) {
+        for (TableOrder table_order : restaurant.getData().getTableOrders()) {
 
         } 
 

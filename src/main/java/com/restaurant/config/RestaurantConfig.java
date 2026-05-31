@@ -13,6 +13,7 @@ public class RestaurantConfig {
     private int max_orders;
     private String receipt_message;
     private double min_salary;
+    private String default_payment_method;
 
     // constructor
     private RestaurantConfig() {
@@ -36,6 +37,7 @@ public class RestaurantConfig {
     public int getMaxOrders() { return max_orders; }
     public String getReceiptMessage() { return receipt_message; }
     public double getMinSalary() { return min_salary; }
+    public String getDefaultPaymentMethod() { return default_payment_method; }
 
     public void setName(String name) {
         this.name = (ValidationUtils.isValidText(name)) ? name : "Unnamed Restaurant";
@@ -67,5 +69,9 @@ public class RestaurantConfig {
 
     public void setMinSalary(double salary) {
         this.min_salary = (salary >= 0) ? salary : 0;
+    }
+
+    public void setDefaultPaymentMethod(String payment_method) {
+        this.default_payment_method = (ValidationUtils.isValidText(payment_method)) ? payment_method : "Cash";
     }
 }
