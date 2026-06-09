@@ -83,7 +83,9 @@ public class Employee extends Person implements Displayable, Activatable {
      * @param id the id to set to
      */
     private void setID(int id) {
-        this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
+        if (ValidationUtils.isValidID(id)) {
+            this.id = id;
+        }
     }
 
     /**
@@ -170,5 +172,14 @@ public class Employee extends Person implements Displayable, Activatable {
      */
     public boolean hasPermission(Action permission) {
         return permissions.contains(permission);
+    }
+
+    public void work() {
+        if (active) { 
+            System.out.println(getFullName() + " is currently working.");
+            return;
+        }
+
+        System.out.println(getFullName() + " is not currently working");
     }
 }
