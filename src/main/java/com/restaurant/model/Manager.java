@@ -23,10 +23,10 @@ public class Manager extends Employee {
     @Override
     public void work() {
         if (isActive()) { 
-            System.out.println("- is currently working, and is managing the restaurant.");
+            System.out.println("is currently working, and is managing the restaurant.");
             return;
         }
 
-        System.out.println("- is not currently working");
+        System.out.println("is not currently working");
     }
 }

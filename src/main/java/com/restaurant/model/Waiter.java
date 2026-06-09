@@ -39,10 +39,10 @@ public class Waiter extends Employee {
     @Override
     public void work() {
         if (isActive()) { 
-            System.out.println("- is currently working, and has served " + tables_served_today + " tables today.");
+            System.out.println("is currently working, and has served " + tables_served_today + " tables today.");
             return;
         }
 
-        System.out.println("- is not currently working");
+        System.out.println("is not currently working");
     }
 }

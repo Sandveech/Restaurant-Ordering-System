@@ -28,10 +28,10 @@ public class Admin extends Employee {
     @Override
     public void work() {
         if (isActive()) { 
-            System.out.println("- is currently working, and is doing admin work.");
+            System.out.println("is currently working, and is doing admin work.");
             return;
         }
 
-        System.out.println("- is not currently working");
+        System.out.println("is not currently working");
     }
 }
