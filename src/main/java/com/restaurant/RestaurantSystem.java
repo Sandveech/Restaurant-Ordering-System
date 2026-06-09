@@ -40,13 +40,13 @@ public class RestaurantSystem {
 
         // menu items
         ArrayList<MenuItem> items = data.getMenuItems();
-        items.add(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", data.getCategories().get(2), true));
+        menu_service.addMenuItem(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", data.getCategories().get(2), true));
         MenuItem aglio_e_olio = items.get(0);
-        aglio_e_olio .createPriceOption("S", 5);
-        aglio_e_olio .createPriceOption("M", 7.5);
-        aglio_e_olio .createPriceOption("L", 10);
+        aglio_e_olio.createPriceOption("S", 5);
+        aglio_e_olio.createPriceOption("M", 7.5);
+        aglio_e_olio.createPriceOption("L", 10);
 
-        items.add(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", data.getCategories().get(2), true));
+        menu_service.addMenuItem(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", data.getCategories().get(2), true));
         MenuItem carbonara = items.get(1);
         carbonara.createPriceOption("S", 6);
         carbonara.createPriceOption("M", 9);
@@ -99,7 +99,7 @@ public class RestaurantSystem {
         }
     }
 
-    public void addCashier(Employee data) {
+    public void addCashier(Cashier cashier) {
         if (user == null || !user.hasPermission(Action.ADD_CASHIER)) {
             printUnpermittedWarning();
             return;
@@ -110,18 +110,17 @@ public class RestaurantSystem {
             return;
         }
 
-        if (usernameExists(data.getUsername())) {
-            ConsoleLogger.printWarning("Username \'" + data.getUsername() + "\' already exists");
+        if (usernameExists(cashier.getUsername())) {
+            ConsoleLogger.printWarning("Username \'" + cashier.getUsername() + "\' already exists");
             return;
         }
 
-        Cashier temp = new Cashier(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employee_service.addEmployee(temp);
-        ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
+        employee_service.addEmployee(cashier);
+        ConsoleLogger.printSuccess("Added \'" + cashier.getFullName() + "\' (" + cashier.getClass().getSimpleName() + ")");
         return;
     }
 
-    public void addWaiter(Employee data) {
+    public void addWaiter(Employee waiter) {
         if (user == null || !user.hasPermission(Action.ADD_CASHIER)) {
             printUnpermittedWarning();
             return;
@@ -132,18 +131,17 @@ public class RestaurantSystem {
             return;
         }
 
-        if (usernameExists(data.getUsername())) {
-            ConsoleLogger.printWarning("Username \'" + data.getUsername() + "\' already exists");
+        if (usernameExists(waiter.getUsername())) {
+            ConsoleLogger.printWarning("Username \'" + waiter.getUsername() + "\' already exists");
             return;
         }
 
-        Waiter temp = new Waiter(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employee_service.addEmployee(temp);
-        ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
+        employee_service.addEmployee(waiter);
+        ConsoleLogger.printSuccess("Added \'" + waiter.getFullName() + "\' (" + waiter.getClass().getSimpleName() + ")");
         return;
     }
 
-    public void addManager(Employee data) {
+    public void addManager(Manager manager) {
         if (user == null || !user.hasPermission(Action.ADD_MANAGER)) {
             printUnpermittedWarning();
             return;
@@ -154,18 +152,17 @@ public class RestaurantSystem {
             return;
         }
 
-        if (usernameExists(data.getUsername())) {
-            ConsoleLogger.printWarning("Username \'" + data.getUsername() + "\' already exists");
+        if (usernameExists(manager.getUsername())) {
+            ConsoleLogger.printWarning("Username \'" + manager.getUsername() + "\' already exists");
             return;
         }
-
-        Manager temp = new Manager(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
         
-        ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
+        ConsoleLogger.printSuccess("Added \'" + manager.getFullName() + "\' (" + manager.getClass().getSimpleName() + ")");
+        employee_service.addEmployee(manager);
         return;
     }
 
-    public void addAdmin(Employee data) {
+    public void addAdmin(Admin admin) {
         if (user == null || !user.hasPermission(Action.ADD_MANAGER)) {
             printUnpermittedWarning();
             return;
@@ -176,14 +173,13 @@ public class RestaurantSystem {
             return;
         }
 
-        if (usernameExists(data.getUsername())) {
-            ConsoleLogger.printWarning("Username \'" + data.getUsername() + "\' already exists");
+        if (usernameExists(admin.getUsername())) {
+            ConsoleLogger.printWarning("Username \'" + admin.getUsername() + "\' already exists");
             return;
         }
 
-        Admin temp = new Admin(data.getFirstName(), data.getLastName(), data.getGender(), data.getEmail(), data.getPhoneNumber(), data.getSalary(), data.getUsername(), data.getPassword(), data.getCreatedBy());
-        employee_service.addEmployee(temp);
-        ConsoleLogger.printSuccess("Added \'" + temp.getFullName() + "\' (" + temp.getClass().getSimpleName() + ")");
+        employee_service.addEmployee(admin);
+        ConsoleLogger.printSuccess("Added \'" + admin.getFullName() + "\' (" + admin.getClass().getSimpleName() + ")");
         return;
     }
 

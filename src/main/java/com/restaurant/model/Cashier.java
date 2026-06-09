@@ -37,10 +37,10 @@ public class Cashier extends Employee {
     @Override
     public void work() {
         if (isActive()) { 
-            System.out.println(getFullName() + " is currently working, and has gained " + current_balance + " today.");
+            System.out.println("- is currently working, and has gained " + current_balance + " today.");
             return;
         }
 
-        System.out.println(getFullName() + " is not currently working");
+        System.out.println("- is not currently working");
     }
 }

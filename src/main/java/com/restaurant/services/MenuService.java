@@ -29,7 +29,7 @@ public class MenuService {
             System.out.println("invalid menu item name.");
             return;
         }
-        if (ValidationUtils.isValidText(description)) {
+        if (!ValidationUtils.isValidText(description)) {
             System.out.println("null menu item.");
             return;
         }

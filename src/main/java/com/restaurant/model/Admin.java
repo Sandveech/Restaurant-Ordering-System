@@ -24,4 +24,14 @@ public class Admin extends Employee {
     public boolean hasPermission(Action permission) {
         return true;
     }
+
+    @Override
+    public void work() {
+        if (isActive()) { 
+            System.out.println("- is currently working, and is doing admin work.");
+            return;
+        }
+
+        System.out.println("- is not currently working");
+    }
 }

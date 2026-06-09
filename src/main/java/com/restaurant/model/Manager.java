@@ -19,4 +19,14 @@ public class Manager extends Employee {
      * @return the historical count of managers
      */
     private static int getManagerCount() { return manager_count; }
+
+    @Override
+    public void work() {
+        if (isActive()) { 
+            System.out.println("- is currently working, and is managing the restaurant.");
+            return;
+        }
+
+        System.out.println("- is not currently working");
+    }
 }

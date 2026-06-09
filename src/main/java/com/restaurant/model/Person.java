@@ -2,7 +2,7 @@ package src.main.java.com.restaurant.model;
 
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Person {
+abstract class Person {
     // fields
     private String first_name;
     private String last_name;

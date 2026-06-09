@@ -2,14 +2,13 @@ package src.main.java.com.restaurant.model;
 
 import java.util.TreeSet;
 
-import src.main.java.com.restaurant.config.AppConstants;
 import src.main.java.com.restaurant.config.RestaurantConfig;
 import src.main.java.com.restaurant.enums.Action;
 import src.main.java.com.restaurant.interfaces.Activatable;
 import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
-public class Employee extends Person implements Displayable, Activatable {
+public abstract class Employee extends Person implements Displayable, Activatable {
     // fields
     private static int employee_count = 0;
     private int id;
@@ -148,6 +147,7 @@ public class Employee extends Person implements Displayable, Activatable {
         System.out.println("    + Phone Number: " + getPhoneNumber());
         System.out.println("    + Gender: " + getGender());
         System.out.println("    + Username: " + username);
+        work();
     }
 
     /**
@@ -174,12 +174,5 @@ public class Employee extends Person implements Displayable, Activatable {
         return permissions.contains(permission);
     }
 
-    public void work() {
-        if (active) { 
-            System.out.println(getFullName() + " is currently working.");
-            return;
-        }
-
-        System.out.println(getFullName() + " is not currently working");
-    }
+    abstract void work();
 }

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import src.main.java.com.restaurant.enums.Action;
+import src.main.java.com.restaurant.model.Admin;
+import src.main.java.com.restaurant.model.Cashier;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.Employee;
 import src.main.java.com.restaurant.model.ItemPriceOption;
+import src.main.java.com.restaurant.model.Manager;
 import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.model.Table;
 import src.main.java.com.restaurant.model.TableOrder;
@@ -686,19 +689,18 @@ public class Main {
         String uname = promptUsername(sc, "Enter Username:");
         String pass = promptPassword(sc, "Enter Password:");
 
-        Employee data = new Employee(fname, lname, gender, email, phone, salary, uname, pass, restaurant.getUser());
         switch (action) {
             case Action.ADD_CASHIER:
-                restaurant.addCashier(data);
+                restaurant.addCashier(new Cashier(fname, lname, gender, email, phone, salary, uname, pass, restaurant.getUser()));
                 return;
             case Action.ADD_WAITER:
-                restaurant.addWaiter(data);
+                restaurant.addWaiter(new Waiter(fname, lname, gender, email, phone, salary, uname, pass, restaurant.getUser()));
                 return;
             case Action.ADD_MANAGER:
-                restaurant.addManager(data);
+                restaurant.addManager(new Manager(fname, lname, gender, email, phone, salary, uname, pass, restaurant.getUser()));
                 return;
             case Action.ADD_ADMIN:
-                restaurant.addAdmin(data);
+                restaurant.addAdmin(new Admin(fname, lname, gender, email, phone, salary, uname, pass, restaurant.getUser()));
                 return;
             default:
                 return;
