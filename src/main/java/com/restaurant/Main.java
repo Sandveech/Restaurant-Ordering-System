@@ -787,11 +787,11 @@ public class Main {
                 if (!ValidationUtils.isValidPassword(password)) {
                     throw new InvalidPasswordException("Invalid password (Minimum 8 characters)");
                 }
+                return password;
             }
             catch (InvalidPasswordException e) {
                 ConsoleLogger.printWarning("Caught exception: " + e.getMessage());
             }
-            if (ValidationUtils.isValidPassword(password)) { return password; }
         } while (true);
     }
 
