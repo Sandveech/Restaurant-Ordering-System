@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import src.main.java.com.restaurant.enums.Action;
+import src.main.java.com.restaurant.exceptions.InvalidPasswordException;
 import src.main.java.com.restaurant.model.Admin;
 import src.main.java.com.restaurant.model.Cashier;
 import src.main.java.com.restaurant.model.Category;
@@ -12,10 +13,7 @@ import src.main.java.com.restaurant.model.ItemPriceOption;
 import src.main.java.com.restaurant.model.Manager;
 import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.model.Table;
-import src.main.java.com.restaurant.model.TableOrder;
 import src.main.java.com.restaurant.model.Waiter;
-import src.main.java.com.restaurant.services.ReceiptService;
-import src.main.java.com.restaurant.services.TableService;
 import src.main.java.com.restaurant.util.ConsoleLogger;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
@@ -29,7 +27,7 @@ public class Main {
     // to-do: All the stuff for order management and receipt
     // note: they all have "This option is currently unavailable"
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidPasswordException {
         RestaurantSystem restaurant = new RestaurantSystem();
 
         Scanner sc = new Scanner(System.in);    
@@ -64,7 +62,7 @@ public class Main {
     }
 
     // region Main Menu
-    public static void promptMainMenu(RestaurantSystem restaurant, Scanner sc) {
+    public static void promptMainMenu(RestaurantSystem restaurant, Scanner sc) throws InvalidPasswordException {
         while (true) {
             System.out.println("------Restaurant Ordering System------");
             System.out.println("1 - Menu Management");
@@ -516,10 +514,10 @@ public class Main {
 
     // region Order Management
     public static void promptOrderManagement(RestaurantSystem restaurant, Scanner sc) {
-        ArrayList<TableOrder> table_orders = new ArrayList<>();
-        for (TableOrder table_order : restaurant.getData().getTableOrders()) {
+        // ArrayList<TableOrder> table_orders = new ArrayList<>();
+        // for (TableOrder table_order : restaurant.getData().getTableOrders()) {
 
-        } 
+        // } 
 
         while (true) {
             System.out.println("------Order Management------");
@@ -551,7 +549,7 @@ public class Main {
     // endregion
 
     // region Employee Management
-    public static void promptEmployeeManagement(RestaurantSystem restaurant, Scanner sc) {
+    public static void promptEmployeeManagement(RestaurantSystem restaurant, Scanner sc) throws InvalidPasswordException {
         Employee user = restaurant.getUser();
 
         if (user == null || (!user.hasPermission(Action.MANAGE_USER) && !user.hasPermission(Action.MANAGE_EMPLOYEE))) {
@@ -591,7 +589,7 @@ public class Main {
         }
     }
 
-    public static void promptAddEmployee(RestaurantSystem restaurant, Scanner sc) {
+    public static void promptAddEmployee(RestaurantSystem restaurant, Scanner sc) throws InvalidPasswordException {
         while (true) {
             System.out.println("------Add Employee-----");
             System.out.println("1 - Cashier");
@@ -679,7 +677,7 @@ public class Main {
         }
     }
 
-    public static void handleEmployeeAdd(RestaurantSystem restaurant, Scanner sc, Action action) {
+    public static void handleEmployeeAdd(RestaurantSystem restaurant, Scanner sc, Action action) throws InvalidPasswordException {
         String fname = promptName(sc, "Enter First Name:");
         String lname = promptName(sc, "Enter Last Name:");
         String gender = promptString(sc, "Enter Gender");
@@ -781,12 +779,19 @@ public class Main {
         } while (true);
     }
 
-    public static String promptPassword(Scanner sc, String message) {
+    public static String promptPassword(Scanner sc, String message) throws InvalidPasswordException {
         String password;
         do  {
             password = promptString(sc, message);
+            try {
+                if (!ValidationUtils.isValidPassword(password)) {
+                    throw new InvalidPasswordException("Invalid password (Minimum 8 characters)");
+                }
+            }
+            catch (InvalidPasswordException e) {
+                ConsoleLogger.printWarning("Caught exception: " + e.getMessage());
+            }
             if (ValidationUtils.isValidPassword(password)) { return password; }
-            ConsoleLogger.printWarning("Invalid password. Try again (Minimum 8 characters)");
         } while (true);
     }
 

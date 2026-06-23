@@ -10,13 +10,13 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public abstract class Employee extends Person implements Displayable, Activatable {
     // fields
-    private static int employee_count = 0;
-    private int id;
-    private boolean active = true;
-    private double salary;
-    private Employee created_by;
-    private String username;
-    private String password;
+    protected static int employee_count = 0;
+    protected int id;
+    protected boolean active = true;
+    protected double salary;
+    protected Employee created_by;
+    protected String username;
+    protected String password;
     protected TreeSet<Action> permissions = new TreeSet<>();
 
     // constructor
@@ -116,23 +116,19 @@ public abstract class Employee extends Person implements Displayable, Activatabl
     /**
      * Sets the usrename of this employee.
      * @param username the username to set to
-     * @return {@true} if and only if the username is succesfully set; otherwise, {@false}
      */
-    public boolean setUsername(String username) {
-        if (!ValidationUtils.isValidUsername(username)) { return false; }
+    public void setUsername(String username) {
+        if (!ValidationUtils.isValidUsername(username)) { return; }
         this.username = username;
-        return true;
     }
 
     /**
      * Sets the passsword of this employee.
      * @param password the passsword to set to
-     * @return {@true} if and only if the password is succesfully set; otheriwse, {@false}
      */
-    public boolean setPassword(String password) {
-        if (!ValidationUtils.isValidPassword(password)) { return false; }
+    public void setPassword(String password) {
+        if (!ValidationUtils.isValidPassword(password)) { return; }
         this.password = password;
-        return true;
     }
 
     /**
@@ -141,11 +137,11 @@ public abstract class Employee extends Person implements Displayable, Activatabl
     @Override
     public void display() {
         System.out.println("- " + getFullName());
-        System.out.println("    + ID: " + getID());
+        System.out.println("    + ID: " + id);
         System.out.println("    + Active?: " + active);
-        System.out.println("    + Email:" + getEmail());
-        System.out.println("    + Phone Number: " + getPhoneNumber());
-        System.out.println("    + Gender: " + getGender());
+        System.out.println("    + Email:" + email);
+        System.out.println("    + Phone Number: " + phone_number);
+        System.out.println("    + Gender: " + gender);
         System.out.println("    + Username: " + username);
         work();
     }

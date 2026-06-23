@@ -4,11 +4,11 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 abstract class Person {
     // fields
-    private String first_name;
-    private String last_name;
-    private String gender;
-    private String email;
-    private String phone_number;
+    protected String first_name;
+    protected String last_name;
+    protected String gender;
+    protected String email;
+    protected String phone_number;
 
     // constructor
     public Person(String first_name, String last_name, String gender, String email, String phone_number) {

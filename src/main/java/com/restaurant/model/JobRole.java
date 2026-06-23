@@ -45,7 +45,8 @@ public class JobRole {
      * @param id the id to set to
      */
     private void setID(int id) {
-        this.id = (ValidationUtils.isValidID(id)) ? id : AppConstants.INVALID_ID;
+        if (!ValidationUtils.isValidID(id)) { return; }
+        this.id = id;
     }
 
     /**

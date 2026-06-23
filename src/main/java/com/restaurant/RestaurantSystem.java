@@ -89,7 +89,7 @@ public class RestaurantSystem {
                 return;
             }
         }
-        ConsoleLogger.printError("Invalid username or passsword");
+        ConsoleLogger.printError("Incorrect username or passsword");
     }
 
     public void logout() {
