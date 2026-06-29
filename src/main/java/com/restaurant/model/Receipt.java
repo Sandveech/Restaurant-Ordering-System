@@ -10,32 +10,32 @@ import src.main.java.com.restaurant.interfaces.Printable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Receipt implements Printable, Calculatable {
-    private static int receipt_count = 0;
+    private static int receiptCount = 0;
     private int id;
-    private TableOrder table_order;
+    private TableOrder tableOrder;
     private Cashier cashier;
-    private LocalDateTime issued_at;
-    private double subtotal_price;
-    private double tax_percentage;
-    private double tax_amount;
-    private String payment_method;
+    private LocalDateTime issuedAt;
+    private double subtotalPrice;
+    private double taxPercentage;
+    private double taxAmount;
+    private String paymentMethod;
 
     // constructor
-    public Receipt(TableOrder table_order, Cashier cashier, double tax_percentage, String payment_method) {
-        setID(receipt_count++);
-        setTableOrder(table_order);
+    public Receipt(TableOrder tableOrder, Cashier cashier, double taxPercentage, String paymentMethod) {
+        setID(receiptCount++);
+        setTableOrder(tableOrder);
         setCashier(cashier);
         setIssuedAt(LocalDateTime.now());
-        setTaxPercentage(tax_percentage);
-        setPaymentMethod(payment_method);
+        setTaxPercentage(taxPercentage);
+        setPaymentMethod(paymentMethod);
 
         setSubtotalPrice(calculateSubtotalPrice());
-        setTaxAmount(calculateTaxAmount(tax_percentage));
+        setTaxAmount(calculateTaxAmount(taxPercentage));
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), tax_percentage, calculate());
+        return String.format("ID: %d, Table: #%d, Cashier: %s, Issued At: %s, Tax Percentage: %.2f, Total Price: %.2f", id, getCashier().getFullName(), getFormattedDateTime(), taxPercentage, calculate());
     }
 
     /**
@@ -43,7 +43,7 @@ public class Receipt implements Printable, Calculatable {
      * @return the historical count of receipts
      */
     private static int getReceiptCount() {
-        return receipt_count;
+        return receiptCount;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Receipt implements Printable, Calculatable {
      * Returns the table order of this receipt.
      * @return the table order of this receipt
      */
-    private TableOrder getTableOrder() { return table_order; }
+    private TableOrder getTableOrder() { return tableOrder; }
 
     /**
      * Returns the cashier of this receipt.
@@ -68,49 +68,49 @@ public class Receipt implements Printable, Calculatable {
      * Returns the date this receipt was issued at.
      * @return the date this receipt was issued at
      */
-    private LocalDateTime getIssuedAt() { return issued_at; }
+    private LocalDateTime getIssuedAt() { return issuedAt; }
 
     /**
      * Returns the subtotal price of this receipt.
      * @return the subtotal price of this receipt
      */
-    public double getSubtotalPrice() { return subtotal_price; }
+    public double getSubtotalPrice() { return subtotalPrice; }
 
     /**
      * Returns the tax percentage of this receipt.
      * @return the tax percentage of this receipt
      */
-    public double getTaxPercentage() { return tax_percentage; }
+    public double getTaxPercentage() { return taxPercentage; }
 
     /**
      * Returns the tax amount of this receipt.
      * @return the tax amount of this receipt
      */
-    public double getTaxAmount() { return tax_amount; }
+    public double getTaxAmount() { return taxAmount; }
 
     /**
      * Returns the payment method of this receipt.
      * @return the payment method of this receipt
      */
-    public String getPaymentMethod() { return payment_method; }
+    public String getPaymentMethod() { return paymentMethod; }
 
     /**
      * Returns the issued date of this receipt as a formatted string.
      * @return the issued date of this receipt as a formatted string
      */
-    public String getFormattedDate() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)); }
+    public String getFormattedDate() { return issuedAt.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)); }
 
     /**
      * Returns the issued time of this receipt as a formatted string.
      * @return the issued time of this receipt as a formatted string
      */
-    public String getFormattedTime() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.TIME_FORMAT)); }
+    public String getFormattedTime() { return issuedAt.format(DateTimeFormatter.ofPattern(AppConstants.TIME_FORMAT)); }
 
     /**
      * Returns the issued date and time of this receipt as a formatted string.
      * @return the issued date and time of this receipt as a formatted string
      */
-    public String getFormattedDateTime() { return issued_at.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT + " " + AppConstants.TIME_FORMAT)); }
+    public String getFormattedDateTime() { return issuedAt.format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT + " " + AppConstants.TIME_FORMAT)); }
 
     /**
      * Sets the id of this receipt
@@ -124,8 +124,8 @@ public class Receipt implements Printable, Calculatable {
      * Sets the table order of this receipt.
      * @param table_order the table order to set to
      */
-    private void setTableOrder(TableOrder table_order) {
-        if (table_order != null) { this.table_order = table_order; }
+    private void setTableOrder(TableOrder tableOrder) {
+        if (tableOrder != null) { this.tableOrder = tableOrder; }
     }
 
     /**
@@ -141,15 +141,15 @@ public class Receipt implements Printable, Calculatable {
      * @param date the issued date and time of this receipt
      */
     private void setIssuedAt(LocalDateTime date) {
-        if (date != null) { this.issued_at = date; }
+        if (date != null) { this.issuedAt = date; }
     }
 
     /**
      * Sets the subtotal price of this receipt.
      * @param subtotal_price the subtotal price to set to
      */
-    private void setSubtotalPrice(double subtotal_price) {
-        this.subtotal_price = (subtotal_price < 0) ? 0 : subtotal_price;
+    private void setSubtotalPrice(double subtotalPrice) {
+        this.subtotalPrice = (subtotalPrice < 0) ? 0 : subtotalPrice;
     }
 
     /**
@@ -157,7 +157,7 @@ public class Receipt implements Printable, Calculatable {
      * @param percentage the tax percentage to set to
      */
     private void setTaxPercentage(double percentage) {
-        this.tax_percentage = (percentage < 0) ? 0 : percentage;
+        this.taxPercentage = (percentage < 0) ? 0 : percentage;
     }
 
     /**
@@ -165,29 +165,29 @@ public class Receipt implements Printable, Calculatable {
      * @param amount the tax amount to set to
      */
     private void setTaxAmount(double amount) {
-        this.tax_amount = (amount < 0) ? 0 : amount;
+        this.taxAmount = (amount < 0) ? 0 : amount;
     }
 
     /**
      * Sets the payment method of this receipt.
      * @param payment_method the payment method to set to
      */
-    private void setPaymentMethod(String payment_method) {
-        this.payment_method = payment_method;
+    private void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     // helper functions
     @Override
     public double calculate() {
-        return subtotal_price + tax_amount;
+        return subtotalPrice + taxAmount;
     }
 
     private double calculateSubtotalPrice() {
-        return (table_order != null) ? table_order.calculate() : 0;
+        return (tableOrder != null) ? tableOrder.calculate() : 0;
     }
 
-    private double calculateTaxAmount(double tax_percentage) {
-        return (calculateSubtotalPrice()) * (tax_percentage / 100);
+    private double calculateTaxAmount(double taxPercentage) {
+        return (calculateSubtotalPrice()) * (taxPercentage / 100);
     }
 
     public void displaySeperator(String symbol, int width) {
@@ -212,7 +212,7 @@ public class Receipt implements Printable, Calculatable {
         System.out.println(getFormattedDateTime());
 
         String cashier_name = (cashier != null) ? cashier.getFullName() : "Unknown";
-        int table_num = (table_order != null && table_order.getTable() != null) ? table_order.getTable().getNumber() : 0;
+        int table_num = (tableOrder != null && tableOrder.getTable() != null) ? tableOrder.getTable().getNumber() : 0;
 
         System.out.printf("Cashier: %-29s Table: #%d%n", cashier_name, table_num);
         displaySeperator("-", 48);
@@ -220,13 +220,13 @@ public class Receipt implements Printable, Calculatable {
 
     private void printOrderDetails() {
         System.out.printf("%-32s %-8s%n", "DESC", "QTY");
-        if (table_order != null) { table_order.display(); }
+        if (tableOrder != null) { tableOrder.display(); }
     }
 
     private void printTotals() {
         displaySeperator("-", 48);
-        System.out.printf("Subtotal %39.2f%n", subtotal_price);
-        System.out.printf("%2.0f%% VAT %40.2f%n", tax_percentage, tax_amount);
+        System.out.printf("Subtotal %39.2f%n", subtotalPrice);
+        System.out.printf("%2.0f%% VAT %40.2f%n", taxPercentage, taxAmount);
         displaySeperator("-", 48);
     }
 

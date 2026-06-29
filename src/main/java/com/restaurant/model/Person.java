@@ -4,24 +4,24 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 abstract class Person {
     // fields
-    protected String first_name;
-    protected String last_name;
+    protected String firstName;
+    protected String lastName;
     protected String gender;
     protected String email;
-    protected String phone_number;
+    protected String phoneNumber;
 
     // constructor
-    public Person(String first_name, String last_name, String gender, String email, String phone_number) {
-        setFirstName(first_name);
-        setLastName(last_name);
+    public Person(String firstName, String lastName, String gender, String email, String phoneNumber) {
+        setFirstName(firstName);
+        setLastName(lastName);
         setGender(gender);
         setEmail(email);
-        setPhoneNumber(phone_number);
+        setPhoneNumber(phoneNumber);
     }
 
     @Override
     public String toString() {
-        return String.format("First Name: %s, Last Name: %s, Gender: %s, Email: %s, Phone Number: %s", first_name, last_name, gender, email, phone_number);
+        return String.format("First Name: %s, Last Name: %s, Gender: %s, Email: %s, Phone Number: %s", firstName, lastName, gender, email, phoneNumber);
     }
 
     // getters and setters
@@ -29,13 +29,13 @@ abstract class Person {
      * Returns the first name of this person.
      * @return the first name of this person
      */
-    public String getFirstName() { return first_name; }
+    public String getFirstName() { return firstName; }
 
     /**
      * Returns the last name of this person.
      * @return the last name of this person
      */
-    public String getLastName() { return last_name; }
+    public String getLastName() { return lastName; }
 
     /**
      * Returns the gender of this person.
@@ -53,28 +53,28 @@ abstract class Person {
      * Returns the phone number of this person.
      * @return the phone number of this person
      */
-    public String getPhoneNumber() { return phone_number; }
+    public String getPhoneNumber() { return phoneNumber; }
 
     /**
      * Returns the full name of this person.
      * @return the full name of this person
      */
-    public String getFullName() { return first_name + " " + last_name; }
+    public String getFullName() { return firstName + " " + lastName; }
 
     /**
      * Sets the first name of this person
-     * @param first_name the first name to set to
+     * @param firstName the first name to set to
      */
-    public void setFirstName(String first_name) {
-        this.first_name = (ValidationUtils.isValidName(first_name)) ? first_name : "First Name";
+    public void setFirstName(String firstName) {
+        this.firstName = (ValidationUtils.isValidName(firstName)) ? firstName : "First Name";
     }
 
     /**
      * Sets the last name of this person
-     * @param last_name the last name to set to
+     * @param lastName the last name to set to
      */
-    public void setLastName(String last_name) {
-        this.last_name = (ValidationUtils.isValidName(last_name)) ? last_name : "Last Name";
+    public void setLastName(String lastName) {
+        this.lastName = (ValidationUtils.isValidName(lastName)) ? lastName : "Last Name";
     }
 
     /**
@@ -95,9 +95,9 @@ abstract class Person {
 
     /**
      * Sets the phone number of this person.
-     * @param phone_number the phone number to set to
+     * @param phoneNumber the phone number to set to
      */
-    public void setPhoneNumber(String phone_number) {
-        this.phone_number = (ValidationUtils.isValidPhoneNumber(phone_number)) ? phone_number : "No phone number";
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = (ValidationUtils.isValidPhoneNumber(phoneNumber)) ? phoneNumber : "No phone number";
     }
 }

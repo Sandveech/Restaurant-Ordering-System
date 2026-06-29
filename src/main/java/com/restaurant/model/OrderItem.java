@@ -8,16 +8,16 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class OrderItem implements Displayable, Calculatable {
     // fields
-    private static int order_item_count = 0;
+    private static int orderItemCount = 0;
     private int id;
     private MenuItem item;
     private int quantity;
     private String size;
-    private double unit_price;
+    private double unitPrice;
 
     // constructor
     public OrderItem(MenuItem item, int quantity, String size) {
-        setID(order_item_count++);
+        setID(orderItemCount++);
         setItem(item);
         setQuantity(quantity);
         setSize(size);
@@ -36,7 +36,7 @@ public class OrderItem implements Displayable, Calculatable {
      * Returns the historical count of order items.
      * @return the historical count of order items
      */
-    private static int getOrderItemCount() { return order_item_count; }
+    private static int getOrderItemCount() { return orderItemCount; }
 
     /**
      * Returns the id of this order item.
@@ -66,7 +66,7 @@ public class OrderItem implements Displayable, Calculatable {
      * Returns the unit price of this order item.
      * @return the unit price of this order item
      */
-    public double getUnitPrice() { return unit_price; }
+    public double getUnitPrice() { return unitPrice; }
 
     /**
      * Sets the id of this order item.
@@ -105,7 +105,7 @@ public class OrderItem implements Displayable, Calculatable {
      * @param price the unit price to set to
      */
     private void setUnitPrice(double price) {
-        this.unit_price = (price < 0) ? RestaurantConfig.getInstance().getMinPrice() : price;
+        this.unitPrice = (price < 0) ? RestaurantConfig.getInstance().getMinPrice() : price;
     }
 
     /**
@@ -124,8 +124,8 @@ public class OrderItem implements Displayable, Calculatable {
     @Override
     public void display() {
         String name = (item == null) ? "Unknown Item" : item.getName();
-        double unit_price = (item == null) ? 0 : item.priceOfSize(size);
+        double unitPrice = (item == null) ? 0 : item.priceOfSize(size);
 
-        System.out.println(String.format("Name: %s, Size: %s, Unit Price: %.2f", name, size, unit_price));
+        System.out.println(String.format("Name: %s, Size: %s, Unit Price: %.2f", name, size, unitPrice));
     }
 }

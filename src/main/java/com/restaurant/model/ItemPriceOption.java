@@ -7,7 +7,7 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class ItemPriceOption implements Activatable {
     // fields
-    private static int item_price_option_count = 0;
+    private static int itemPriceOptionCount = 0;
     private int id;
     private String label;
     private double price;
@@ -15,7 +15,7 @@ public class ItemPriceOption implements Activatable {
 
     // constructor
     public ItemPriceOption(String label, double price) {
-        setID(item_price_option_count++);
+        setID(itemPriceOptionCount++);
         setLabel(label);
         setPrice(price);
     }
@@ -25,7 +25,7 @@ public class ItemPriceOption implements Activatable {
      * Returns the historical count of item price option.
      * @return the historical count of item price option
      */
-    private static int getItemPriceOptionCount() { return item_price_option_count; }
+    private static int getItemPriceOptionCount() { return itemPriceOptionCount; }
 
     /**
      * Returns the label of this item price option.

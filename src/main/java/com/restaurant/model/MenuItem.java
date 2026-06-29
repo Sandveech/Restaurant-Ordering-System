@@ -9,17 +9,17 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class MenuItem implements Displayable, Activatable {
     // fields
-    private static int menu_item_count = 0;
+    private static int menuItemCount = 0;
     private int id;
     private String name;
     private String description;
     private Category category;
     private boolean active;
-    private ArrayList<ItemPriceOption> price_options = new ArrayList<ItemPriceOption>();
+    private ArrayList<ItemPriceOption> priceOptions = new ArrayList<ItemPriceOption>();
 
     // constructor
     public MenuItem(String name, String description, Category category, Boolean active) {
-        setID(menu_item_count++);
+        setID(menuItemCount++);
         setName(name);
         setDescription(description);
         setCategory(category);
@@ -36,7 +36,7 @@ public class MenuItem implements Displayable, Activatable {
      * Returns the historical count of menu items.
      * @return the historical count of menu items
      */
-    private static int getMenuItemCount() { return menu_item_count; }
+    private static int getMenuItemCount() { return menuItemCount; }
 
     /**
      * Returns the id of this menu item.
@@ -72,7 +72,7 @@ public class MenuItem implements Displayable, Activatable {
      * Returns the list of item price options.
      * @return the list of item price options
      */
-    public ArrayList<ItemPriceOption> getItemPriceOption() { return this.price_options; }
+    public ArrayList<ItemPriceOption> getItemPriceOption() { return this.priceOptions; }
 
     /**
      * Sets the id of this menu item.
@@ -121,8 +121,8 @@ public class MenuItem implements Displayable, Activatable {
      * @return the index of the price option
      */
     private int indexOfPriceOption(String label) {
-        for (int i = 0; i < price_options.size(); i++) {
-            ItemPriceOption po = price_options.get(i);
+        for (int i = 0; i < priceOptions.size(); i++) {
+            ItemPriceOption po = priceOptions.get(i);
             if (po == null) { continue; }
             if (po.getLabel() == label) { return i; }
         }
@@ -148,7 +148,7 @@ public class MenuItem implements Displayable, Activatable {
         int price_index = indexOfPriceOption(label);
         if (price_index == -1) { return 0; }
 
-        return price_options.get(price_index).getPrice();
+        return priceOptions.get(price_index).getPrice();
     }
     
     /**
@@ -161,7 +161,7 @@ public class MenuItem implements Displayable, Activatable {
         if (!ValidationUtils.isValidText(label)) { return false; }
         
         if (!priceOptionExists(label)) {
-            price_options.add(new ItemPriceOption(label, price));
+            priceOptions.add(new ItemPriceOption(label, price));
             return true;
         }
 
@@ -182,14 +182,14 @@ public class MenuItem implements Displayable, Activatable {
  
     public String formattedSizesString() {
         String sizes = "(";
-        int len = price_options.size();
+        int len = priceOptions.size();
         for (int i = 0; i < len; i++) {
-            ItemPriceOption op = price_options.get(i);
+            ItemPriceOption op = priceOptions.get(i);
             sizes += op.getLabel() + ": " + op.getPrice();
 
             if (i != len - 1) { sizes += ", "; }
         }
-        for (ItemPriceOption op : price_options) {
+        for (ItemPriceOption op : priceOptions) {
             if (op == null) { continue; }
             
         }

@@ -6,20 +6,20 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Category implements Displayable {
     // fields
-    private static int category_count = 0;
+    private static int categoryCount = 0;
     private int id;
     private String name;
     private String description;
 
     // constructor
     public Category(String name, String decription) {
-        setID(category_count++);
+        setID(categoryCount++);
         setName(name);
         setDescription(decription);
     }
 
     public Category(String name) {
-        setID(category_count++);
+        setID(categoryCount++);
         setName(name);
         setDescription("No description.");
     }
@@ -34,7 +34,7 @@ public class Category implements Displayable {
      * Returns the historical count of categories.
      * @return the historical count of categories
      */
-    private static int getCategoryCount() { return category_count; }
+    private static int getCategoryCount() { return categoryCount; }
 
     /**
      * Returns the id of this category.

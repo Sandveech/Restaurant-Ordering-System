@@ -8,28 +8,28 @@ import src.main.java.com.restaurant.interfaces.Reservable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class Table implements Displayable, Reservable, Occupiable, Activatable {
-    private static int table_count = 0;
+    private static int tableCount = 0;
     private int id;
-    private int seat_count;
+    private int seatCount;
     private boolean reserved = false;
     private boolean occupied = false;
     private boolean active;
 
     public Table(int seat_count, Boolean active) {
-        setID(table_count++);
+        setID(tableCount++);
         setSeatCount(seat_count);
         setActive(active);
     }
 
     public Table(int seat_count) {
-        setID(table_count++);
+        setID(tableCount++);
         setSeatCount(seat_count);
         setActive(true);
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Number: %d, Seat Count: %d", id, getNumber(), seat_count);
+        return String.format("ID: %d, Number: %d, Seat Count: %d", id, getNumber(), seatCount);
     }
 
     // getters and setters
@@ -37,7 +37,7 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      * Returns the historical count of tables.
      * @return the historical count of tables
      */
-    private static int getCount() { return table_count; }
+    private static int getCount() { return tableCount; }
     
     /**
      * Returns the id of this table.
@@ -49,7 +49,7 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      * Returns the seat count of this table.
      * @return the seat count of this table
      */
-    public int getSeatCount() { return seat_count; }
+    public int getSeatCount() { return seatCount; }
 
     /**
      * Returns the number of this table.
@@ -91,7 +91,7 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
      * @param n the seat count to set to
      */
     private void setSeatCount(int n) {
-        this.seat_count = (n >= 1) ? n : 1;
+        this.seatCount = (n >= 1) ? n : 1;
     }
 
     /**
@@ -156,7 +156,7 @@ public class Table implements Displayable, Reservable, Occupiable, Activatable {
     @Override
     public void display() {
         System.out.println("- Table #" + getNumber());
-        System.out.println("    + Seat Count: " + seat_count);
+        System.out.println("    + Seat Count: " + seatCount);
         System.out.println("    + Active?: " + active);
         System.out.println("    + Occupied?: " + occupied);
         System.out.println("    + Reserved?: " + reserved);

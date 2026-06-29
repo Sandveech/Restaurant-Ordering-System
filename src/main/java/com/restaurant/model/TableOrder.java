@@ -10,7 +10,7 @@ import src.main.java.com.restaurant.interfaces.Displayable;
 import src.main.java.com.restaurant.util.ValidationUtils;
 
 public class TableOrder implements Displayable, Calculatable, Completable {
-    private static int table_order_count = 0;
+    private static int tableOrderCount = 0;
     private int id;
     private ArrayList<OrderItem> orders = new ArrayList<OrderItem>();
     private Waiter waiter;
@@ -18,7 +18,7 @@ public class TableOrder implements Displayable, Calculatable, Completable {
     private Boolean completed = false;
 
     public TableOrder(Waiter waiter, Table table) {
-        setID(table_order_count++);
+        setID(tableOrderCount++);
         setWaiter(waiter);
         setTable(table);
     }
@@ -33,7 +33,7 @@ public class TableOrder implements Displayable, Calculatable, Completable {
      * Returns the historical count of table orders.
      * @return the historical count of table orders
      */
-    private int getTableOrderCount() { return table_order_count; }
+    private int getTableOrderCount() { return tableOrderCount; }
 
     /**
      * Returns the id of this table order.

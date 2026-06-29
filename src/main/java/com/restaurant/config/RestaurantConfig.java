@@ -7,13 +7,13 @@ public class RestaurantConfig {
     private static final RestaurantConfig INSTANCE = new RestaurantConfig();
     private String name;
     private String address;
-    private String phone_number;
-    private double tax_percentage;
-    private double min_price;
-    private int max_orders;
-    private String receipt_message;
-    private double min_salary;
-    private String default_payment_method;
+    private String phoneNumber;
+    private double taxPercentage;
+    private double minPrice;
+    private int maxOrders;
+    private String receiptMessage;
+    private double minSalary;
+    private String defaultPaymentMethod;
 
     // constructor
     private RestaurantConfig() {
@@ -31,13 +31,13 @@ public class RestaurantConfig {
     public static RestaurantConfig getInstance() { return INSTANCE; }
     public String getName() { return name; }
     public String getAddress() { return address; }
-    public String getPhoneNumber() { return phone_number; }
-    public double getTaxPercentage() { return tax_percentage; }
-    public double getMinPrice() { return min_price; }
-    public int getMaxOrders() { return max_orders; }
-    public String getReceiptMessage() { return receipt_message; }
-    public double getMinSalary() { return min_salary; }
-    public String getDefaultPaymentMethod() { return default_payment_method; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public double getTaxPercentage() { return taxPercentage; }
+    public double getMinPrice() { return minPrice; }
+    public int getMaxOrders() { return maxOrders; }
+    public String getReceiptMessage() { return receiptMessage; }
+    public double getMinSalary() { return minSalary; }
+    public String getDefaultPaymentMethod() { return defaultPaymentMethod; }
 
     public void setName(String name) {
         this.name = (ValidationUtils.isValidText(name)) ? name : "Unnamed Restaurant";
@@ -47,31 +47,31 @@ public class RestaurantConfig {
         this.address = (ValidationUtils.isValidText(address)) ? address : "No address";
     }
 
-    public void setPhoneNumber(String phone_number) {
-        this.phone_number = (ValidationUtils.isValidPhoneNumber(phone_number)) ? phone_number : "No phone number";
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = (ValidationUtils.isValidPhoneNumber(phoneNumber)) ? phoneNumber : "No phone number";
     }
 
-    public void setTaxPercentage(double tax_percentage) {
-        this.tax_percentage = (tax_percentage >= 0) ? tax_percentage : 0;
+    public void setTaxPercentage(double taxPercentage) {
+        this.taxPercentage = (taxPercentage >= 0) ? taxPercentage : 0;
     }
 
     public void setMinPrice(double price) {
-        this.min_price = (price >= 0) ? price : 0;
+        this.minPrice = (price >= 0) ? price : 0;
     }
 
     public void setMaxOrders(int orders) {
-        this.max_orders = (orders >= 1) ? orders : 1;
+        this.maxOrders = (orders >= 1) ? orders : 1;
     }
 
     public void setReceiptMessage(String message) {
-        this.receipt_message = (ValidationUtils.isValidText(message)) ? message : "";
+        this.receiptMessage = (ValidationUtils.isValidText(message)) ? message : "";
     }
 
     public void setMinSalary(double salary) {
-        this.min_salary = (salary >= 0) ? salary : 0;
+        this.minSalary = (salary >= 0) ? salary : 0;
     }
 
-    public void setDefaultPaymentMethod(String payment_method) {
-        this.default_payment_method = (ValidationUtils.isValidText(payment_method)) ? payment_method : "Cash";
+    public void setDefaultPaymentMethod(String paymentMethod) {
+        this.defaultPaymentMethod = (ValidationUtils.isValidText(paymentMethod)) ? paymentMethod : "Cash";
     }
 }

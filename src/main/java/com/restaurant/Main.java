@@ -494,7 +494,7 @@ public class Main {
             else {
                 Table table = tables.get(choice - 1);
                 Waiter waiter = (Waiter) user;
-                restaurant.order_service.createTableOrder(table, waiter);
+                restaurant.orderService.createTableOrder(table, waiter);
             }
         }
     }
@@ -506,16 +506,16 @@ public class Main {
             return;
         }
 
-        int seat_count = promptInt(sc, "Enter Seat Count:");
-        restaurant.addTable(seat_count);
+        int seatCount = promptInt(sc, "Enter Seat Count:");
+        restaurant.addTable(seatCount);
     }
 
     // endregion
 
     // region Order Management
     public static void promptOrderManagement(RestaurantSystem restaurant, Scanner sc) {
-        // ArrayList<TableOrder> table_orders = new ArrayList<>();
-        // for (TableOrder table_order : restaurant.getData().getTableOrders()) {
+        // ArrayList<TableOrder> tableOrders = new ArrayList<>();
+        // for (TableOrder tableOrder : restaurant.getData().getTableOrders()) {
 
         // } 
 

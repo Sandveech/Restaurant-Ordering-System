@@ -10,23 +10,23 @@ import src.main.java.com.restaurant.util.ValidationUtils;
 
 public abstract class Employee extends Person implements Displayable, Activatable {
     // fields
-    protected static int employee_count = 0;
+    protected static int employeeCount = 0;
     protected int id;
     protected boolean active = true;
     protected double salary;
-    protected Employee created_by;
+    protected Employee createdBy;
     protected String username;
     protected String password;
     protected TreeSet<Action> permissions = new TreeSet<>();
 
     // constructor
-    public Employee(String first_name, String last_name, String gender, String email, String phone_number, double salary, String username, String password, Employee created_by) {
-        super(first_name, last_name, gender, email, phone_number);
-        setID(employee_count++);
+    public Employee(String firstName, String lastName, String gender, String email, String phoneNumber, double salary, String username, String password, Employee createdBy) {
+        super(firstName, lastName, gender, email, phoneNumber);
+        setID(employeeCount++);
         setSalary(salary);
         setUsername(username);
         setPassword(password);
-        setCreatedBy(created_by);
+        setCreatedBy(createdBy);
     }
 
     @Override
@@ -39,7 +39,7 @@ public abstract class Employee extends Person implements Displayable, Activatabl
      * Returns the historical count of employees.
      * @return the historical count of employees
      */
-    private static int getEmployeeCount() { return employee_count; }
+    private static int getEmployeeCount() { return employeeCount; }
 
     /**
      * Returns the id of this employee.
@@ -63,7 +63,7 @@ public abstract class Employee extends Person implements Displayable, Activatabl
      * Returns the employee who created this employee.
      * @return the employee who created this employee
      */
-    public Employee getCreatedBy() { return created_by; }
+    public Employee getCreatedBy() { return createdBy; }
 
     /**
      * Returns the username of this employee.
@@ -110,7 +110,7 @@ public abstract class Employee extends Person implements Displayable, Activatabl
      */
     private void setCreatedBy(Employee employee) {
         if (employee == null) { return; }
-        this.created_by = employee;
+        this.createdBy = employee;
     }
     
     /**
@@ -140,7 +140,7 @@ public abstract class Employee extends Person implements Displayable, Activatabl
         System.out.println("    + ID: " + id);
         System.out.println("    + Active?: " + active);
         System.out.println("    + Email:" + email);
-        System.out.println("    + Phone Number: " + phone_number);
+        System.out.println("    + Phone Number: " + phoneNumber);
         System.out.println("    + Gender: " + gender);
         System.out.println("    + Username: " + username);
         work();

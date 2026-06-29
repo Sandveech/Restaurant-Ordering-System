@@ -24,46 +24,46 @@ import src.main.java.com.restaurant.model.Category;
 
 public class RestaurantSystem {
     private static RestaurantDataStore data = new RestaurantDataStore();
-    public final EmployeeService employee_service = new EmployeeService(data);
-    public final MenuService menu_service = new MenuService(data);
-    public final OrderService order_service = new OrderService(data);
-    public final ReceiptService receipt_service = new ReceiptService(data);
-    public final TableService table_service = new TableService(data);
+    public final EmployeeService employeeService = new EmployeeService(data);
+    public final MenuService menuService = new MenuService(data);
+    public final OrderService orderService = new OrderService(data);
+    public final ReceiptService receiptService = new ReceiptService(data);
+    public final TableService tableService = new TableService(data);
     private static Employee user;
 
     public RestaurantSystem() {
         // categories
-        menu_service.addCategory("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people.");
-        menu_service.addCategory("Entree", "A dish served before the main course of a meal.");
-        menu_service.addCategory("Main Course", "The featured or primary dish in a meal consisting of several courses.");
-        menu_service.addCategory("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream.");
+        menuService.addCategory("Appetizers", "A small serving of food meant to be eaten before an entree, and often shared by several people.");
+        menuService.addCategory("Entree", "A dish served before the main course of a meal.");
+        menuService.addCategory("Main Course", "The featured or primary dish in a meal consisting of several courses.");
+        menuService.addCategory("Dessert", "A dish that consists of sweet foods, such as cake, biscuits, and ice cream.");
 
         // menu items
         ArrayList<MenuItem> items = data.getMenuItems();
-        menu_service.addMenuItem(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", data.getCategories().get(2), true));
-        MenuItem aglio_e_olio = items.get(0);
-        aglio_e_olio.createPriceOption("S", 5);
-        aglio_e_olio.createPriceOption("M", 7.5);
-        aglio_e_olio.createPriceOption("L", 10);
+        menuService.addMenuItem(new MenuItem("Aglio e Olio", "A classic Italian pasta dish from Naples, translating directly to \"garlic and oil\"", data.getCategories().get(2), true));
+        MenuItem aglioEOlio = items.get(0);
+        aglioEOlio.createPriceOption("S", 5);
+        aglioEOlio.createPriceOption("M", 7.5);
+        aglioEOlio.createPriceOption("L", 10);
 
-        menu_service.addMenuItem(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", data.getCategories().get(2), true));
+        menuService.addMenuItem(new MenuItem("Carbonara", "A classic Roman pasta dish made by tossing hot pasta with a creamy sauce of raw eggs, grated Pecorino Romano cheese, and cured pork, and black pepper.", data.getCategories().get(2), true));
         MenuItem carbonara = items.get(1);
         carbonara.createPriceOption("S", 6);
         carbonara.createPriceOption("M", 9);
         carbonara.createPriceOption("L", 12);
 
         // tables
-        table_service.addTable(4);
-        table_service.addTable(2);
-        table_service.addTable(6);
-        table_service.addTable(5);
+        tableService.addTable(4);
+        tableService.addTable(2);
+        tableService.addTable(6);
+        tableService.addTable(5);
 
         // employees
         Admin admin = new Admin("admin", "admin", "", "", "", 0, "admin", "12345678", null);
-        employee_service.addEmployee(admin);
-        employee_service.addEmployee(new Cashier("John", "Smith", "Male", "johnsmith@gmail.com", "123456789", 300, "johns", "12345678", admin));
-        employee_service.addEmployee(new Waiter("John", "Doe", "Male", "johndoe@gmail.com", "987654321", 300, "johnd", "12345678", admin));
-        employee_service.addEmployee(new Manager("Jane", "Doe", "Female", "janedoe@gmail.com", "800813512", 300, "janed", "12345678", admin));
+        employeeService.addEmployee(admin);
+        employeeService.addEmployee(new Cashier("John", "Smith", "Male", "johnsmith@gmail.com", "123456789", 300, "johns", "12345678", admin));
+        employeeService.addEmployee(new Waiter("John", "Doe", "Male", "johndoe@gmail.com", "987654321", 300, "johnd", "12345678", admin));
+        employeeService.addEmployee(new Manager("Jane", "Doe", "Female", "janedoe@gmail.com", "800813512", 300, "janed", "12345678", admin));
     }
 
     public RestaurantDataStore getData() {
@@ -115,7 +115,7 @@ public class RestaurantSystem {
             return;
         }
 
-        employee_service.addEmployee(cashier);
+        employeeService.addEmployee(cashier);
         ConsoleLogger.printSuccess("Added \'" + cashier.getFullName() + "\' (" + cashier.getClass().getSimpleName() + ")");
         return;
     }
@@ -136,7 +136,7 @@ public class RestaurantSystem {
             return;
         }
 
-        employee_service.addEmployee(waiter);
+        employeeService.addEmployee(waiter);
         ConsoleLogger.printSuccess("Added \'" + waiter.getFullName() + "\' (" + waiter.getClass().getSimpleName() + ")");
         return;
     }
@@ -158,7 +158,7 @@ public class RestaurantSystem {
         }
         
         ConsoleLogger.printSuccess("Added \'" + manager.getFullName() + "\' (" + manager.getClass().getSimpleName() + ")");
-        employee_service.addEmployee(manager);
+        employeeService.addEmployee(manager);
         return;
     }
 
@@ -178,13 +178,13 @@ public class RestaurantSystem {
             return;
         }
 
-        employee_service.addEmployee(admin);
+        employeeService.addEmployee(admin);
         ConsoleLogger.printSuccess("Added \'" + admin.getFullName() + "\' (" + admin.getClass().getSimpleName() + ")");
         return;
     }
 
     public void addCategory(String name, String desc) {
-        menu_service.addCategory(name, desc);
+        menuService.addCategory(name, desc);
         ConsoleLogger.printSuccess("Added \'" + name + "\'");
     }
 
@@ -195,7 +195,7 @@ public class RestaurantSystem {
         }
 
         MenuItem temp = new MenuItem(name, desc, category, true);
-        menu_service.addMenuItem(temp);
+        menuService.addMenuItem(temp);
         ConsoleLogger.printSuccess("Added \'" + temp.getName()+ "\'");
     }
 
@@ -209,24 +209,24 @@ public class RestaurantSystem {
         item.createPriceOption(label, price);
     }
 
-    public void addTableOrder(TableOrder table_order) {
-        if (table_order == null) {
+    public void addTableOrder(TableOrder tableOrder) {
+        if (tableOrder == null) {
             ConsoleLogger.printError("Cannot add null table order.");
             return;
         }
 
-        ConsoleLogger.printSuccess("Added new table order at table #" + table_order.getTable().getNumber() + ". Assigned to " + table_order.getWaiter().getFullName());
-        order_service.addTableOrder(table_order);
+        ConsoleLogger.printSuccess("Added new table order at table #" + tableOrder.getTable().getNumber() + ". Assigned to " + tableOrder.getWaiter().getFullName());
+        orderService.addTableOrder(tableOrder);
     }
 
-    public void addTable(int seat_count) {
-        if (seat_count <= 0) {
+    public void addTable(int seatCount) {
+        if (seatCount <= 0) {
             ConsoleLogger.printError("Table seat count cannot be negative nor empty.");
             return;
         }
 
-        Table temp = new Table(seat_count);
-        table_service.addTable(temp);
+        Table temp = new Table(seatCount);
+        tableService.addTable(temp);
         ConsoleLogger.printSuccess("Added table #" + temp.getNumber());
     }
 
@@ -277,11 +277,11 @@ public class RestaurantSystem {
     /**
      * Updates the phone number of the specified employee.
      * @param employee the employee to update the phone number of
-     * @param phone_number the phone number to update to
+     * @param phoneNumber the phone number to update to
      */
-    public void updateEmployeePhoneNumber(Employee employee, String phone_number) {
-        ConsoleLogger.printSuccess("Updated phone number from \'" + employee.getPhoneNumber() + "\' to \'" + phone_number + "\'");
-        employee.setPhoneNumber(phone_number);
+    public void updateEmployeePhoneNumber(Employee employee, String phoneNumber) {
+        ConsoleLogger.printSuccess("Updated phone number from \'" + employee.getPhoneNumber() + "\' to \'" + phoneNumber + "\'");
+        employee.setPhoneNumber(phoneNumber);
         return;
     }
 
@@ -375,15 +375,15 @@ public class RestaurantSystem {
     }
 
     public MenuItem getMenuItemByID(int id) {
-        return menu_service.searchMenuItemByID(id);
+        return menuService.searchMenuItemByID(id);
     }
 
     public Employee getEmployeeByID(int id) {
-        return employee_service.searchEmployeeByID(id);
+        return employeeService.searchEmployeeByID(id);
     }
 
     public Category getCategoryByID(int id) {
-        return menu_service.searchCategoryByID(id);
+        return menuService.searchCategoryByID(id);
     }
 
     public void displayEmployeeList() {
@@ -418,8 +418,8 @@ public class RestaurantSystem {
 
     public void displayTableOrders() {
         System.out.println("------Table Orders (" + data.getTableOrders().size() + ")------");
-        for (TableOrder table_order : data.getTableOrders()) {
-            table_order.display();
+        for (TableOrder tableOrder : data.getTableOrders()) {
+            tableOrder.display();
         }
     }
 

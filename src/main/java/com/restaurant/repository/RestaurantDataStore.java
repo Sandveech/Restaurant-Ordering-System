@@ -11,10 +11,10 @@ import src.main.java.com.restaurant.model.TableOrder;
 
 public class RestaurantDataStore {
     private static ArrayList<Category> categories = new ArrayList<>();
-    private static ArrayList<MenuItem> menu_items = new ArrayList<>();
+    private static ArrayList<MenuItem> menuItems = new ArrayList<>();
     private static ArrayList<Table> tables = new ArrayList<>();
     private static ArrayList<Employee> employees = new ArrayList<>();
-    private static ArrayList<TableOrder> table_orders = new ArrayList<>();
+    private static ArrayList<TableOrder> tableOrders = new ArrayList<>();
     private static ArrayList<Receipt> receipts = new ArrayList<>();
 
     public ArrayList<Category> getCategories() {
@@ -22,7 +22,7 @@ public class RestaurantDataStore {
     }
 
     public ArrayList<MenuItem> getMenuItems() {
-        return menu_items;
+        return menuItems;
     }
 
     public ArrayList<Table> getTables() {
@@ -34,7 +34,7 @@ public class RestaurantDataStore {
     }
 
     public ArrayList<TableOrder> getTableOrders() {
-        return table_orders;
+        return tableOrders;
     }
 
     public ArrayList<Receipt> getReceipts() {
