@@ -1,5 +1,6 @@
 package src.main.java.com.restaurant.services;
 
+import src.main.java.com.restaurant.interfaces.ItemApprover;
 import src.main.java.com.restaurant.model.Category;
 import src.main.java.com.restaurant.model.MenuItem;
 import src.main.java.com.restaurant.repository.RestaurantDataStore;
@@ -11,6 +12,13 @@ public class MenuService {
     public MenuService(RestaurantDataStore data) {
         this.data = data;
     }
+
+    ItemApprover itemApprover = new ItemApprover() {
+        @Override
+        public void approve(MenuItem item) {
+            if (item != null) { item.activate(); }
+        }
+    };
 
     public void addMenuItem(MenuItem item) {
         if (!isValidMenuItem(item)) { return; }
@@ -51,14 +59,14 @@ public class MenuService {
     public void approveMenuItem(MenuItem item) {
         if (!isValidMenuItem(item)) { return; }
 
-        item.activate();
+        itemApprover.approve(item);
     }
 
     public void approveMenuItem(int id) {
         MenuItem item = searchMenuItemByID(id);
         if (item == null) { return; }
 
-        item.activate();
+        itemApprover.approve(item);
     }
 
     public void disapproveMenuItem(MenuItem item) {

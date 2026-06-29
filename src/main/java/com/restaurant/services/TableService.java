@@ -1,8 +1,6 @@
 package src.main.java.com.restaurant.services;
 
 import src.main.java.com.restaurant.model.Table;
-import src.main.java.com.restaurant.model.TableOrder;
-import src.main.java.com.restaurant.model.Waiter;
 import src.main.java.com.restaurant.repository.RestaurantDataStore;
 
 public class TableService {
@@ -18,17 +16,17 @@ public class TableService {
         data.getTables().add(table);
     }
 
-    public void addTable(int seat_count, boolean active) {
-        if (!isValidSeatCount(seat_count)) { return; }
+    public void addTable(int seatCount, boolean active) {
+        if (!isValidSeatCount(seatCount)) { return; }
 
-        Table temp = new Table(seat_count, active);
+        Table temp = new Table(seatCount, active);
         data.getTables().add(temp);
     }
 
-    public void addTable(int seat_count) {
-        if (!isValidSeatCount(seat_count)) { return; }
+    public void addTable(int seatCount) {
+        if (!isValidSeatCount(seatCount)) { return; }
 
-        Table temp = new Table(seat_count);
+        Table temp = new Table(seatCount);
         data.getTables().add(temp);
     }
 
