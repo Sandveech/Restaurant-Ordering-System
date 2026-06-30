@@ -781,7 +781,7 @@ public class Main {
 
     public static String promptPassword(Scanner sc, String message) throws InvalidPasswordException {
         String password;
-        do  {
+        do {
             password = promptString(sc, message);
             try {
                 if (!ValidationUtils.isValidPassword(password)) {
